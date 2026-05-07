@@ -1,0 +1,67 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Pear Tree Community School — A social justice Montessori school in Oakland, CA serving preschool through 5th grade.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} | Pear Tree Community School</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={`${title} | Pear Tree Community School`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Schema.org School markup -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "School",
+      "name": "Pear Tree Community School",
+      "description": "A social justice-informed Montessori school serving preschool through 5th grade in Oakland, CA.",
+      "address": [
+        {
+          "@type": "PostalAddress",
+          "streetAddress": "6925 Chabot Road",
+          "addressLocality": "Oakland",
+          "addressRegion": "CA",
+          "postalCode": "94618"
+        },
+        {
+          "@type": "PostalAddress",
+          "streetAddress": "8100 Winthrope Street",
+          "addressLocality": "Oakland",
+          "addressRegion": "CA"
+        }
+      ],
+      "telephone": "(510) 817-4690",
+      "email": "admin@peartreecs.com",
+      "url": "https://www.peartreecs.com",
+      "foundingDate": "2012",
+      "founder": {
+        "@type": "Person",
+        "name": "Michele Hamilton"
+      }
+    })} />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

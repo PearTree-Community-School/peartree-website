@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Programs" description="Explore Pear Tree's Montessori programs — Preschool (ages 2+), Elementary (TK-5), and Summer Camp — with social justice, nature, and play-based learning.">
+
+  <!-- Page Header -->
+  <section class="bg-forest-900 text-white">
+    <div class="section-padding py-16 md:py-24">
+      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Programs</p>
+      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
+        Learning that grows with your child.
+      </h1>
+      <p class="text-forest-200 text-lg mt-4 max-w-2xl">
+        From preschool through 5th grade, our mixed-age Montessori classrooms develop the whole child — academically, socially, emotionally, and civically.
+      </p>
+    </div>
+  </section>
+
+  <!-- Preschool -->
+  <section id="preschool" class="section-padding scroll-mt-20">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <div class="inline-block bg-pear-100 text-pear-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">Ages 2+</div>
+        <h2 class="section-heading">Preschool</h2>
+        <p class="text-earth-600 mb-2">Monday &ndash; Friday, 8:00 AM &ndash; 5:00 PM</p>
+        <p class="text-earth-600 mb-6">8100 Winthrope Street, Oakland</p>
+
+        <p class="text-earth-700 leading-relaxed mb-4">
+          Our preschool program immerses young learners in the Montessori method, building independence, curiosity, and a love of learning from the earliest years.
+        </p>
+        <p class="text-earth-700 leading-relaxed mb-6">
+          In the Dragonfly and Butterfly classrooms, children explore purposeful work across six core areas, guided by educators who honor each child's natural development.
+        </p>
+
+        <h3 class="font-serif font-bold text-lg mb-3">Curriculum Areas</h3>
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          {['Practical Life', 'Sensory Exploration', 'Cultural Studies', 'Geography', 'Mathematics', 'Language Arts'].map(area => (
+            <div class="flex items-center gap-2">
+              <div class="w-2 h-2 bg-pear-500 rounded-full flex-shrink-0"></div>
+              <span class="text-sm text-earth-700">{area}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="bg-pear-50 rounded-2xl p-6 border border-pear-100">
+          <h4 class="font-serif font-bold mb-2">Dragonfly Classroom</h4>
+          <p class="text-sm text-earth-600">Preschool / Transitional Kindergarten</p>
+        </div>
+        <div class="bg-pear-50 rounded-2xl p-6 border border-pear-100">
+          <h4 class="font-serif font-bold mb-2">Butterfly Classroom</h4>
+          <p class="text-sm text-earth-600">Preschool / Transitional Kindergarten</p>
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-[4/3]">
+          <img src="/images/classroom-photo.jpg" alt="Preschool and elementary classroom circle time" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-6xl mx-auto px-6"><hr class="border-earth-200" /></div>
+
+  <!-- Elementary -->
+  <section id="elementary" class="section-padding scroll-mt-20">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div class="order-2 md:order-1 space-y-4">
+        <div class="bg-forest-50 rounded-2xl p-6 border border-forest-100">
+          <h4 class="font-serif font-bold mb-2">Hummingbird Classroom</h4>
+          <p class="text-sm text-earth-600">Kindergarten / 1st Grade</p>
+        </div>
+        <div class="bg-forest-50 rounded-2xl p-6 border border-forest-100">
+          <h4 class="font-serif font-bold mb-2">Falcon Classroom</h4>
+          <p class="text-sm text-earth-600">2nd / 3rd Grades</p>
+        </div>
+        <div class="bg-forest-50 rounded-2xl p-6 border border-forest-100">
+          <h4 class="font-serif font-bold mb-2">Dolphin Classroom</h4>
+          <p class="text-sm text-earth-600">4th / 5th Grades</p>
+        </div>
+        <div class="rounded-2xl overflow-hidden aspect-video">
+          <img src="/images/montessori-classroom.jpg" alt="Elementary Montessori math lesson on classroom floor" class="w-full h-full object-cover" />
+        </div>
+      </div>
+
+      <div class="order-1 md:order-2">
+        <div class="inline-block bg-forest-100 text-forest-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">TK &ndash; 5th Grade</div>
+        <h2 class="section-heading">Elementary</h2>
+        <p class="text-earth-600 mb-2">Monday &ndash; Friday, 8:30 AM &ndash; 3:30 PM</p>
+        <p class="text-earth-600 mb-6">6925 Chabot Road, Oakland, CA 94618</p>
+
+        <p class="text-earth-700 leading-relaxed mb-4">
+          Our elementary program blends Montessori methodology with social justice curriculum rooted in BIPOC cultures. Students think deeply, pose questions, and solve real-world problems through project-based learning and design theory.
+        </p>
+        <p class="text-earth-700 leading-relaxed mb-6">
+          Mixed-age classrooms are intentional — older students mentor younger ones, building empathy, leadership, and a sense of shared community. Our very first students are still with us, growing from preschool through 5th grade.
+        </p>
+
+        <h3 class="font-serif font-bold text-lg mb-3">What Students Learn</h3>
+        <ul class="space-y-2 mb-6">
+          {[
+            'Decolonized history — precolonial civilizations, modern social justice movements',
+            'Advanced literacy — 90% exceed national benchmarks',
+            'Project-based STEM with design thinking',
+            'Arts — visual arts, music, recording studio sessions',
+            'Social-emotional development and conflict resolution',
+            'Civic engagement and community participation'
+          ].map(item => (
+            <li class="flex items-start gap-2 text-sm text-earth-700">
+              <svg class="w-5 h-5 text-forest-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/>
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summer Camp -->
+  <section id="summer-camp" class="bg-pear-50">
+    <div class="section-padding">
+      <div class="max-w-3xl mx-auto">
+        <div class="inline-block bg-pear-200 text-pear-800 text-sm font-semibold px-3 py-1 rounded-full mb-4">Summer 2026</div>
+        <h2 class="section-heading">Summer Camp</h2>
+        <p class="text-earth-600 mb-2">Ages 5&ndash;9 &middot; June 15 &ndash; August 7, 2026</p>
+        <p class="text-earth-600 mb-2">Monday &ndash; Friday, 8:30 AM &ndash; 3:00 PM (aftercare available until 5 PM)</p>
+        <p class="text-earth-600 mb-6">6925 Chabot Road, Oakland</p>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          {['Space Adventures', 'Jungle Safari', 'Comic-Con', 'Around the World', 'Prehistoric Adventures', 'Mini Olympics', 'Magical Kingdom', 'Under the Big Top'].map(theme => (
+            <div class="bg-white rounded-lg p-3 text-center border border-pear-200">
+              <span class="text-sm font-medium text-charcoal">{theme}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="bg-white rounded-xl p-6 border border-pear-200">
+          <h3 class="font-serif font-bold text-lg mb-4">Pricing</h3>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-earth-600">Per week</span>
+              <span class="font-semibold">$475</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-earth-600">Aftercare add-on</span>
+              <span class="font-semibold">+$100/week</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-earth-600">Multi-week discount (3+ weeks)</span>
+              <span class="font-semibold text-forest-600">5% off</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-earth-600">Sibling discount</span>
+              <span class="font-semibold text-forest-600">5% off</span>
+            </div>
+          </div>
+          <p class="text-xs text-earth-500 mt-4">Includes 1.5 hours of morning mathematics daily to prevent summer learning loss.</p>
+        </div>
+
+        <div class="mt-8 text-center">
+          <a href="/contact" class="btn-primary">Inquire About Summer Camp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

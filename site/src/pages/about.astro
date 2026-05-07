@@ -1,0 +1,168 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About" description="Learn about Pear Tree Community School's mission, founder Michele Hamilton, the MIRROR framework, and our social justice Montessori approach.">
+
+  <!-- Page Header -->
+  <section class="bg-forest-900 text-white">
+    <div class="section-padding py-16 md:py-24">
+      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">About Us</p>
+      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
+        Rooted in Oakland. Growing for liberation.
+      </h1>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="section-padding">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div>
+        <h2 class="section-heading">Our Mission</h2>
+        <p class="text-earth-700 leading-relaxed mb-4">
+          Pear Tree Community School is a social justice-informed Montessori school serving historically marginalized communities through academically rigorous, socio-emotionally informed, civically engaged, and arts-infused education.
+        </p>
+        <p class="text-earth-700 leading-relaxed">
+          Founded in Oakland's Rockridge neighborhood, we serve preschool through 5th grade with a commitment that no family will be turned away due to lack of funds. Today, 80% of our families receive financial aid and 95% of our students are children of color.
+        </p>
+      </div>
+      <div class="bg-pear-50 border border-pear-200 rounded-2xl p-8">
+        <h3 class="font-serif text-xl font-bold text-charcoal mb-4">By the Numbers</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-baseline border-b border-pear-100 pb-3">
+            <span class="text-earth-600">Founded</span>
+            <span class="font-semibold text-charcoal">2012</span>
+          </div>
+          <div class="flex justify-between items-baseline border-b border-pear-100 pb-3">
+            <span class="text-earth-600">Students of color</span>
+            <span class="font-semibold text-charcoal">95%</span>
+          </div>
+          <div class="flex justify-between items-baseline border-b border-pear-100 pb-3">
+            <span class="text-earth-600">Families receiving aid</span>
+            <span class="font-semibold text-charcoal">80%</span>
+          </div>
+          <div class="flex justify-between items-baseline border-b border-pear-100 pb-3">
+            <span class="text-earth-600">Exceed literacy benchmarks</span>
+            <span class="font-semibold text-charcoal">90%</span>
+          </div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-earth-600">Staff members</span>
+            <span class="font-semibold text-charcoal">20</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder -->
+  <section class="bg-white">
+    <div class="section-padding">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="rounded-2xl overflow-hidden aspect-square order-2 md:order-1">
+          <img src="/images/homepage-2.jpg" alt="Pear Tree teacher working with student on hands-on learning" class="w-full h-full object-cover" />
+        </div>
+        <div class="order-1 md:order-2">
+          <h2 class="section-heading">Michele Hamilton, Founder</h2>
+          <p class="text-earth-700 leading-relaxed mb-4">
+            Michele Hamilton is a trailblazing educator with 27+ years of experience in transformative educational change. She grew up in a low-income household in East Oakland and navigated the Oakland Unified School District despite early academic struggles — an experience that fueled her lifelong commitment to educational equity and liberation.
+          </p>
+          <p class="text-earth-700 leading-relaxed mb-6">
+            She founded Pear Tree as both a model school and a vital training site for educational policy development. She later established Seeds to Roots Oakland, the school's sister organization, to scale the Pear Tree model nationally.
+          </p>
+          <blockquote class="border-l-4 border-pear-500 pl-4 italic text-earth-600">
+            "You cannot decolonise without deep, deep love for the children and their communities."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIRROR Framework -->
+  <section class="bg-forest-50">
+    <div class="section-padding">
+      <h2 class="section-heading text-center mb-4">The MIRROR Framework</h2>
+      <p class="section-subheading text-center mx-auto mb-12">
+        A proprietary approach to supporting BIPOC student success, created by Michele Hamilton.
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { letter: 'M', title: 'Mirroring', desc: 'Immerses children in environments that provide mirroring and reflection, building deep self-identity.' },
+          { letter: 'I', title: 'Identification', desc: 'Connects students to their heritage, presenting their ancestors as innovators.' },
+          { letter: 'R', title: 'Reclamation', desc: 'Recovers narratives often distorted or erased, empowering students with accurate identity and history.' },
+          { letter: 'R', title: 'Relationships', desc: 'Builds culturally responsive connections, creating a supportive environment.' },
+          { letter: 'O', title: 'Orientation', desc: 'Aligns school systems, policies, and practices with the mission of centering BIPOC students.' },
+          { letter: 'R', title: 'Reflection', desc: 'Encourages ongoing self-assessment and research-driven development for equitable environments.' },
+        ].map(item => (
+          <div class="bg-white rounded-xl p-6 border border-forest-100">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="w-10 h-10 bg-forest-600 text-white font-serif font-bold rounded-lg flex items-center justify-center text-lg">{item.letter}</span>
+              <h3 class="font-serif text-lg font-bold">{item.title}</h3>
+            </div>
+            <p class="text-earth-600 text-sm leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Educational Philosophy -->
+  <section class="section-padding">
+    <h2 class="section-heading text-center mb-12">Our Educational Philosophy</h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      {[
+        { title: 'Montessori Foundation', desc: 'Traditional Montessori curriculum — Practical Life, Sensory, Cultural Studies, Geography, Mathematics, Language Arts.' },
+        { title: 'Social Justice Lens', desc: 'Decolonized curriculum centering Black, Indigenous, and students of color.' },
+        { title: 'Nature-Based Learning', desc: 'Hands-on sensorial experience with the natural world, woven into daily practice.' },
+        { title: 'Play-Based Learning', desc: 'Purposeful play integrated alongside structured Montessori work.' },
+        { title: 'Project-Based Learning', desc: 'Design theory, problem-posing, and real-world problem-solving.' },
+        { title: 'Mixed-Age Classrooms', desc: 'Intentional social-emotional curriculum developing empathy and community across ages.' },
+      ].map(item => (
+        <div class="flex gap-4">
+          <div class="w-2 bg-pear-400 rounded-full flex-shrink-0"></div>
+          <div>
+            <h3 class="font-serif font-bold text-lg mb-1">{item.title}</h3>
+            <p class="text-earth-600 text-sm leading-relaxed">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section class="bg-white">
+    <div class="section-padding">
+      <h2 class="section-heading text-center mb-8">Recognition</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div class="p-6">
+          <h3 class="font-serif font-bold mb-2">London Review of Education</h3>
+          <p class="text-earth-600 text-sm">Peer-reviewed article on Pear Tree's decolonial curriculum approaches (2022)</p>
+        </div>
+        <div class="p-6">
+          <h3 class="font-serif font-bold mb-2">KPFA Radio</h3>
+          <p class="text-earth-600 text-sm">Featured on "Education Today" with host Kitty Kelly Epstein (2025)</p>
+        </div>
+        <div class="p-6">
+          <h3 class="font-serif font-bold mb-2">Montessori for Social Justice</h3>
+          <p class="text-earth-600 text-sm">Part of the founding movement for equity in Montessori education (est. 2013)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seeds to Roots -->
+  <section class="bg-earth-50">
+    <div class="section-padding">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="section-heading">Seeds to Roots Oakland</h2>
+        <p class="text-earth-700 leading-relaxed mb-6">
+          Pear Tree isn't just a school — it's a demonstration site. Through Seeds to Roots Oakland, our sister organization, educators from across the country observe the Pear Tree Framework in action and learn to implement equity-centered Montessori education in their own communities.
+        </p>
+        <a href="https://www.seedstorootsoakland.com/" target="_blank" rel="noopener" class="btn-primary">
+          Visit Seeds to Roots
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

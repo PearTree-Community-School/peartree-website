@@ -1,0 +1,262 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Home" description="Pear Tree Community School — A social justice Montessori school in Oakland's Rockridge neighborhood, serving preschool through 5th grade. 90% of our students exceed literacy benchmarks.">
+
+  <!-- Hero -->
+  <section class="relative bg-forest-900 text-white overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/hero-students.jpg" alt="Pear Tree students running on outdoor labyrinth" class="w-full h-full object-cover opacity-30" />
+    </div>
+    <div class="absolute inset-0 bg-gradient-to-br from-forest-900/90 via-forest-800/80 to-forest-950/90"></div>
+    <div class="relative section-padding py-24 md:py-36">
+      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Oakland, California</p>
+      <h1 class="font-serif text-4xl md:text-6xl font-bold leading-tight max-w-3xl mb-6">
+        A new world requires a new way of learning.
+      </h1>
+      <p class="text-lg md:text-xl text-forest-200 max-w-2xl mb-10 leading-relaxed">
+        Pear Tree is a social justice Montessori school where children learn to think deeply, question boldly, and build community — from preschool through 5th grade.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/admissions" class="btn-primary bg-pear-500 hover:bg-pear-600 text-charcoal font-bold">Schedule a Tour</a>
+        <a href="/support" class="btn-secondary border-white/30 text-white hover:bg-white/10">Support Our Mission</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="bg-white border-b border-earth-100">
+    <div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div>
+        <p class="font-serif text-4xl font-bold text-forest-700">90%</p>
+        <p class="text-sm text-earth-600 mt-1">of students exceed literacy benchmarks</p>
+      </div>
+      <div>
+        <p class="font-serif text-4xl font-bold text-forest-700">80%</p>
+        <p class="text-sm text-earth-600 mt-1">of families receive financial aid</p>
+      </div>
+      <div>
+        <p class="font-serif text-4xl font-bold text-forest-700">95%</p>
+        <p class="text-sm text-earth-600 mt-1">students of color</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="section-padding">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="section-heading">Education for liberation.</h2>
+        <p class="text-earth-700 leading-relaxed mb-4">
+          While only 22% of Black and Latino students nationally reach proficiency in literacy, 90% of Pear Tree students exceed benchmarks. We prove every day that when children see themselves reflected in their education, they thrive.
+        </p>
+        <p class="text-earth-700 leading-relaxed mb-6">
+          Our decolonial Montessori curriculum centers Black, Indigenous, and students of color — not as an afterthought, but as the foundation of everything we teach.
+        </p>
+        <a href="/about" class="btn-primary">Our Story</a>
+      </div>
+      <div class="rounded-2xl overflow-hidden">
+        <img src="/images/montessori-classroom.jpg" alt="Teacher working with students on Montessori math materials" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Overview -->
+  <section class="bg-white">
+    <div class="section-padding">
+      <h2 class="section-heading text-center">Our Programs</h2>
+      <p class="section-subheading text-center mx-auto mb-12">
+        From first steps to fifth grade, children grow through hands-on Montessori learning infused with social justice, nature, and the arts.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Preschool Card -->
+        <div class="bg-cream border border-earth-100 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-pear-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-pear-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 3c-1.5 0-3 1-3 3s1.5 3 3 3 3-1 3-3-1.5-3-3-3zM8 14c-2 0-4 1-4 3v2h16v-2c0-2-2-3-4-3"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-2xl font-bold mb-2">Preschool</h3>
+          <p class="text-earth-600 mb-4">Ages 2+ &middot; Mon&ndash;Fri, 8:00 AM &ndash; 5:00 PM</p>
+          <p class="text-earth-700 leading-relaxed mb-4">
+            Our Dragonfly and Butterfly classrooms immerse young learners in Montessori's Practical Life, Sensory, and Cultural Studies, with nature-based exploration woven into every day.
+          </p>
+          <a href="/programs#preschool" class="text-forest-600 font-semibold text-sm hover:text-forest-800 transition-colors">
+            Learn more &rarr;
+          </a>
+        </div>
+
+        <!-- Elementary Card -->
+        <div class="bg-cream border border-earth-100 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-forest-100 rounded-xl flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-forest-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-2xl font-bold mb-2">Elementary (TK&ndash;5)</h3>
+          <p class="text-earth-600 mb-4">Ages 4&ndash;11 &middot; Mon&ndash;Fri, 8:30 AM &ndash; 3:30 PM</p>
+          <p class="text-earth-700 leading-relaxed mb-4">
+            Across Hummingbird, Falcon, and Dolphin classrooms, students develop through project-based learning, design thinking, and a curriculum that centers their histories and communities.
+          </p>
+          <a href="/programs#elementary" class="text-forest-600 font-semibold text-sm hover:text-forest-800 transition-colors">
+            Learn more &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="bg-forest-50">
+    <div class="section-padding text-center">
+      <blockquote class="max-w-3xl mx-auto">
+        <p class="font-serif text-2xl md:text-3xl text-charcoal leading-relaxed italic">
+          "My child in 4th grade is doing middle school math and voraciously reading middle grade novels."
+        </p>
+        <footer class="mt-6 text-earth-500 text-sm">
+          &mdash; Pear Tree Parent, via Berkeley Parents Network
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- What Makes Us Different -->
+  <section class="section-padding">
+    <h2 class="section-heading text-center mb-12">What makes Pear Tree different</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="w-14 h-14 bg-forest-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-forest-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-2">Peer-Reviewed</h3>
+        <p class="text-earth-600 text-sm leading-relaxed">
+          Featured in the London Review of Education for our decolonial curriculum approach. Research-backed, not just aspirational.
+        </p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-14 h-14 bg-pear-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-pear-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-2">No Family Turned Away</h3>
+        <p class="text-earth-600 text-sm leading-relaxed">
+          80% of families receive financial aid. We believe every child deserves a liberatory education, regardless of ability to pay.
+        </p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-14 h-14 bg-earth-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-earth-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-2">Community-Driven</h3>
+        <p class="text-earth-600 text-sm leading-relaxed">
+          From the Black Heritage Month Showcase to community potlucks, our families don't just attend — they build the school together.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Four-Pillar Academic Model -->
+  <section class="bg-white">
+    <div class="section-padding">
+      <h2 class="section-heading text-center mb-4">Academic Excellence Through Four Pillars</h2>
+      <p class="section-subheading text-center mx-auto mb-12">
+        PTCS supports young people in becoming producers of academic and cultural content and critical thinkers of cultural and academic consumption.
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="bg-forest-50 rounded-xl p-6 border-t-4 border-forest-600">
+          <h3 class="font-serif font-bold text-lg mb-2 text-forest-700">Social Justice &amp; Civic Engagement</h3>
+          <p class="text-earth-600 text-sm leading-relaxed">
+            An historical-based curriculum engaging a deep sense of self and connection to ancestral contributions in mathematics, literature, philosophy, sciences and the arts.
+          </p>
+        </div>
+        <div class="bg-orange-50 rounded-xl p-6 border-t-4 border-orange-500">
+          <h3 class="font-serif font-bold text-lg mb-2 text-orange-700">Cultural Art Enrichments</h3>
+          <p class="text-earth-600 text-sm leading-relaxed">
+            Expressive arts rooted in the traditions of the students we serve — deepening connections, addressing historical trauma, and supporting agency through creation and performance.
+          </p>
+        </div>
+        <div class="bg-pear-50 rounded-xl p-6 border-t-4 border-pear-500">
+          <h3 class="font-serif font-bold text-lg mb-2 text-pear-700">Rigorous Academics</h3>
+          <p class="text-earth-600 text-sm leading-relaxed">
+            Montessori-aligned content to deepen independence, strengthen writing, engage with mathematics as creative expression, and navigate the sciences with wonder and awe.
+          </p>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-6 border-t-4 border-blue-500">
+          <h3 class="font-serif font-bold text-lg mb-2 text-blue-700">Social &amp; Emotional Learning</h3>
+          <p class="text-earth-600 text-sm leading-relaxed">
+            Intentional curriculum to deepen peer community, knowledge of self, emotional literacy, and the ability to navigate social dynamics with thoughtfulness and intention.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 bg-forest-50 rounded-2xl p-6 border border-forest-100 max-w-3xl mx-auto text-sm text-earth-700">
+        <div class="flex items-center gap-2"><svg class="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Multi-age classrooms</div>
+        <div class="flex items-center gap-2"><svg class="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Small class sizes</div>
+        <div class="flex items-center gap-2"><svg class="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Two teachers per class</div>
+        <div class="flex items-center gap-2"><svg class="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Anti-bias development</div>
+        <div class="flex items-center gap-2"><svg class="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Meals provided</div>
+        <div class="flex items-center gap-2"><svg class="w-4 h-4 text-forest-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>Parent education</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery -->
+  <section class="section-padding py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <img src="/images/homepage-1.jpg" alt="Students showcasing artwork at gallery" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <img src="/images/classroom-photo.jpg" alt="Montessori classroom circle time" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <img src="/images/enrichment-performance.jpg" alt="Students exploring Egyptian museum" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+      </div>
+      <div class="rounded-xl overflow-hidden aspect-square">
+        <img src="/images/homepage-3.jpg" alt="Students collaborating at laptop" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Sagan Quote -->
+  <section class="bg-charcoal text-white">
+    <div class="section-padding text-center">
+      <blockquote class="max-w-3xl mx-auto">
+        <p class="font-serif text-xl md:text-2xl leading-relaxed italic text-earth-200">
+          "You go talk to kindergartners or first-grade kids, you find a class full of science enthusiasts. Something terrible has happened between kindergarten and 12th grade."
+        </p>
+        <footer class="mt-6 text-earth-400 text-sm">
+          &mdash; Carl Sagan
+        </footer>
+      </blockquote>
+      <p class="mt-8 text-earth-300 max-w-xl mx-auto">
+        At Pear Tree, we protect that spark. Our children graduate curious, confident, and ready to change the world.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-forest-700 text-white">
+    <div class="section-padding text-center">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4">Join our community.</h2>
+      <p class="text-forest-200 max-w-xl mx-auto mb-8">
+        Whether you're looking for a school that sees your child, or you want to invest in education that transforms — there's a place for you here.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/admissions" class="btn-primary bg-pear-500 hover:bg-pear-600 text-charcoal font-bold">Schedule a Tour</a>
+        <a href="/support" class="btn-secondary border-white/30 text-white hover:bg-white/10">Make a Gift</a>
+      </div>
+    </div>
+  </section>
+
+</Layout>

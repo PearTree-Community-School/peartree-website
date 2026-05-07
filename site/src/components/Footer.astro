@@ -1,0 +1,55 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-forest-950 text-forest-200">
+  <div class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-4 gap-10">
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <span class="font-serif font-bold text-xl text-white block mb-3">Pear Tree</span>
+        <p class="text-sm text-forest-300 leading-relaxed italic">
+          "No family will be turned away due to lack of funds."
+        </p>
+      </div>
+
+      <!-- Preschool Campus -->
+      <div>
+        <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Preschool Campus</h4>
+        <address class="text-sm not-italic leading-relaxed text-forest-300">
+          8100 Winthrope Street<br />
+          Oakland, CA
+        </address>
+      </div>
+
+      <!-- Elementary Campus -->
+      <div>
+        <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Elementary Campus</h4>
+        <address class="text-sm not-italic leading-relaxed text-forest-300">
+          6925 Chabot Road<br />
+          Oakland, CA 94618
+        </address>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Connect</h4>
+        <div class="space-y-2 text-sm text-forest-300">
+          <a href="tel:+15108174690" class="block hover:text-white transition-colors">(510) 817-4690</a>
+          <a href="mailto:admin@peartreecs.com" class="block hover:text-white transition-colors">admin@peartreecs.com</a>
+          <a href="https://www.facebook.com/peartreecs/" class="block hover:text-white transition-colors" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-12 pt-8 border-t border-forest-800 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-forest-400">
+        &copy; {currentYear} Pear Tree Community Schools. All rights reserved.
+      </p>
+      <p class="text-xs text-forest-400">
+        Preschool & Elementary &middot; Rockridge, Oakland, CA
+      </p>
+    </div>
+  </div>
+</footer>

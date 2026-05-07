@@ -1,0 +1,74 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Pear Tree Community School — Social justice Montessori education in Oakland, CA.' } = Astro.props;
+const pageTitle = title === 'Home' ? 'Pear Tree Community School' : `${title} | Pear Tree CS`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style is:global>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+  </style>
+</head>
+<body class="font-sans bg-white text-neutral-900 antialiased" style="font-family: 'DM Sans', sans-serif;">
+  <!-- Nav -->
+  <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/v2" class="flex items-center gap-3">
+        <img src="/images/logo.jpg" alt="Pear Tree" class="h-10 w-auto" />
+        <span class="text-lg font-bold tracking-tight" style="font-family: 'Playfair Display', serif;">Pear Tree</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-600">
+        <a href="/about" class="hover:text-neutral-900 transition-colors">About</a>
+        <a href="/programs" class="hover:text-neutral-900 transition-colors">Programs</a>
+        <a href="/admissions" class="hover:text-neutral-900 transition-colors">Admissions</a>
+        <a href="/contact" class="hover:text-neutral-900 transition-colors">Contact</a>
+        <a href="/support#give" class="px-5 py-2 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-neutral-700 transition-colors">Give</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-12">
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">Pear Tree Community School</h3>
+        <p class="text-neutral-400 text-sm leading-relaxed max-w-sm">
+          A social justice Montessori school in Oakland serving preschool through 5th grade. No family will be turned away.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm uppercase tracking-wider text-neutral-500 mb-4">Campuses</h4>
+        <p class="text-sm text-neutral-300 mb-2">8100 Winthrope St (Preschool)</p>
+        <p class="text-sm text-neutral-300">6925 Chabot Rd (Elementary)</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm uppercase tracking-wider text-neutral-500 mb-4">Connect</h4>
+        <p class="text-sm text-neutral-300 mb-2">(510) 817-4690</p>
+        <p class="text-sm text-neutral-300">admin@peartreecs.com</p>
+      </div>
+    </div>
+    <div class="border-t border-neutral-800 max-w-7xl mx-auto px-6 py-6">
+      <p class="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Pear Tree Community School. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
