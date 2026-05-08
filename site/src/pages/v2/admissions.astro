@@ -1,0 +1,119 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import { admissionProcess, aidPoints } from '../../data/admissionProcess';
+import { testimonials } from '../../data/testimonials';
+import { preschool, elementary, phone, phoneTel } from '../../data/campusInfo';
+
+const BASE = import.meta.env.BASE_URL;
+---
+
+<LayoutB title="Admissions" description="Apply to Pear Tree Community School. 80% of families receive financial aid.">
+
+  <!-- Hero -->
+  <section class="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
+    <img src={`${BASE}/images/photos/black-students.jpg`} alt="Pear Tree students" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 text-white">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Admissions</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">Every child belongs here.</h1>
+      <p class="text-xl text-neutral-200 mt-8 max-w-2xl">A liberatory education should be available to every family — not just those who can afford it.</p>
+    </div>
+  </section>
+
+  <!-- No family will be turned away -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="text-5xl md:text-6xl font-bold leading-tight" style="font-family: 'Playfair Display', serif;">No family will be turned away.</h2>
+      </div>
+      <div>
+        <p class="text-lg leading-relaxed mb-8">
+          80% of Pear Tree families receive financial aid. We offer a sliding scale based on each family's situation because we believe access to excellent education is a right, not a privilege.
+        </p>
+        <ul class="space-y-3">
+          {aidPoints.map(point => (
+            <li class="flex items-start gap-3 border-b border-neutral-900/20 pb-3">
+              <span class="font-bold mt-0.5">→</span>
+              <span class="text-base">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs & Schedules -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <h2 class="text-4xl md:text-5xl font-bold mb-16 max-w-2xl" style="font-family: 'Playfair Display', serif;">Programs &amp; schedules.</h2>
+      <div class="grid md:grid-cols-2 gap-px bg-neutral-200">
+        <div class="bg-white p-10 md:p-16">
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">Ages {preschool.ages}</p>
+          <h3 class="text-3xl font-bold mb-8" style="font-family: 'Playfair Display', serif;">Preschool</h3>
+          <dl class="space-y-4">
+            <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Hours</dt><dd class="font-medium">{preschool.hours}</dd></div>
+            <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Days</dt><dd class="font-medium">{preschool.days}</dd></div>
+            <div class="flex justify-between"><dt class="text-neutral-500">Campus</dt><dd class="font-medium">{preschool.address}</dd></div>
+          </dl>
+        </div>
+        <div class="bg-white p-10 md:p-16">
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">Grades {elementary.grades}</p>
+          <h3 class="text-3xl font-bold mb-8" style="font-family: 'Playfair Display', serif;">Elementary</h3>
+          <dl class="space-y-4">
+            <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Hours</dt><dd class="font-medium">{elementary.hours}</dd></div>
+            <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Days</dt><dd class="font-medium">{elementary.days}</dd></div>
+            <div class="flex justify-between"><dt class="text-neutral-500">Campus</dt><dd class="font-medium">{elementary.address}</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">How To Join</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-16 max-w-2xl" style="font-family: 'Playfair Display', serif;">Four steps to your child's education.</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-700">
+        {admissionProcess.map(s => (
+          <div class="bg-neutral-900 p-10">
+            <p class="text-7xl font-bold text-amber-500 mb-4 opacity-50" style="font-family: 'Playfair Display', serif;">{s.step}</p>
+            <h3 class="text-xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">{s.title}</h3>
+            <p class="text-sm text-neutral-300 leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-white">
+    <div class="max-w-5xl mx-auto px-6 py-24 md:py-32">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-600 text-center mb-6">What families say</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16" style="font-family: 'Playfair Display', serif;">A community, on purpose.</h2>
+      <div class="space-y-16">
+        {testimonials.map((t, i) => (
+          <blockquote class={i % 2 === 0 ? 'md:pr-24' : 'md:pl-24'}>
+            <p class="text-2xl md:text-3xl italic leading-snug text-neutral-800" style="font-family: 'Playfair Display', serif;">"{t.quote}"</p>
+            <footer class="mt-4 text-xs uppercase tracking-wider text-neutral-500">— {t.source}{t.origin ? ` · ${t.origin}` : ''}</footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+      <h2 class="text-4xl md:text-6xl font-bold mb-8" style="font-family: 'Playfair Display', serif;">Ready to learn more?</h2>
+      <p class="text-lg mb-12 max-w-2xl mx-auto">
+        Schedule a campus tour to see our classrooms, meet our teachers, and learn how Pear Tree can be the right fit for your family.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={`${BASE}/v2/contact`} class="inline-block px-10 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors">Schedule a Tour</a>
+        <a href={phoneTel} class="inline-block px-10 py-4 border-2 border-neutral-900 rounded-full text-sm font-medium hover:bg-neutral-900 hover:text-amber-500 transition-colors">Call {phone}</a>
+      </div>
+    </div>
+  </section>
+
+</LayoutB>

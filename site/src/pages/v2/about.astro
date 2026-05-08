@@ -1,0 +1,168 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import { tagline, fullMission, missionContext, baldwinQuote } from '../../data/missionStatement';
+import { statsList } from '../../data/schoolStats';
+import { mirrorPillars, mirrorIntro } from '../../data/mirrorFramework';
+import { philosophyPillars } from '../../data/educationalPhilosophy';
+import { recognitions } from '../../data/recognition';
+import { articles, MICHELE_MEDIUM_PROFILE } from '../../data/medium-articles';
+
+const BASE = import.meta.env.BASE_URL;
+const pillarColors = ['bg-emerald-900', 'bg-orange-600', 'bg-amber-500', 'bg-blue-700', 'bg-neutral-900', 'bg-rose-700'];
+---
+
+<LayoutB title="About" description="Pear Tree Community School — the founder, mission, and MIRROR Framework.">
+
+  <!-- Hero -->
+  <section class="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
+    <img src={`${BASE}/images/photos/classroom-1.jpg`} alt="Pear Tree classroom" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 text-white">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">About Pear Tree</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">{tagline}</h1>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-12 gap-12">
+      <div class="md:col-span-7">
+        <p class="text-xs uppercase tracking-[0.3em] text-neutral-500 mb-4">Our Mission</p>
+        <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-6" style="font-family: 'Playfair Display', serif;">A liberatory education, on purpose.</h2>
+        <p class="text-lg text-neutral-700 leading-relaxed mb-4">{fullMission}</p>
+        <p class="text-lg text-neutral-700 leading-relaxed">{missionContext}</p>
+      </div>
+      <div class="md:col-span-5 grid grid-cols-2 gap-6 content-start">
+        {statsList.map(s => (
+          <div class="border-l-4 border-amber-400 pl-4">
+            <p class="text-5xl font-bold text-neutral-900" style="font-family: 'Playfair Display', serif;">{s.value}</p>
+            <p class="text-xs uppercase tracking-wider text-neutral-500 mt-2">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MIRROR Framework -->
+  <section class="bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="max-w-3xl mb-16">
+        <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-4">The Framework</p>
+        <h2 class="text-4xl md:text-6xl font-bold leading-tight" style="font-family: 'Playfair Display', serif;">The MIRROR Framework</h2>
+        <p class="text-lg text-neutral-300 mt-6">{mirrorIntro}</p>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden mb-16 max-w-4xl mx-auto">
+        <img src={`${BASE}/images/photos/mirror-framework.png`} alt="The MIRROR Framework infographic" class="w-full h-auto" />
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-700">
+        {mirrorPillars.map((p, i) => (
+          <div class={`${pillarColors[i % pillarColors.length]} p-10 min-h-[280px] flex flex-col justify-end`}>
+            <p class="text-7xl font-bold mb-4 opacity-30" style="font-family: 'Playfair Display', serif;">{p.letter}</p>
+            <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">{p.title}</h3>
+            <p class="text-sm text-white/80 leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder -->
+  <section class="bg-neutral-100">
+    <div class="grid md:grid-cols-2 min-h-[80vh]">
+      <div class="relative aspect-square md:aspect-auto">
+        <img src={`${BASE}/images/photos/michele-hamilton.jpg`} alt="Michele Hamilton, Founder & Head of School" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+      <div class="flex items-center px-8 md:px-16 py-20">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">The Founder</p>
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-6" style="font-family: 'Playfair Display', serif;">Michele Hamilton</h2>
+          <p class="text-sm uppercase tracking-wide text-neutral-500 mb-6">
+            Founder &amp; Head of School · Educational Researcher · Parenting &amp; Racial Literacy Specialist
+          </p>
+          <p class="text-neutral-700 leading-relaxed mb-4">
+            A trailblazing educator with 27+ years of experience in transformative educational change. Michele grew up in a low-income household in East Oakland and navigated the Oakland Unified School District despite early academic struggles — an experience that fueled her lifelong commitment to educational equity and liberation.
+          </p>
+          <p class="text-neutral-700 leading-relaxed mb-6">
+            She founded Pear Tree as both a model school and a vital training site for educational policy development. She established <a href="https://www.seedstorootsoakland.com/" target="_blank" rel="noopener" class="underline">Seeds to Roots Oakland</a> to scale the Pear Tree model nationally, and is the author of <em>Raising Black and Brown Children: Parenting for Wholeness in a Broken World</em>.
+          </p>
+          <blockquote class="border-l-4 border-amber-500 pl-6 py-2 my-8">
+            <p class="text-2xl italic leading-snug" style="font-family: 'Playfair Display', serif;">"{baldwinQuote.quote}"</p>
+            <footer class="text-xs uppercase tracking-wider text-neutral-500 mt-3">— {baldwinQuote.source}</footer>
+          </blockquote>
+          <a href={MICHELE_MEDIUM_PROFILE} target="_blank" rel="noopener" class="inline-block px-8 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-amber-500 hover:text-neutral-900 transition-colors">
+            Read Michele's Essays
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">From Michele's Desk</p>
+          <h2 class="text-4xl md:text-5xl font-bold" style="font-family: 'Playfair Display', serif;">Essays &amp; Reflections</h2>
+        </div>
+        <a href={MICHELE_MEDIUM_PROFILE} target="_blank" rel="noopener" class="text-sm uppercase tracking-wider underline hover:text-amber-600">View all on Medium →</a>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {articles.slice(0, 6).map(a => (
+          <a href={a.url} target="_blank" rel="noopener" class="group">
+            <p class="text-xs uppercase tracking-wider text-neutral-500 mb-3">{new Date(a.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}{a.publication ? ` · ${a.publication}` : ''}</p>
+            <h3 class="text-2xl font-bold leading-tight mb-3 group-hover:text-amber-600 transition-colors" style="font-family: 'Playfair Display', serif;">{a.title}</h3>
+            <p class="text-neutral-600 text-sm leading-relaxed">{a.summary}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Educational Philosophy -->
+  <section class="bg-neutral-100">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <h2 class="text-4xl md:text-5xl font-bold mb-16 max-w-2xl" style="font-family: 'Playfair Display', serif;">Our educational philosophy.</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {philosophyPillars.map((p, i) => (
+          <div class="bg-white rounded-xl p-8">
+            <p class="text-amber-500 text-5xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">0{i + 1}</p>
+            <h3 class="text-xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">{p.title}</h3>
+            <p class="text-neutral-600 text-sm leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition -->
+  <section class="bg-white border-t border-neutral-100">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <p class="text-xs uppercase tracking-[0.3em] text-neutral-500 text-center mb-12">Recognition</p>
+      <div class="grid md:grid-cols-3 gap-12">
+        {recognitions.map(r => (
+          <div class="text-center">
+            <h3 class="font-bold text-lg mb-2" style="font-family: 'Playfair Display', serif;">{r.org}</h3>
+            <p class="text-sm text-neutral-500 leading-relaxed">{r.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Seeds to Roots -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-7xl mx-auto px-6 py-24 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 max-w-3xl mx-auto" style="font-family: 'Playfair Display', serif;">Pear Tree isn't just a school — it's a demonstration site.</h2>
+      <p class="text-lg max-w-2xl mx-auto mb-10">
+        Through Seeds to Roots Oakland, our sister organization, educators from across the country observe the Pear Tree Framework in action.
+      </p>
+      <a href="https://www.seedstorootsoakland.com/" target="_blank" rel="noopener" class="inline-block px-10 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors">
+        Visit Seeds to Roots →
+      </a>
+    </div>
+  </section>
+
+</LayoutB>

@@ -1,0 +1,136 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import { classrooms, preschoolCurriculum, elementaryOutcomes } from '../../data/classrooms';
+import { preschool, elementary } from '../../data/campusInfo';
+import { summerCamp } from '../../data/summerCamp';
+
+const BASE = import.meta.env.BASE_URL;
+---
+
+<LayoutB title="Programs" description="Pear Tree's Montessori programs — Preschool, Elementary, Summer Camp.">
+
+  <!-- Hero -->
+  <section class="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
+    <img src={`${BASE}/images/photos/dolphin-classroom-2.jpg`} alt="Pear Tree students" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 text-white">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Programs</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">Learning that grows with your child.</h1>
+      <p class="text-xl text-neutral-200 mt-8 max-w-2xl">From preschool through 5th grade, our mixed-age Montessori classrooms develop the whole child.</p>
+    </div>
+  </section>
+
+  <!-- Preschool -->
+  <section id="preschool" class="bg-white scroll-mt-20">
+    <div class="grid md:grid-cols-2 min-h-[80vh]">
+      <div class="relative aspect-[4/3] md:aspect-auto">
+        <img src={`${BASE}/images/photos/classroom-2.jpg`} alt="Preschool classroom" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+      <div class="flex items-center px-8 md:px-16 py-16">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">Ages 2+</p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">Preschool</h2>
+          <p class="text-neutral-600 mb-1">{preschool.days} · {preschool.hours}</p>
+          <p class="text-neutral-600 mb-8">{preschool.address}, {preschool.city}</p>
+          <p class="text-neutral-700 leading-relaxed mb-4">
+            Our preschool program immerses young learners in the Montessori method, building independence, curiosity, and a love of learning from the earliest years.
+          </p>
+          <p class="text-neutral-700 leading-relaxed mb-8">
+            In the Dragonfly and Butterfly classrooms, children explore purposeful work across six core areas, guided by educators who honor each child's natural development.
+          </p>
+          <h3 class="text-sm uppercase tracking-wider text-neutral-500 mb-3">Curriculum Areas</h3>
+          <div class="grid grid-cols-2 gap-2">
+            {preschoolCurriculum.map(area => (
+              <div class="border-l-2 border-amber-400 pl-3 py-1">
+                <span class="text-sm text-neutral-800">{area}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classroom strip -->
+  <section class="bg-neutral-100">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <h2 class="text-3xl md:text-4xl font-bold mb-12" style="font-family: 'Playfair Display', serif;">Our classrooms.</h2>
+      <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-px bg-neutral-300">
+        {classrooms.map(c => (
+          <div class="bg-white p-8">
+            <h3 class="text-xl font-bold mb-2" style="font-family: 'Playfair Display', serif;">{c.name}</h3>
+            <p class="text-xs uppercase tracking-wider text-amber-600">{c.campus}</p>
+            <p class="text-sm text-neutral-600 mt-3">{c.level}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Elementary -->
+  <section id="elementary" class="bg-white scroll-mt-20">
+    <div class="grid md:grid-cols-2 min-h-[80vh]">
+      <div class="flex items-center px-8 md:px-16 py-16 order-2 md:order-1">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">TK – 5th Grade</p>
+          <h2 class="text-4xl md:text-5xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">Elementary</h2>
+          <p class="text-neutral-600 mb-1">{elementary.days} · {elementary.hours}</p>
+          <p class="text-neutral-600 mb-8">{elementary.address}, {elementary.city} {elementary.zip}</p>
+          <p class="text-neutral-700 leading-relaxed mb-4">
+            Our elementary program blends Montessori methodology with social justice curriculum rooted in BIPOC cultures. Students think deeply, pose questions, and solve real-world problems.
+          </p>
+          <p class="text-neutral-700 leading-relaxed mb-8">
+            Mixed-age classrooms are intentional — older students mentor younger ones, building empathy, leadership, and shared community.
+          </p>
+          <h3 class="text-sm uppercase tracking-wider text-neutral-500 mb-3">What Students Learn</h3>
+          <ul class="space-y-2">
+            {elementaryOutcomes.map(item => (
+              <li class="flex items-start gap-3 text-sm text-neutral-700">
+                <span class="text-amber-500 mt-0.5">✦</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div class="relative aspect-[4/3] md:aspect-auto order-1 md:order-2">
+        <img src={`${BASE}/images/photos/classroom-3.jpg`} alt="Elementary classroom" class="absolute inset-0 w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Summer Camp -->
+  <section id="summer-camp" class="bg-amber-500 text-neutral-900">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <p class="text-xs uppercase tracking-[0.3em] mb-4">Summer 2026</p>
+      <h2 class="text-5xl md:text-7xl font-bold leading-tight mb-8 max-w-3xl" style="font-family: 'Playfair Display', serif;">Summer Camp.</h2>
+      <p class="text-xl mb-2 max-w-2xl">{summerCamp.ageRange} · {summerCamp.dates}</p>
+      <p class="text-lg mb-2 max-w-2xl">{summerCamp.hours} · {summerCamp.aftercare}</p>
+      <p class="text-lg mb-12 max-w-2xl">{summerCamp.campus}</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-amber-700 mb-16">
+        {summerCamp.themes.map((theme, i) => (
+          <div class="bg-amber-500 p-6">
+            <p class="text-3xl font-bold mb-2 opacity-50" style="font-family: 'Playfair Display', serif;">0{i + 1}</p>
+            <p class="font-medium">{theme}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-neutral-900 text-white rounded-2xl p-10 max-w-2xl">
+        <h3 class="text-2xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">Pricing</h3>
+        <div class="space-y-4">
+          {summerCamp.pricing.map(p => (
+            <div class="flex justify-between border-b border-neutral-700 pb-3">
+              <span class="text-neutral-400">{p.label}</span>
+              <span class="font-bold text-lg">{p.value}</span>
+            </div>
+          ))}
+        </div>
+        <p class="text-xs text-neutral-400 mt-6">{summerCamp.note}</p>
+        <a href={`${BASE}/v2/contact`} class="mt-8 inline-block px-8 py-4 bg-amber-500 text-neutral-900 rounded-full text-sm font-medium hover:bg-white transition-colors">Inquire About Summer Camp</a>
+      </div>
+    </div>
+  </section>
+
+</LayoutB>

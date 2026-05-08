@@ -1,0 +1,126 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import { annualFundTiers } from '../../data/givingTiers';
+import { monthlyTiers } from '../../data/monthlyGivingTiers';
+
+const BASE = import.meta.env.BASE_URL;
+const tierColors = ['bg-emerald-900', 'bg-orange-600', 'bg-amber-500', 'bg-blue-700', 'bg-rose-700', 'bg-neutral-900'];
+---
+
+<LayoutB title="Support" description="Give to Pear Tree Community School. Bridge the gap between what families can pay and what it costs to provide a liberatory education.">
+
+  <!-- Hero -->
+  <section class="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
+    <img src={`${BASE}/images/photos/classroom-4.jpg`} alt="Pear Tree classroom" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 text-white">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Support Pear Tree</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">Invest in education that transforms.</h1>
+    </div>
+  </section>
+
+  <!-- Tuition Gap -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-5xl mx-auto px-6 py-24 md:py-32 text-center">
+      <p class="text-2xl md:text-3xl leading-relaxed mb-8" style="font-family: 'Playfair Display', serif;">
+        80% of our families receive financial aid. Tuition alone covers only a fraction of what it costs to deliver our Montessori, social justice, and nature-based curriculum.
+      </p>
+      <p class="text-3xl md:text-5xl italic font-bold leading-tight" style="font-family: 'Playfair Display', serif;">
+        When you give to Pear Tree, you are making it possible for a child to stay.
+      </p>
+    </div>
+  </section>
+
+  <!-- Annual Fund Tiers -->
+  <section id="give" class="bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">Annual Fund</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-16 max-w-3xl" style="font-family: 'Playfair Display', serif;">Every gift, at any level, sustains the education our students depend on.</h2>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-200">
+        {annualFundTiers.map((tier, i) => (
+          <div class={`${tierColors[i % tierColors.length]} text-white p-10 min-h-[260px] flex flex-col justify-end`}>
+            <p class="text-sm uppercase tracking-wider opacity-70 mb-2">{tier.amount}</p>
+            <h3 class="text-3xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">{tier.name}</h3>
+            <p class="text-sm leading-relaxed text-white/80">{tier.impact}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Embed -->
+  <section id="donate" class="bg-neutral-100 scroll-mt-20">
+    <div class="max-w-3xl mx-auto px-6 py-24 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">Make your gift.</h2>
+      <p class="text-neutral-600 mb-12">Choose a one-time or monthly contribution at any amount.</p>
+      <div class="bg-white rounded-2xl p-12 border border-neutral-200 min-h-[240px] flex items-center justify-center">
+        <div class="text-center">
+          <p class="text-neutral-400 text-sm mb-4">[ Donorbox donation form will be embedded here ]</p>
+          <p class="text-neutral-500 text-xs">
+            To embed: replace this div with<br />
+            <code class="bg-neutral-100 px-2 py-1 rounded text-xs">&lt;script src="https://donorbox.org/widget.js"&gt;&lt;/script&gt;</code>
+          </p>
+        </div>
+      </div>
+      <p class="text-xs text-neutral-500 mt-8">Your gift may be tax-deductible. Contact us for details about our fiscal sponsorship arrangement.</p>
+    </div>
+  </section>
+
+  <!-- Monthly Giving -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 grid md:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">The Orchard</p>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">Sustain us, monthly.</h2>
+        <p class="text-neutral-700 leading-relaxed">
+          Monthly donors are the roots that sustain Pear Tree year-round. By joining The Orchard, you provide predictable, sustained support that allows us to plan ahead and serve more families.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-px bg-neutral-200">
+        {monthlyTiers.map(t => (
+          <div class="bg-white p-6">
+            <p class="text-2xl font-bold" style="font-family: 'Playfair Display', serif;">{t.amount}</p>
+            <p class="text-xs text-neutral-500 mt-2 uppercase tracking-wider">{t.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Ways -->
+  <section class="bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <h2 class="text-4xl md:text-5xl font-bold mb-16 max-w-2xl" style="font-family: 'Playfair Display', serif;">Other ways to support.</h2>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <p class="text-amber-500 text-5xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">01</p>
+          <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Classroom Wishlist</h3>
+          <p class="text-neutral-300 text-sm leading-relaxed">Purchase specific items our classrooms need — from Montessori materials to art supplies — shipped directly to the school.</p>
+        </div>
+        <div>
+          <p class="text-amber-500 text-5xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">02</p>
+          <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Employer Matching</h3>
+          <p class="text-neutral-300 text-sm leading-relaxed">Many Bay Area employers — Google, Apple, Meta, Salesforce — match charitable gifts up to $10,000/year. Double your impact.</p>
+        </div>
+        <div>
+          <p class="text-amber-500 text-5xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">03</p>
+          <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Volunteer</h3>
+          <p class="text-neutral-300 text-sm leading-relaxed">Join our community as a volunteer. Parents contribute required annual volunteer hours — and we welcome community members too.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Walk-a-Thon -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-5xl mx-auto px-6 py-24 text-center">
+      <p class="text-xs uppercase tracking-[0.3em] mb-4">Annual Event</p>
+      <h2 class="text-5xl md:text-7xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">5th Annual Walk-a-Thon</h2>
+      <p class="text-xl mb-2">April 26, 2026 · Oakland Tech High School Track &amp; Field</p>
+      <p class="text-neutral-800 mb-12">Join families, students, and supporters for our biggest community fundraiser of the year.</p>
+      <a href={`${BASE}/v2/contact`} class="inline-block px-10 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors">Get Involved</a>
+    </div>
+  </section>
+
+</LayoutB>

@@ -1,0 +1,148 @@
+---
+import LayoutC from '../../layouts/LayoutC.astro';
+import { classrooms, preschoolCurriculum, elementaryOutcomes } from '../../data/classrooms';
+import { preschool, elementary } from '../../data/campusInfo';
+import { summerCamp } from '../../data/summerCamp';
+
+const BASE = import.meta.env.BASE_URL;
+---
+
+<LayoutC title="Programs" description="Pear Tree's Montessori programs — Preschool, Elementary, Summer Camp.">
+
+  <!-- Hero -->
+  <section class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-20">
+      <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">Programs</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight max-w-3xl">Learning that grows with your child.</h1>
+      <p class="text-lg text-slate-600 mt-6 max-w-2xl">From preschool through 5th grade, our mixed-age Montessori classrooms develop the whole child — academically, socially, emotionally, and civically.</p>
+    </div>
+  </section>
+
+  <!-- Metric Bar -->
+  <section class="bg-slate-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div><p class="text-3xl font-bold text-emerald-400">2+</p><p class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Preschool age</p></div>
+      <div><p class="text-3xl font-bold text-emerald-400">TK–5</p><p class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Elementary</p></div>
+      <div><p class="text-3xl font-bold text-emerald-400">5</p><p class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Classrooms</p></div>
+      <div><p class="text-3xl font-bold text-emerald-400">90%</p><p class="text-xs text-slate-400 mt-1 uppercase tracking-wider">Exceed literacy</p></div>
+    </div>
+  </section>
+
+  <!-- Preschool -->
+  <section id="preschool" class="bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="grid md:grid-cols-12 gap-12 items-start">
+        <div class="md:col-span-7">
+          <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">Ages {preschool.ages}</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Preschool</h2>
+          <p class="text-sm text-slate-500 mb-1">{preschool.days} · {preschool.hours}</p>
+          <p class="text-sm text-slate-500 mb-6">{preschool.address}, {preschool.city}</p>
+          <p class="text-slate-700 leading-relaxed mb-4">
+            Our preschool program immerses young learners in the Montessori method, building independence, curiosity, and a love of learning from the earliest years.
+          </p>
+          <p class="text-slate-700 leading-relaxed mb-6">
+            In the Dragonfly and Butterfly classrooms, children explore purposeful work across six core areas, guided by educators who honor each child's natural development.
+          </p>
+          <h3 class="text-sm font-semibold text-slate-900 mb-4">Curriculum Areas</h3>
+          <div class="grid grid-cols-2 gap-3">
+            {preschoolCurriculum.map(area => (
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                <span class="text-sm text-slate-700">{area}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="md:col-span-5">
+          <div class="rounded-xl overflow-hidden aspect-[4/3]">
+            <img src={`${BASE}/images/photos/classroom-2.jpg`} alt="Preschool classroom" class="w-full h-full object-cover" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classrooms -->
+  <section class="bg-slate-50 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-8">Our classrooms</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        {classrooms.map(c => (
+          <div class="bg-white rounded-xl p-5 border border-slate-200">
+            <span class={`inline-block text-xs font-medium px-2 py-0.5 rounded uppercase tracking-wider mb-2 ${c.campus === 'preschool' ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'}`}>{c.campus}</span>
+            <h3 class="font-semibold text-slate-900">{c.name}</h3>
+            <p class="text-xs text-slate-500 mt-1">{c.level}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Elementary -->
+  <section id="elementary" class="bg-white scroll-mt-20">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="grid md:grid-cols-12 gap-12 items-start">
+        <div class="md:col-span-5 order-2 md:order-1">
+          <div class="rounded-xl overflow-hidden aspect-[4/3]">
+            <img src={`${BASE}/images/photos/classroom-3.jpg`} alt="Elementary classroom" class="w-full h-full object-cover" />
+          </div>
+        </div>
+        <div class="md:col-span-7 order-1 md:order-2">
+          <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">Grades {elementary.grades}</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Elementary</h2>
+          <p class="text-sm text-slate-500 mb-1">{elementary.days} · {elementary.hours}</p>
+          <p class="text-sm text-slate-500 mb-6">{elementary.address}, {elementary.city} {elementary.zip}</p>
+          <p class="text-slate-700 leading-relaxed mb-4">
+            Our elementary program blends Montessori methodology with social justice curriculum rooted in BIPOC cultures. Students think deeply, pose questions, and solve real-world problems.
+          </p>
+          <p class="text-slate-700 leading-relaxed mb-6">
+            Mixed-age classrooms are intentional — older students mentor younger ones, building empathy, leadership, and a sense of shared community.
+          </p>
+          <h3 class="text-sm font-semibold text-slate-900 mb-4">What Students Learn</h3>
+          <ul class="space-y-2">
+            {elementaryOutcomes.map(item => (
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                <span class="text-sm text-slate-700 leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summer Camp -->
+  <section id="summer-camp" class="bg-slate-50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">Summer 2026</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Summer Camp</h2>
+      <p class="text-sm text-slate-500 mb-1">{summerCamp.ageRange} · {summerCamp.dates}</p>
+      <p class="text-sm text-slate-500 mb-1">{summerCamp.hours} · {summerCamp.aftercare}</p>
+      <p class="text-sm text-slate-500 mb-12">{summerCamp.campus}</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+        {summerCamp.themes.map(theme => (
+          <div class="bg-white rounded-lg p-4 text-center border border-slate-200">
+            <span class="text-sm font-medium text-slate-700">{theme}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-white rounded-xl p-8 border border-slate-200 max-w-2xl">
+        <h3 class="font-semibold text-slate-900 mb-6">Pricing</h3>
+        <dl class="space-y-3">
+          {summerCamp.pricing.map(p => (
+            <div class="flex justify-between border-b border-slate-100 pb-3">
+              <dt class="text-sm text-slate-600">{p.label}</dt>
+              <dd class="font-semibold text-slate-900">{p.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="text-xs text-slate-500 mt-6">{summerCamp.note}</p>
+        <a href={`${BASE}/v3/contact`} class="mt-6 inline-block px-5 py-2.5 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700">Inquire About Summer Camp</a>
+      </div>
+    </div>
+  </section>
+
+</LayoutC>
