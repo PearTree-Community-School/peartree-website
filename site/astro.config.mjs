@@ -3,5 +3,6 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   integrations: [tailwind()],
-  site: 'https://www.peartreecs.com',
+  site: 'https://peartree-community-school.github.io',
+  base: '/peartree-website',
 });

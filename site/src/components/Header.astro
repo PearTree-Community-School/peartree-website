@@ -13,8 +13,8 @@ const currentPath = Astro.url.pathname;
 <header class="bg-white/95 backdrop-blur-sm border-b border-earth-100 sticky top-0 z-50">
   <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <!-- Logo / School Name -->
-    <a href="/" class="flex items-center gap-3 group">
-      <img src="/images/logo.jpg" alt="Pear Tree" class="h-10 w-auto" />
+    <a href={`${import.meta.env.BASE_URL}/`} class="flex items-center gap-3 group">
+      <img src={`${import.meta.env.BASE_URL}/images/logo.jpg`} alt="Pear Tree" class="h-10 w-auto" />
       <div>
         <span class="font-serif font-bold text-lg text-charcoal leading-tight block">Pear Tree</span>
         <span class="text-xs text-earth-500 leading-tight block">Community School</span>
@@ -36,7 +36,7 @@ const currentPath = Astro.url.pathname;
           {link.label}
         </a>
       ))}
-      <a href="/support#give" class="btn-give text-sm">Give</a>
+      <a href={`${import.meta.env.BASE_URL}/support#give`} class="btn-give text-sm">Give</a>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -67,7 +67,7 @@ const currentPath = Astro.url.pathname;
           {link.label}
         </a>
       ))}
-      <a href="/support#give" class="btn-give text-sm block text-center mt-4">Give</a>
+      <a href={`${import.meta.env.BASE_URL}/support#give`} class="btn-give text-sm block text-center mt-4">Give</a>
     </div>
   </div>
 </header>

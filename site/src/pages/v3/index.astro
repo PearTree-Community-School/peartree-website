@@ -20,12 +20,12 @@ import LayoutC from '../../layouts/LayoutC.astro';
             Preschool through 5th grade. Where 90% of students exceed literacy benchmarks, 80% of families receive financial aid, and no child is turned away.
           </p>
           <div class="flex flex-wrap gap-3">
-            <a href="/admissions" class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors text-sm">Schedule a Tour</a>
-            <a href="/programs" class="px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors text-sm">View Programs</a>
+            <a href={`${import.meta.env.BASE_URL}/admissions`} class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors text-sm">Schedule a Tour</a>
+            <a href={`${import.meta.env.BASE_URL}/programs`} class="px-6 py-3 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors text-sm">View Programs</a>
           </div>
         </div>
         <div class="relative">
-          <img src="/images/hero-students.jpg" alt="Students at Pear Tree" class="w-full rounded-2xl shadow-lg" />
+          <img src={`${import.meta.env.BASE_URL}/images/hero-students.jpg`} alt="Students at Pear Tree" class="w-full rounded-2xl shadow-lg" />
           <div class="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg p-4 border border-slate-100">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -141,7 +141,7 @@ import LayoutC from '../../layouts/LayoutC.astro';
         <!-- Preschool -->
         <div class="bg-white rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow">
           <div class="aspect-[16/10] overflow-hidden">
-            <img src="/images/classroom-photo.jpg" alt="Preschool classroom" class="w-full h-full object-cover" />
+            <img src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Preschool classroom" class="w-full h-full object-cover" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-3">
@@ -159,7 +159,7 @@ import LayoutC from '../../layouts/LayoutC.astro';
         <!-- Elementary -->
         <div class="bg-white rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow">
           <div class="aspect-[16/10] overflow-hidden">
-            <img src="/images/montessori-classroom.jpg" alt="Elementary classroom" class="w-full h-full object-cover" />
+            <img src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Elementary classroom" class="w-full h-full object-cover" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-3">
@@ -177,7 +177,7 @@ import LayoutC from '../../layouts/LayoutC.astro';
         <!-- Summer Camp -->
         <div class="bg-white rounded-xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow">
           <div class="aspect-[16/10] overflow-hidden">
-            <img src="/images/early-days.jpg" alt="Student on field trip" class="w-full h-full object-cover" />
+            <img src={`${import.meta.env.BASE_URL}/images/early-days.jpg`} alt="Student on field trip" class="w-full h-full object-cover" />
           </div>
           <div class="p-6">
             <div class="flex items-center gap-2 mb-3">
@@ -233,10 +233,10 @@ import LayoutC from '../../layouts/LayoutC.astro';
           </div>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <img src="/images/enrichment-performance.jpg" alt="Egyptian museum field trip" class="rounded-xl w-full h-48 object-cover" />
-          <img src="/images/homepage-1.jpg" alt="Student artwork" class="rounded-xl w-full h-48 object-cover" />
-          <img src="/images/early-days.jpg" alt="Science museum" class="rounded-xl w-full h-48 object-cover" />
-          <img src="/images/homepage-3.jpg" alt="Students collaborating" class="rounded-xl w-full h-48 object-cover" />
+          <img src={`${import.meta.env.BASE_URL}/images/enrichment-performance.jpg`} alt="Egyptian museum field trip" class="rounded-xl w-full h-48 object-cover" />
+          <img src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Student artwork" class="rounded-xl w-full h-48 object-cover" />
+          <img src={`${import.meta.env.BASE_URL}/images/early-days.jpg`} alt="Science museum" class="rounded-xl w-full h-48 object-cover" />
+          <img src={`${import.meta.env.BASE_URL}/images/homepage-3.jpg`} alt="Students collaborating" class="rounded-xl w-full h-48 object-cover" />
         </div>
       </div>
     </div>
@@ -287,8 +287,8 @@ import LayoutC from '../../layouts/LayoutC.astro';
         Schedule a campus tour to see our classrooms, meet our teachers, and find out how Pear Tree can be the right fit for your family.
       </p>
       <div class="flex flex-wrap justify-center gap-3">
-        <a href="/admissions" class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors text-sm">Schedule a Tour</a>
-        <a href="/support" class="px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors text-sm">Make a Gift</a>
+        <a href={`${import.meta.env.BASE_URL}/admissions`} class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors text-sm">Schedule a Tour</a>
+        <a href={`${import.meta.env.BASE_URL}/support`} class="px-6 py-3 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition-colors text-sm">Make a Gift</a>
         <a href="tel:+15108174690" class="px-6 py-3 border border-slate-600 text-slate-300 font-semibold rounded-lg hover:bg-slate-800 transition-colors text-sm">Call (510) 817-4690</a>
       </div>
     </div>

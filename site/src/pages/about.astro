@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { articles, MICHELE_MEDIUM_PROFILE } from '../data/medium-articles';
+const BASE = import.meta.env.BASE_URL;
 ---
 
 <Layout title="About" description="Learn about Pear Tree Community School's mission, founder Michele Hamilton, the MIRROR framework, and our social justice Montessori approach.">
@@ -59,18 +61,25 @@ import Layout from '../layouts/Layout.astro';
     <div class="section-padding">
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <div class="rounded-2xl overflow-hidden aspect-square order-2 md:order-1">
-          <img src="/images/homepage-2.jpg" alt="Pear Tree teacher working with student on hands-on learning" class="w-full h-full object-cover" />
+          <img src={`${BASE}/images/photos/michele-hamilton.jpg`} alt="Michele Hamilton, Founder & Head of School" class="w-full h-full object-cover" />
         </div>
         <div class="order-1 md:order-2">
           <h2 class="section-heading">Michele Hamilton, Founder</h2>
+          <p class="text-earth-500 text-sm uppercase tracking-wide mb-4">
+            Founder &amp; Head of School · Educational Researcher · Parenting &amp; Racial Literacy Specialist
+          </p>
           <p class="text-earth-700 leading-relaxed mb-4">
             Michele Hamilton is a trailblazing educator with 27+ years of experience in transformative educational change. She grew up in a low-income household in East Oakland and navigated the Oakland Unified School District despite early academic struggles — an experience that fueled her lifelong commitment to educational equity and liberation.
           </p>
+          <p class="text-earth-700 leading-relaxed mb-4">
+            She founded Pear Tree as both a model school and a vital training site for educational policy development. She later established <a href="https://www.seedstorootsoakland.com/" target="_blank" rel="noopener" class="underline hover:text-forest-700">Seeds to Roots Oakland</a> to scale the Pear Tree model nationally, and is the author of <em>Raising Black and Brown Children: Parenting for Wholeness in a Broken World</em>.
+          </p>
           <p class="text-earth-700 leading-relaxed mb-6">
-            She founded Pear Tree as both a model school and a vital training site for educational policy development. She later established Seeds to Roots Oakland, the school's sister organization, to scale the Pear Tree model nationally.
+            She writes regularly on parenting, racial literacy, and the MIRROR Framework at <a href={MICHELE_MEDIUM_PROFILE} target="_blank" rel="noopener" class="underline hover:text-forest-700">The Children Are Always Ours</a>.
           </p>
           <blockquote class="border-l-4 border-pear-500 pl-4 italic text-earth-600">
-            "You cannot decolonise without deep, deep love for the children and their communities."
+            "The children are always ours, every single one of them, all over the globe; and I am beginning to suspect that whoever is incapable of recognizing this may be incapable of morality."
+            <footer class="text-xs not-italic text-earth-500 mt-2">— James Baldwin</footer>
           </blockquote>
         </div>
       </div>
@@ -81,9 +90,12 @@ import Layout from '../layouts/Layout.astro';
   <section class="bg-forest-50">
     <div class="section-padding">
       <h2 class="section-heading text-center mb-4">The MIRROR Framework</h2>
-      <p class="section-subheading text-center mx-auto mb-12">
+      <p class="section-subheading text-center mx-auto mb-8">
         A proprietary approach to supporting BIPOC student success, created by Michele Hamilton.
       </p>
+      <div class="max-w-3xl mx-auto mb-12 rounded-2xl overflow-hidden border border-forest-100 bg-white">
+        <img src={`${BASE}/images/photos/mirror-framework.png`} alt="The MIRROR Framework — Mirroring, Identification, Reclamation, Relationships, Orientation, Reflection" class="w-full h-auto" />
+      </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
@@ -126,6 +138,30 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
       ))}
+    </div>
+  </section>
+
+  <!-- Writings -->
+  <section class="bg-white">
+    <div class="section-padding">
+      <h2 class="section-heading text-center mb-4">From Michele's Desk</h2>
+      <p class="section-subheading text-center mx-auto mb-12">
+        Essays on parenting, racial literacy, and the MIRROR Framework. Published at <a href={MICHELE_MEDIUM_PROFILE} target="_blank" rel="noopener" class="underline">The Children Are Always Ours</a>.
+      </p>
+      <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {articles.slice(0, 6).map(a => (
+          <a href={a.url} target="_blank" rel="noopener" class="block bg-cream rounded-xl p-6 border border-earth-100 hover:border-pear-400 transition">
+            <p class="text-xs text-earth-500 uppercase tracking-wide mb-2">{new Date(a.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}{a.publication ? ` · ${a.publication}` : ''}</p>
+            <h3 class="font-serif text-lg font-bold mb-2 leading-snug">{a.title}</h3>
+            <p class="text-earth-600 text-sm leading-relaxed">{a.summary}</p>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href={MICHELE_MEDIUM_PROFILE} target="_blank" rel="noopener" class="btn-primary">
+          Read all essays on Medium
+        </a>
+      </div>
     </div>
   </section>
 

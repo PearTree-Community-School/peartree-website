@@ -15,7 +15,7 @@ const pageTitle = title === 'Home' ? 'Pear Tree Community School' : `${title} | 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{pageTitle}</title>
   <meta name="description" content={description} />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style is:global>
@@ -28,18 +28,18 @@ const pageTitle = title === 'Home' ? 'Pear Tree Community School' : `${title} | 
   <!-- Nav -->
   <nav class="fixed top-0 w-full z-50 bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-      <a href="/v3" class="flex items-center gap-3">
-        <img src="/images/logo.jpg" alt="Pear Tree" class="h-8 w-auto" />
+      <a href={`${import.meta.env.BASE_URL}/v3`} class="flex items-center gap-3">
+        <img src={`${import.meta.env.BASE_URL}/images/logo.jpg`} alt="Pear Tree" class="h-8 w-auto" />
         <div>
           <span class="text-sm font-semibold text-slate-900">Pear Tree Community School</span>
         </div>
       </a>
       <div class="hidden md:flex items-center gap-6 text-[13px] font-medium text-slate-500">
-        <a href="/about" class="hover:text-slate-900 transition-colors">About</a>
-        <a href="/programs" class="hover:text-slate-900 transition-colors">Programs</a>
-        <a href="/admissions" class="hover:text-slate-900 transition-colors">Admissions</a>
-        <a href="/contact" class="hover:text-slate-900 transition-colors">Contact</a>
-        <a href="/support#give" class="px-4 py-1.5 bg-emerald-600 text-white rounded-md text-[13px] font-medium hover:bg-emerald-700 transition-colors">Donate</a>
+        <a href={`${import.meta.env.BASE_URL}/about`} class="hover:text-slate-900 transition-colors">About</a>
+        <a href={`${import.meta.env.BASE_URL}/programs`} class="hover:text-slate-900 transition-colors">Programs</a>
+        <a href={`${import.meta.env.BASE_URL}/admissions`} class="hover:text-slate-900 transition-colors">Admissions</a>
+        <a href={`${import.meta.env.BASE_URL}/contact`} class="hover:text-slate-900 transition-colors">Contact</a>
+        <a href={`${import.meta.env.BASE_URL}/support#give`} class="px-4 py-1.5 bg-emerald-600 text-white rounded-md text-[13px] font-medium hover:bg-emerald-700 transition-colors">Donate</a>
       </div>
     </div>
   </nav>
@@ -58,9 +58,9 @@ const pageTitle = title === 'Home' ? 'Pear Tree Community School' : `${title} | 
       <div>
         <h4 class="font-semibold text-slate-900 mb-3">Quick Links</h4>
         <div class="space-y-2 text-slate-500">
-          <a href="/programs" class="block hover:text-slate-900">Programs</a>
-          <a href="/admissions" class="block hover:text-slate-900">Admissions</a>
-          <a href="/support" class="block hover:text-slate-900">Give</a>
+          <a href={`${import.meta.env.BASE_URL}/programs`} class="block hover:text-slate-900">Programs</a>
+          <a href={`${import.meta.env.BASE_URL}/admissions`} class="block hover:text-slate-900">Admissions</a>
+          <a href={`${import.meta.env.BASE_URL}/support`} class="block hover:text-slate-900">Give</a>
         </div>
       </div>
       <div>

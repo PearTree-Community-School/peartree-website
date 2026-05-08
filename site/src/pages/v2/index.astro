@@ -7,7 +7,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <!-- Hero: Full-bleed editorial -->
   <section class="relative min-h-screen flex items-center">
     <div class="absolute inset-0">
-      <img src="/images/hero-students.jpg" alt="Students at play" class="w-full h-full object-cover" />
+      <img src={`${import.meta.env.BASE_URL}/images/hero-students.jpg`} alt="Students at play" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
     </div>
     <div class="relative max-w-7xl mx-auto px-6 py-32">
@@ -19,8 +19,8 @@ import LayoutB from '../../layouts/LayoutB.astro';
         Social justice Montessori education where 90% of students exceed literacy benchmarks — and no family is turned away.
       </p>
       <div class="flex gap-4">
-        <a href="/admissions" class="px-8 py-4 bg-white text-neutral-900 font-bold rounded-full hover:bg-neutral-100 transition-colors">Schedule a Tour</a>
-        <a href="/support" class="px-8 py-4 border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-colors">Support Us</a>
+        <a href={`${import.meta.env.BASE_URL}/admissions`} class="px-8 py-4 bg-white text-neutral-900 font-bold rounded-full hover:bg-neutral-100 transition-colors">Schedule a Tour</a>
+        <a href={`${import.meta.env.BASE_URL}/support`} class="px-8 py-4 border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-colors">Support Us</a>
       </div>
     </div>
   </section>
@@ -60,12 +60,12 @@ import LayoutB from '../../layouts/LayoutB.astro';
         <p class="text-lg text-neutral-600 leading-relaxed mb-8">
           Founded by Michele Hamilton, a trailblazing educator from East Oakland with 27+ years of experience, Pear Tree is both a model school and a training site for educational policy development.
         </p>
-        <a href="/about" class="text-neutral-900 font-bold border-b-2 border-neutral-900 pb-1 hover:text-neutral-600 hover:border-neutral-600 transition-colors">
+        <a href={`${import.meta.env.BASE_URL}/about`} class="text-neutral-900 font-bold border-b-2 border-neutral-900 pb-1 hover:text-neutral-600 hover:border-neutral-600 transition-colors">
           Read our story &rarr;
         </a>
       </div>
       <div class="relative">
-        <img src="/images/montessori-classroom.jpg" alt="Montessori math lesson" class="w-full rounded-2xl" />
+        <img src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Montessori math lesson" class="w-full rounded-2xl" />
         <div class="absolute -bottom-6 -left-6 bg-amber-400 text-neutral-900 px-6 py-4 rounded-xl font-bold text-sm">
           Featured in London Review of Education
         </div>
@@ -119,19 +119,19 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <section class="py-4 overflow-hidden">
     <div class="flex gap-4 px-4">
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src="/images/homepage-1.jpg" alt="Art gallery" class="w-full h-full object-cover" />
+        <img src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Art gallery" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src="/images/classroom-photo.jpg" alt="Classroom" class="w-full h-full object-cover" />
+        <img src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Classroom" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src="/images/early-days.jpg" alt="Field trip" class="w-full h-full object-cover" />
+        <img src={`${import.meta.env.BASE_URL}/images/early-days.jpg`} alt="Field trip" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src="/images/enrichment-performance.jpg" alt="Cultural learning" class="w-full h-full object-cover" />
+        <img src={`${import.meta.env.BASE_URL}/images/enrichment-performance.jpg`} alt="Cultural learning" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src="/images/homepage-3.jpg" alt="Students collaborating" class="w-full h-full object-cover" />
+        <img src={`${import.meta.env.BASE_URL}/images/homepage-3.jpg`} alt="Students collaborating" class="w-full h-full object-cover" />
       </div>
     </div>
   </section>
@@ -139,8 +139,8 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <!-- Programs -->
   <section class="max-w-7xl mx-auto px-6 py-24">
     <div class="grid md:grid-cols-2 gap-8">
-      <a href="/programs#preschool" class="group relative rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src="/images/classroom-photo.jpg" alt="Preschool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+      <a href={`${import.meta.env.BASE_URL}/programs#preschool`} class="group relative rounded-2xl overflow-hidden aspect-[4/3]">
+        <img src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Preschool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div class="absolute bottom-0 left-0 p-8">
           <p class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">Ages 2+</p>
@@ -149,8 +149,8 @@ import LayoutB from '../../layouts/LayoutB.astro';
         </div>
       </a>
 
-      <a href="/programs#elementary" class="group relative rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src="/images/montessori-classroom.jpg" alt="Elementary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+      <a href={`${import.meta.env.BASE_URL}/programs#elementary`} class="group relative rounded-2xl overflow-hidden aspect-[4/3]">
+        <img src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Elementary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div class="absolute bottom-0 left-0 p-8">
           <p class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">TK &ndash; 5th Grade</p>
@@ -204,7 +204,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <!-- CTA -->
   <section class="relative py-32">
     <div class="absolute inset-0">
-      <img src="/images/homepage-1.jpg" alt="Community" class="w-full h-full object-cover" />
+      <img src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Community" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black/70"></div>
     </div>
     <div class="relative max-w-4xl mx-auto px-6 text-center">
@@ -215,8 +215,8 @@ import LayoutB from '../../layouts/LayoutB.astro';
         Whether you're looking for a school that sees your child, or you want to invest in education that transforms — there's a place for you here.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="/admissions" class="px-8 py-4 bg-white text-neutral-900 font-bold rounded-full hover:bg-neutral-100 transition-colors">Schedule a Tour</a>
-        <a href="/support" class="px-8 py-4 bg-amber-400 text-neutral-900 font-bold rounded-full hover:bg-amber-300 transition-colors">Make a Gift</a>
+        <a href={`${import.meta.env.BASE_URL}/admissions`} class="px-8 py-4 bg-white text-neutral-900 font-bold rounded-full hover:bg-neutral-100 transition-colors">Schedule a Tour</a>
+        <a href={`${import.meta.env.BASE_URL}/support`} class="px-8 py-4 bg-amber-400 text-neutral-900 font-bold rounded-full hover:bg-amber-300 transition-colors">Make a Gift</a>
       </div>
     </div>
   </section>

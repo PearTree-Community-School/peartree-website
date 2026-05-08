@@ -1,3 +1,18 @@
+### 2026-05-07
+- Pushed sites to GitHub Pages — published at https://peartree-community-school.github.io/peartree-website/
+  - V1 (forest theme), V2 (`/v2/`), V3 (`/v3/`) all live
+  - Repo transferred to PearTree-Community-School org (public — required for free org Pages)
+  - GitHub Actions workflow builds and deploys on every push to main
+- Fixed major link bug: 72 hardcoded `href="/about"` style paths across all .astro files were 404ing on the deployed site. Rewrote them all to use `import.meta.env.BASE_URL`. Set `base: '/peartree-website'` in astro.config.mjs.
+- Extracted Michele's photo zip (21 photos) into `site/public/images/photos/` with web-safe names. Includes her headshot, MIRROR Framework infographic, classroom photos (DSC*, Dolphin classrooms), and demographic representation photos.
+- Pulled Michele's full Medium article list (10 essays) into `site/src/data/medium-articles.ts` as structured data. Saved two full article texts to `site/src/data/article-archive.md`.
+- Updated About page:
+  - Michele's headshot in Founder section (was a generic teacher photo)
+  - Full self-described titles + book + Medium author link
+  - Updated quote to her actual signature Baldwin epigraph
+  - Added MIRROR Framework infographic image above the 6-card breakdown
+  - New "From Michele's Desk" section linking the 6 most recent Medium essays + CTA to her full archive
+
 ### 2026-05-06
 - Saved context from Michele's emails to `michele-bio-and-photos.md`:
   - Founder bio copy for About/leadership page (titles, books, social links, Baldwin epigraph)
