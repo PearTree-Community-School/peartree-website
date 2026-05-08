@@ -1,3 +1,11 @@
+### 2026-05-07 (later)
+- Fully built out V2 and V3 — every variant now has its own about, programs, admissions, contact, and support pages styled to that variant's design language. **18 pages total live (V1: 6, V2: 6, V3: 6).**
+- V2 sub-pages: `LayoutB.astro`, neutral/amber editorial palette, full-bleed image heroes, large Playfair serif type, color-blocked pillar cards.
+- V3 sub-pages: `LayoutC.astro`, slate/emerald institutional palette, Inter font, clean rounded-xl cards, emerald number badges, metric bars.
+- Fixed nav: V2's nav links now stay in `/v2/`, V3's nav stays in `/v3/`. Previously they bounced visitors to V1's earthy pages and broke the design illusion.
+- Extracted 12 shared content modules in `site/src/data/` so Michele's bio, school stats, MIRROR framework, classroom names, giving tiers, etc. live in ONE place and all three variants consume them. Editing once updates all three sites.
+- All 18 routes verified live (curl 200) at https://peartree-community-school.github.io/peartree-website/
+
 ### 2026-05-07
 - Pushed sites to GitHub Pages — published at https://peartree-community-school.github.io/peartree-website/
   - V1 (forest theme), V2 (`/v2/`), V3 (`/v3/`) all live
