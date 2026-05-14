@@ -1,11 +1,11 @@
 // Pear Tree's ParentSquare instance. School ID 22580.
-// Unauthenticated visits bounce through ParentSquare login then redirect.
+// Unauthenticated visitors get bounced through ParentSquare login then
+// redirected to the requested page after sign-in.
 //
-// Confirmed by school admin:
-//   - Calendar
-//   - Photos
-//
-// To be confirmed: messages, forms, directory (replace placeholder URLs).
+// Only confirmed-working URLs included below.
+// To add Messages / Forms / Directory cards: log into ParentSquare as a
+// Pear Tree parent, navigate to the section you want, copy the URL, and
+// add an entry here.
 
 export const ptcsParentSquare = {
   schoolId: 22580,
@@ -14,12 +14,11 @@ export const ptcsParentSquare = {
   calendar: 'https://www.parentsquare.com/schools/22580/calendars',
   photos: 'https://www.parentsquare.com/schools/22580/feeds/photos',
   feed: 'https://www.parentsquare.com/schools/22580/feeds',
-  // Placeholders — confirm exact URLs with school:
-  messages: 'https://www.parentsquare.com/messages',
-  forms: 'https://www.parentsquare.com/schools/22580/forms',
-  directory: 'https://www.parentsquare.com/schools/22580/directory',
 
-  loginUrl: 'https://www.parentsquare.com/signin',
+  // Generic ParentSquare entry — drops logged-in users in their feed,
+  // prompts everyone else to sign in.
+  signIn: 'https://www.parentsquare.com/signin',
+  home: 'https://www.parentsquare.com',
 };
 
 export interface ParentSquareLink {
@@ -37,14 +36,8 @@ export const parentSquareLinks: ParentSquareLink[] = [
     icon: 'calendar',
   },
   {
-    label: 'Messages',
-    description: 'Your direct messages and class conversations',
-    url: ptcsParentSquare.messages,
-    icon: 'messages',
-  },
-  {
     label: 'Posts & Updates',
-    description: 'Daily digests and announcements from the school',
+    description: 'Daily digests, classroom posts, messages, and announcements',
     url: ptcsParentSquare.feed,
     icon: 'feed',
   },
@@ -53,17 +46,5 @@ export const parentSquareLinks: ParentSquareLink[] = [
     description: 'Classroom moments and event galleries',
     url: ptcsParentSquare.photos,
     icon: 'photos',
-  },
-  {
-    label: 'Forms & Sign-Ups',
-    description: 'Permission slips, volunteer sign-ups, and surveys',
-    url: ptcsParentSquare.forms,
-    icon: 'forms',
-  },
-  {
-    label: 'Directory',
-    description: 'Connect with other parents and classroom contacts',
-    url: ptcsParentSquare.directory,
-    icon: 'directory',
   },
 ];

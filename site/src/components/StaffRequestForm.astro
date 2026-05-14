@@ -1,5 +1,6 @@
 ---
 import { requestCategories, priorityLevels, locations } from '../data/staffRequestCategories';
+import { email } from '../data/campusInfo';
 
 interface Props {
   variant: 'v1' | 'v2' | 'v3';
@@ -12,6 +13,7 @@ const themes = {
     input: 'w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream',
     section: 'font-serif text-lg font-bold text-charcoal mb-4 mt-6',
     button: 'btn-primary w-full text-center',
+    success: 'bg-pear-50 border border-pear-300 text-forest-900 rounded-lg p-6',
     optional: 'text-earth-400',
     radioWrap: 'flex flex-wrap gap-3',
     radio: 'inline-flex items-center gap-2 px-4 py-2 border border-earth-200 rounded-lg cursor-pointer hover:bg-pear-50 has-[:checked]:bg-forest-700 has-[:checked]:text-white has-[:checked]:border-forest-700',
@@ -21,6 +23,7 @@ const themes = {
     input: 'w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500',
     section: 'text-2xl font-bold text-neutral-900 mb-4 mt-8',
     button: 'w-full px-8 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-amber-500 hover:text-neutral-900 transition-colors',
+    success: 'bg-amber-50 border-2 border-amber-500 text-neutral-900 rounded-lg p-6',
     optional: 'text-neutral-400 normal-case',
     radioWrap: 'flex flex-wrap gap-2',
     radio: 'inline-flex items-center gap-2 px-4 py-2 border border-neutral-300 rounded-full text-sm cursor-pointer hover:bg-neutral-50 has-[:checked]:bg-neutral-900 has-[:checked]:text-white has-[:checked]:border-neutral-900',
@@ -30,6 +33,7 @@ const themes = {
     input: 'w-full px-3 py-2.5 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 bg-white',
     section: 'text-base font-semibold text-slate-900 mb-4 mt-6',
     button: 'w-full px-6 py-3 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700',
+    success: 'bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-md p-6',
     optional: 'text-slate-400',
     radioWrap: 'flex flex-wrap gap-2',
     radio: 'inline-flex items-center gap-2 px-3 py-1.5 border border-slate-300 rounded-md text-sm cursor-pointer hover:bg-slate-50 has-[:checked]:bg-emerald-600 has-[:checked]:text-white has-[:checked]:border-emerald-600',
@@ -39,10 +43,7 @@ const t = themes[variant];
 const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display', serif;" : '';
 ---
 
-<form name="staff-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" class="space-y-4">
-  <input type="hidden" name="form-name" value="staff-request" />
-  <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-
+<form id="staff-request-form" class="space-y-4" novalidate>
   <p class={t.section} style={sectionHeadingStyle}>Your info</p>
   <div class="grid sm:grid-cols-2 gap-4">
     <div>
@@ -88,16 +89,69 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
     <textarea id="staff-description" name="description" rows="5" required class={t.input + ' resize-y'} placeholder="What's needed? Be as specific as you can — room, item, when it happens, etc."></textarea>
   </div>
 
-  <div class="grid sm:grid-cols-2 gap-4">
-    <div>
-      <label for="staff-needed-by" class={t.label}>Needed by <span class={t.optional}>(optional)</span></label>
-      <input id="staff-needed-by" name="needed_by" type="date" class={t.input} />
-    </div>
-    <div>
-      <label for="staff-photo" class={t.label}>Photo <span class={t.optional}>(optional)</span></label>
-      <input id="staff-photo" name="photo" type="file" accept="image/*" class={t.input + ' file:mr-3 file:px-3 file:py-1 file:rounded file:border-0 file:bg-gray-200 file:text-sm'} />
-    </div>
+  <div>
+    <label for="staff-needed-by" class={t.label}>Needed by <span class={t.optional}>(optional)</span></label>
+    <input id="staff-needed-by" name="needed_by" type="date" class={t.input} />
   </div>
 
-  <button type="submit" class={`${t.button} mt-6`}>Submit Request</button>
+  <p class="text-xs text-current opacity-60">
+    Photo attachments? Reply to the email this opens with the photo attached.
+  </p>
+
+  <button type="submit" id="staff-submit-btn" class={`${t.button} mt-6`}>Submit Request</button>
 </form>
+
+<div id="staff-form-success" class={`${t.success} hidden`}>
+  <p class="font-semibold text-base mb-2">Your email client should be open with the request ready to send.</p>
+  <p class="text-sm leading-relaxed">
+    If nothing opened, you can copy the request from below and email it to
+    <a href={`mailto:${email}`} class="underline">{email}</a> directly.
+  </p>
+  <pre id="staff-form-preview" class="text-xs mt-4 p-3 bg-white/60 rounded border border-current/20 overflow-auto max-h-64 whitespace-pre-wrap"></pre>
+</div>
+
+<script define:vars={{ adminEmail: email }}>
+  const form = document.getElementById('staff-request-form');
+  const successEl = document.getElementById('staff-form-success');
+  const previewEl = document.getElementById('staff-form-preview');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = data.get('name') || '';
+    const fromEmail = data.get('email') || '';
+    const category = data.get('category') || '';
+    const location = data.get('location') || '';
+    const priority = data.get('priority') || 'Medium';
+    const description = data.get('description') || '';
+    const neededBy = data.get('needed_by') || '';
+
+    const subject = `[${priority}] ${category} — ${location}`;
+    const body = [
+      `Submitted via the staff portal.`,
+      ``,
+      `From: ${name} <${fromEmail}>`,
+      `Category: ${category}`,
+      `Location: ${location}`,
+      `Priority: ${priority}`,
+      neededBy ? `Needed by: ${neededBy}` : null,
+      ``,
+      `Description:`,
+      description,
+      ``,
+      `— Sent from peartree-community-school.github.io/peartree-website`,
+    ].filter(line => line !== null).join('\n');
+
+    const mailto = `mailto:${adminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // Open the user's mail client
+    window.location.href = mailto;
+
+    // Show the success block with a copy of the request in case mailto failed
+    if (previewEl) {
+      previewEl.textContent = `To: ${adminEmail}\nSubject: ${subject}\n\n${body}`;
+    }
+    form.classList.add('hidden');
+    successEl.classList.remove('hidden');
+    successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
