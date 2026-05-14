@@ -2,10 +2,9 @@
 // Unauthenticated visitors get bounced through ParentSquare login then
 // redirected to the requested page after sign-in.
 //
-// Only confirmed-working URLs included below.
-// To add Messages / Forms / Directory cards: log into ParentSquare as a
-// Pear Tree parent, navigate to the section you want, copy the URL, and
-// add an entry here.
+// URL strategy: use the generic /schools/22580/<section> form (NOT a
+// per-user URL like /schools/22580/users/<id>/chats). ParentSquare
+// resolves the section for the authenticated user automatically.
 
 export const ptcsParentSquare = {
   schoolId: 22580,
@@ -14,9 +13,13 @@ export const ptcsParentSquare = {
   calendar: 'https://www.parentsquare.com/schools/22580/calendars',
   photos: 'https://www.parentsquare.com/schools/22580/feeds/photos',
   feed: 'https://www.parentsquare.com/schools/22580/feeds',
+  messages: 'https://www.parentsquare.com/schools/22580/chats',
+  directory: 'https://www.parentsquare.com/schools/22580/users',
 
-  // Generic ParentSquare entry — drops logged-in users in their feed,
-  // prompts everyone else to sign in.
+  // Forms URL: still unknown. To resolve: log into ParentSquare, navigate
+  // to the Forms section (sign-ups, permission slips, surveys), and copy
+  // the URL — then add a `forms:` entry here and a corresponding link below.
+
   signIn: 'https://www.parentsquare.com/signin',
   home: 'https://www.parentsquare.com',
 };
@@ -36,8 +39,14 @@ export const parentSquareLinks: ParentSquareLink[] = [
     icon: 'calendar',
   },
   {
+    label: 'Messages',
+    description: 'Your direct messages and class conversations',
+    url: ptcsParentSquare.messages,
+    icon: 'messages',
+  },
+  {
     label: 'Posts & Updates',
-    description: 'Daily digests, classroom posts, messages, and announcements',
+    description: 'Daily digests, classroom posts, and announcements',
     url: ptcsParentSquare.feed,
     icon: 'feed',
   },
@@ -46,5 +55,11 @@ export const parentSquareLinks: ParentSquareLink[] = [
     description: 'Classroom moments and event galleries',
     url: ptcsParentSquare.photos,
     icon: 'photos',
+  },
+  {
+    label: 'Directory',
+    description: 'Connect with other parents and classroom contacts',
+    url: ptcsParentSquare.directory,
+    icon: 'directory',
   },
 ];
