@@ -1,0 +1,113 @@
+---
+import LayoutC from '../../layouts/LayoutC.astro';
+import { parentSquareLinks } from '../../data/parentSquareLinks';
+import { parentFAQ } from '../../data/parentFAQ';
+import { alerts, currentMonth } from '../../data/monthlyAlerts';
+import { phone, phoneTel, email } from '../../data/campusInfo';
+
+const alertTypeStyles: Record<string, string> = {
+  closure: 'bg-red-50 border-red-200 text-red-900',
+  'half-day': 'bg-amber-50 border-amber-200 text-amber-900',
+  event: 'bg-emerald-50 border-emerald-200 text-emerald-900',
+  deadline: 'bg-orange-50 border-orange-200 text-orange-900',
+  info: 'bg-slate-50 border-slate-200 text-slate-900',
+};
+
+const iconPaths: Record<string, string> = {
+  calendar: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5',
+  photos: 'M2.25 15.75l5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159M2.25 6h19.5v12h-19.5V6Zm10.5 2.25a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z',
+  messages: 'M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z',
+  feed: 'M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z',
+  forms: 'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z',
+  directory: 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z',
+};
+---
+
+<LayoutC title="Parent Portal" description="Pear Tree Community School parent portal — calendar, messages, photos, FAQ, and ParentSquare quick links.">
+
+  <!-- Hero -->
+  <section class="bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">Parent Portal</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">Welcome back.</h1>
+      <p class="text-lg text-slate-600 mt-6 max-w-2xl">Quick links to your ParentSquare account, this month's alerts, and answers to common questions.</p>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Quick Links</h2>
+      <p class="text-slate-600 mb-10 max-w-3xl">
+        These links open ParentSquare directly. If you're signed in, you'll land on the page. If not, ParentSquare will sign you in first.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {parentSquareLinks.map(link => (
+          <a href={link.url} target="_blank" rel="noopener" class="group bg-white rounded-xl p-6 border border-slate-200 hover:border-emerald-300 hover:shadow-lg transition-all">
+            <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-emerald-600 transition-colors">
+              <svg class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d={iconPaths[link.icon]}/></svg>
+            </div>
+            <h3 class="font-semibold text-slate-900 mb-2">{link.label}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{link.description}</p>
+            <p class="text-xs text-emerald-700 font-medium mt-4 group-hover:text-emerald-800">Open ParentSquare →</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Monthly Alerts -->
+  <section class="bg-white border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 py-16">
+      <div class="flex items-baseline justify-between flex-wrap gap-2 mb-10">
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">This Month's Alerts</h2>
+        <span class="text-xs uppercase tracking-wider text-slate-500 font-medium">{currentMonth}</span>
+      </div>
+      {alerts.length === 0 ? (
+        <p class="text-slate-500 italic">No alerts this month.</p>
+      ) : (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {alerts.map(a => (
+            <div class={`${alertTypeStyles[a.type || 'info']} border rounded-xl p-5`}>
+              <p class="text-xs uppercase tracking-wider font-semibold mb-2 opacity-70">{a.date}</p>
+              <h3 class="font-semibold mb-2">{a.title}</h3>
+              <p class="text-sm leading-relaxed">{a.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-slate-50">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Frequently Asked Questions</h2>
+      <p class="text-slate-600 mb-10">Click a question to expand.</p>
+      <div class="space-y-3">
+        {parentFAQ.map(q => (
+          <details class="group bg-white rounded-xl border border-slate-200">
+            <summary class="cursor-pointer list-none p-5 flex items-center justify-between gap-4">
+              <h3 class="font-semibold text-slate-900 text-sm md:text-base">{q.question}</h3>
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-700 text-sm leading-relaxed">{q.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Need help -->
+  <section class="bg-emerald-600 text-white">
+    <div class="max-w-4xl mx-auto px-6 py-16 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Can't find what you need?</h2>
+      <p class="text-emerald-50 mb-10 max-w-xl mx-auto">Email or call the front office and we'll help.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={`mailto:${email}`} class="inline-block px-6 py-3 bg-white text-emerald-700 rounded-md text-sm font-medium hover:bg-emerald-50">{email}</a>
+        <a href={phoneTel} class="inline-block px-6 py-3 border border-white/40 rounded-md text-sm font-medium hover:bg-white/10">Call {phone}</a>
+      </div>
+    </div>
+  </section>
+
+</LayoutC>

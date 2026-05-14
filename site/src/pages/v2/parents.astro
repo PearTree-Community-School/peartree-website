@@ -1,0 +1,104 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import { parentSquareLinks } from '../../data/parentSquareLinks';
+import { parentFAQ } from '../../data/parentFAQ';
+import { alerts, currentMonth } from '../../data/monthlyAlerts';
+import { phone, phoneTel, email } from '../../data/campusInfo';
+
+const BASE = import.meta.env.BASE_URL;
+
+const alertTypeStyles: Record<string, string> = {
+  closure: 'bg-rose-700',
+  'half-day': 'bg-amber-500',
+  event: 'bg-emerald-900',
+  deadline: 'bg-orange-600',
+  info: 'bg-neutral-700',
+};
+---
+
+<LayoutB title="Parent Portal" description="Pear Tree Community School parent portal — calendar, messages, photos, FAQ, and ParentSquare quick links.">
+
+  <!-- Hero -->
+  <section class="relative bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Parent Portal</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">Welcome back.</h1>
+      <p class="text-xl text-neutral-300 mt-8 max-w-2xl">Quick links to your ParentSquare account, this month's alerts, and answers to common questions.</p>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">Quick Links</p>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 max-w-3xl" style="font-family: 'Playfair Display', serif;">Your ParentSquare, on demand.</h2>
+      <p class="text-neutral-700 max-w-2xl mb-12">
+        These links open ParentSquare directly. If you're already signed in, they'll land on the right page. If not, sign in first and we'll bring you back.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-neutral-200">
+        {parentSquareLinks.map(link => (
+          <a href={link.url} target="_blank" rel="noopener" class="group bg-white p-8 hover:bg-neutral-900 hover:text-white transition-colors">
+            <h3 class="text-2xl font-bold mb-3 group-hover:text-amber-400 transition-colors" style="font-family: 'Playfair Display', serif;">{link.label}</h3>
+            <p class="text-sm text-neutral-600 group-hover:text-neutral-300 leading-relaxed">{link.description}</p>
+            <p class="text-xs uppercase tracking-[0.3em] text-amber-600 group-hover:text-amber-400 mt-6 transition-colors">Open →</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Monthly Alerts -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <div class="flex items-baseline justify-between flex-wrap gap-2 mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold" style="font-family: 'Playfair Display', serif;">This Month's Alerts</h2>
+        <p class="text-sm uppercase tracking-wider">{currentMonth}</p>
+      </div>
+      {alerts.length === 0 ? (
+        <p class="italic">No alerts this month. Enjoy a quiet calendar.</p>
+      ) : (
+        <div class="grid md:grid-cols-3 gap-px bg-amber-700">
+          {alerts.map(a => (
+            <div class={`${alertTypeStyles[a.type || 'info']} text-white p-8 min-h-[200px] flex flex-col justify-end`}>
+              <p class="text-xs uppercase tracking-[0.3em] opacity-70 mb-2">{a.date}</p>
+              <h3 class="text-xl font-bold mb-2" style="font-family: 'Playfair Display', serif;">{a.title}</h3>
+              <p class="text-sm leading-relaxed text-white/80">{a.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 md:py-24">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-600 text-center mb-6">FAQ</p>
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16" style="font-family: 'Playfair Display', serif;">Frequently asked questions.</h2>
+      <div class="space-y-px bg-neutral-200">
+        {parentFAQ.map(q => (
+          <details class="group bg-white">
+            <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4 hover:bg-neutral-50">
+              <h3 class="text-lg font-bold" style="font-family: 'Playfair Display', serif;">{q.question}</h3>
+              <span class="text-amber-600 text-2xl group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-neutral-700 leading-relaxed">{q.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Need help -->
+  <section class="bg-neutral-900 text-white">
+    <div class="max-w-4xl mx-auto px-6 py-20 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">Can't find what you need?</h2>
+      <p class="text-neutral-300 mb-10 max-w-xl mx-auto">Email or call the front office and we'll help.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={`mailto:${email}`} class="inline-block px-10 py-4 bg-amber-500 text-neutral-900 rounded-full text-sm font-medium hover:bg-white transition-colors">{email}</a>
+        <a href={phoneTel} class="inline-block px-10 py-4 border-2 border-white rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors">Call {phone}</a>
+      </div>
+    </div>
+  </section>
+
+</LayoutB>

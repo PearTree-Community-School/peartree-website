@@ -1,0 +1,204 @@
+---
+import { tourForm } from '../data/tourInfo';
+
+interface Props {
+  variant: 'v1' | 'v2' | 'v3';
+}
+const { variant } = Astro.props;
+
+// Theme class maps per variant — keeps the form HTML structure identical
+// while letting each variant render natively.
+const themes = {
+  v1: {
+    label: 'block text-sm font-medium text-charcoal mb-1',
+    input: 'w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream',
+    section: 'font-serif text-lg font-bold text-charcoal mb-4 mt-6',
+    button: 'btn-primary w-full text-center',
+    success: 'bg-pear-50 border border-pear-300 text-forest-900 rounded-lg p-6',
+    error: 'bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 text-sm',
+    optional: 'text-earth-400',
+  },
+  v2: {
+    label: 'block text-xs uppercase tracking-wider text-neutral-700 mb-2',
+    input: 'w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500',
+    section: 'text-2xl font-bold text-neutral-900 mb-4 mt-8',
+    button: 'w-full px-8 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-amber-500 hover:text-neutral-900 transition-colors',
+    success: 'bg-amber-50 border-2 border-amber-500 text-neutral-900 rounded-lg p-6',
+    error: 'bg-red-50 border border-red-300 text-red-900 rounded-lg p-4 text-sm',
+    optional: 'text-neutral-400 normal-case',
+  },
+  v3: {
+    label: 'block text-xs font-medium text-slate-700 mb-1.5',
+    input: 'w-full px-3 py-2.5 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 bg-white',
+    section: 'text-base font-semibold text-slate-900 mb-4 mt-6',
+    button: 'w-full px-6 py-3 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700',
+    success: 'bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-md p-6',
+    error: 'bg-red-50 border border-red-200 text-red-800 rounded-md p-4 text-sm',
+    optional: 'text-slate-400',
+  },
+};
+const t = themes[variant];
+const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display', serif;" : '';
+---
+
+<form id="tour-form" class="space-y-4" novalidate>
+  <p class={t.section} style={sectionHeadingStyle}>Parent / Guardian</p>
+
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label for="parentFirstName" class={t.label}>First name *</label>
+      <input id="parentFirstName" name="parentFirstName" type="text" required class={t.input} />
+    </div>
+    <div>
+      <label for="parentLastName" class={t.label}>Last name *</label>
+      <input id="parentLastName" name="parentLastName" type="text" required class={t.input} />
+    </div>
+  </div>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label for="parentEmail" class={t.label}>Email *</label>
+      <input id="parentEmail" name="parentEmail" type="email" required class={t.input} />
+    </div>
+    <div>
+      <label for="parentPhone" class={t.label}>Phone *</label>
+      <input id="parentPhone" name="parentPhone" type="tel" required class={t.input} />
+    </div>
+  </div>
+
+  <p class={t.section} style={sectionHeadingStyle}>Child #1</p>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label for="child1FirstName" class={t.label}>First name *</label>
+      <input id="child1FirstName" name="child1FirstName" type="text" required class={t.input} />
+    </div>
+    <div>
+      <label for="child1LastName" class={t.label}>Last name *</label>
+      <input id="child1LastName" name="child1LastName" type="text" required class={t.input} />
+    </div>
+  </div>
+  <div>
+    <label for="child1DOB" class={t.label}>Date of birth *</label>
+    <input id="child1DOB" name="child1DOB" type="date" required class={t.input} />
+  </div>
+
+  <p class={t.section} style={sectionHeadingStyle}>Child #2 <span class={t.optional}>(optional)</span></p>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <div>
+      <label for="child2FirstName" class={t.label}>First name</label>
+      <input id="child2FirstName" name="child2FirstName" type="text" class={t.input} />
+    </div>
+    <div>
+      <label for="child2LastName" class={t.label}>Last name</label>
+      <input id="child2LastName" name="child2LastName" type="text" class={t.input} />
+    </div>
+  </div>
+  <div>
+    <label for="child2DOB" class={t.label}>Date of birth</label>
+    <input id="child2DOB" name="child2DOB" type="date" class={t.input} />
+  </div>
+
+  <p class={t.section} style={sectionHeadingStyle}>Enrollment</p>
+  <div>
+    <label for="gradeApplyingFor" class={t.label}>Grade applying for *</label>
+    <select id="gradeApplyingFor" name="gradeApplyingFor" required class={t.input}>
+      <option value="">Select...</option>
+      {tourForm.gradeOptions.map((g) => <option value={g}>{g}</option>)}
+    </select>
+  </div>
+  <div>
+    <label for="desiredStartDate" class={t.label}>Desired start date *</label>
+    <select id="desiredStartDate" name="desiredStartDate" required class={t.input}>
+      <option value="">Select...</option>
+      {tourForm.startDateOptions.map((d) => <option value={d}>{d}</option>)}
+    </select>
+  </div>
+  <div>
+    <label for="campusInterest" class={t.label}>Which campus interests you? *</label>
+    <select id="campusInterest" name="campusInterest" required class={t.input}>
+      <option value="">Select...</option>
+      {tourForm.campusOptions.map((c) => <option value={c}>{c}</option>)}
+    </select>
+  </div>
+
+  <div id="tour-form-error" class={`${t.error} hidden`}></div>
+
+  <button type="submit" id="tour-submit-btn" class={`${t.button} mt-6`}>
+    Request a Tour
+  </button>
+
+  <noscript>
+    <p class="text-xs text-center mt-3">
+      <a href={tourForm.viewUrl} target="_blank" rel="noopener" class="underline">
+        Or open our standard registration form →
+      </a>
+    </p>
+  </noscript>
+</form>
+
+<div id="tour-form-success" class={`${t.success} hidden`}>
+  <p class="font-semibold text-base mb-2">Thank you! Your tour request was sent.</p>
+  <p class="text-sm leading-relaxed">
+    Our admin team will reach out within 2 business days to confirm a time. If you don't hear from us, please email <a href="mailto:admin@peartreecs.com" class="underline">admin@peartreecs.com</a> or call (510) 817-4690.
+  </p>
+</div>
+
+<script define:vars={{ postUrl: tourForm.postUrl, fields: tourForm.fields, viewUrl: tourForm.viewUrl }}>
+  const form = document.getElementById('tour-form');
+  const successEl = document.getElementById('tour-form-success');
+  const errorEl = document.getElementById('tour-form-error');
+  const btn = document.getElementById('tour-submit-btn');
+
+  function splitDate(value, baseEntry) {
+    // value is YYYY-MM-DD; Google Forms expects entry.XXXX_year/_month/_day
+    if (!value) return {};
+    const [year, month, day] = value.split('-');
+    return {
+      [`${baseEntry}_year`]: year,
+      [`${baseEntry}_month`]: String(parseInt(month, 10)),
+      [`${baseEntry}_day`]: String(parseInt(day, 10)),
+    };
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    const data = new FormData(form);
+    const params = new URLSearchParams();
+
+    // Text/select fields
+    const textFields = ['parentFirstName','parentLastName','parentEmail','parentPhone','child1FirstName','child1LastName','child2FirstName','child2LastName','gradeApplyingFor','desiredStartDate','campusInterest'];
+    for (const key of textFields) {
+      const val = data.get(key);
+      if (val) params.append(fields[key], String(val));
+    }
+    // Date fields — split YYYY-MM-DD into _year/_month/_day
+    for (const [k, eid] of [['child1DOB', fields.child1DOB], ['child2DOB', fields.child2DOB]]) {
+      const val = data.get(k);
+      if (val) {
+        const parts = splitDate(String(val), eid);
+        for (const [pk, pv] of Object.entries(parts)) params.append(pk, pv);
+      }
+    }
+
+    try {
+      await fetch(postUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString(),
+      });
+      // no-cors: response is opaque, can't read status. Assume success.
+      form.classList.add('hidden');
+      successEl.classList.remove('hidden');
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      errorEl.textContent = 'Something went wrong sending your request. Please try our standard form: ' + viewUrl;
+      errorEl.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Request a Tour';
+    }
+  });
+</script>

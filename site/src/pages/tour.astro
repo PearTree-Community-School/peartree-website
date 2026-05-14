@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TourForm from '../components/TourForm.astro';
+import { tourCopy } from '../data/tourInfo';
+import { phone, phoneTel, email } from '../data/campusInfo';
+
+const BASE = import.meta.env.BASE_URL;
+---
+
+<Layout title="Schedule a Tour" description="Schedule a campus tour at Pear Tree Community School. Weekly Thursday tours of our Oakland Montessori preschool and elementary.">
+
+  <!-- Hero -->
+  <section class="bg-forest-900 text-white">
+    <div class="section-padding py-16 md:py-24">
+      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Visit Pear Tree</p>
+      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
+        Schedule a tour of our campus.
+      </h1>
+      <p class="text-forest-200 text-lg mt-4 max-w-2xl">
+        {tourCopy.schedule}. {tourCopy.responseTime}
+      </p>
+    </div>
+  </section>
+
+  <section class="section-padding">
+    <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+
+      <!-- Side info -->
+      <div class="md:col-span-1 space-y-6">
+        <div class="bg-pear-50 border border-pear-200 rounded-2xl p-6">
+          <h3 class="font-serif font-bold text-lg mb-3">What to expect</h3>
+          <ul class="space-y-2 text-sm text-earth-700">
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-forest-600 mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              <span>A walkthrough of our classrooms and outdoor spaces</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-forest-600 mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              <span>Time with our founder or admissions team to ask questions</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-forest-600 mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+              <span>An honest conversation about financial aid options</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white border border-earth-100 rounded-2xl p-6">
+          <h3 class="font-serif font-bold text-lg mb-3">Prefer to call?</h3>
+          <p class="text-sm text-earth-600 mb-3">We're happy to chat by phone or email.</p>
+          <p class="text-sm"><a href={phoneTel} class="text-forest-600 hover:text-forest-800 font-medium">{phone}</a></p>
+          <p class="text-sm"><a href={`mailto:${email}`} class="text-forest-600 hover:text-forest-800 font-medium">{email}</a></p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="md:col-span-2">
+        <div class="bg-white rounded-2xl p-8 border border-earth-100">
+          <h2 class="font-serif text-2xl font-bold mb-2">Tour registration</h2>
+          <p class="text-sm text-earth-500 mb-6">Required fields are marked with *.</p>
+          <TourForm variant="v1" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

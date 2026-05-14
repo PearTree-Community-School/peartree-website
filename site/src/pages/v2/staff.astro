@@ -1,0 +1,62 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import StaffRequestForm from '../../components/StaffRequestForm.astro';
+import { requestCategories } from '../../data/staffRequestCategories';
+import { phone, phoneTel, email } from '../../data/campusInfo';
+---
+
+<LayoutB title="Staff Portal" description="Pear Tree staff portal — submit work requests.">
+
+  <!-- Hero -->
+  <section class="bg-neutral-900 text-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Staff Portal</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">Submit a work request.</h1>
+      <p class="text-xl text-neutral-300 mt-8 max-w-2xl">
+        Facilities, supplies, tech, Montessori materials, room booking — whatever you need.
+      </p>
+    </div>
+  </section>
+
+  <!-- Auth banner -->
+  <section class="bg-amber-500 text-neutral-900">
+    <div class="max-w-7xl mx-auto px-6 py-3">
+      <p class="text-sm">
+        <strong>Open submissions for now.</strong> Email-invite login coming soon. Requests email <a href={`mailto:${email}`} class="underline">{email}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-12 gap-12">
+
+      <div class="md:col-span-4">
+        <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-6">Categories</p>
+        <ul class="space-y-6">
+          {requestCategories.map((c, i) => (
+            <li>
+              <p class="text-sm uppercase tracking-wider text-neutral-500 mb-1">0{i + 1}</p>
+              <p class="font-bold text-neutral-900" style="font-family: 'Playfair Display', serif;">{c.label}</p>
+              <p class="text-sm text-neutral-600 leading-relaxed">{c.desc}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div class="bg-neutral-900 text-white rounded-xl p-6 mt-10">
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-3">Urgent?</p>
+          <p class="text-sm text-neutral-300 mb-4">If something is dangerous or blocking your class right now, please also call the front office.</p>
+          <a href={phoneTel} class="text-2xl font-bold hover:text-amber-400" style="font-family: 'Playfair Display', serif;">{phone}</a>
+        </div>
+      </div>
+
+      <div class="md:col-span-8">
+        <div class="bg-neutral-100 rounded-2xl p-10">
+          <h2 class="text-3xl font-bold mb-2" style="font-family: 'Playfair Display', serif;">New request</h2>
+          <p class="text-sm text-neutral-500 mb-8">Required fields marked with *. Photos help facilities a lot.</p>
+          <StaffRequestForm variant="v2" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</LayoutB>

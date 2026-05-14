@@ -1,0 +1,53 @@
+---
+import LayoutB from '../../layouts/LayoutB.astro';
+import TourForm from '../../components/TourForm.astro';
+import { tourCopy } from '../../data/tourInfo';
+import { phone, phoneTel, email } from '../../data/campusInfo';
+
+const BASE = import.meta.env.BASE_URL;
+---
+
+<LayoutB title="Schedule a Tour" description="Schedule a campus tour at Pear Tree Community School.">
+
+  <!-- Hero -->
+  <section class="relative min-h-[50vh] flex items-end overflow-hidden bg-neutral-900">
+    <img src={`${BASE}/images/photos/classroom-2.jpg`} alt="Pear Tree classroom" class="absolute inset-0 w-full h-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 text-white">
+      <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Visit Pear Tree</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl" style="font-family: 'Playfair Display', serif;">Schedule a tour.</h1>
+      <p class="text-xl text-neutral-200 mt-6 max-w-2xl">{tourCopy.schedule}. {tourCopy.responseTime}</p>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-24 grid md:grid-cols-12 gap-12">
+
+      <div class="md:col-span-4 space-y-8">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-4">What to expect</p>
+          <ul class="space-y-4 text-neutral-700">
+            <li class="flex items-start gap-3"><span class="text-amber-500 text-xl mt-0.5">✦</span><span>A walkthrough of our classrooms and outdoor spaces</span></li>
+            <li class="flex items-start gap-3"><span class="text-amber-500 text-xl mt-0.5">✦</span><span>Time with our founder or admissions team</span></li>
+            <li class="flex items-start gap-3"><span class="text-amber-500 text-xl mt-0.5">✦</span><span>An honest conversation about financial aid</span></li>
+          </ul>
+        </div>
+
+        <div class="bg-neutral-100 rounded-xl p-6">
+          <p class="text-xs uppercase tracking-[0.3em] text-amber-600 mb-3">Prefer to call?</p>
+          <a href={phoneTel} class="block text-2xl font-bold hover:text-amber-600 transition-colors" style="font-family: 'Playfair Display', serif;">{phone}</a>
+          <a href={`mailto:${email}`} class="block text-sm text-neutral-700 hover:text-amber-600 transition-colors mt-2">{email}</a>
+        </div>
+      </div>
+
+      <div class="md:col-span-8">
+        <div class="bg-neutral-100 rounded-2xl p-10">
+          <h2 class="text-3xl font-bold mb-2" style="font-family: 'Playfair Display', serif;">Tour registration</h2>
+          <p class="text-sm text-neutral-500 mb-8">Required fields marked with *.</p>
+          <TourForm variant="v2" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</LayoutB>
