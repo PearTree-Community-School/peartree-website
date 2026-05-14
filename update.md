@@ -1,3 +1,19 @@
+### 2026-05-14
+- Shipped three new feature areas across all three variants — **27 total live pages now (was 18)**.
+- **Tour scheduling (`/tour`, `/v2/tour`, `/v3/tour`)** — native, on-brand form that POSTs to the school's existing Google Form (`formResponse` endpoint) so admin's monitoring workflow stays the same. All 13 field entry IDs extracted from the live form. Date fields split into `_year/_month/_day` for Google Form compatibility. Client-side `fetch` with `mode: 'no-cors'`. Fallback link to the Google Form for users with JS disabled. **Needs a real test submission to confirm the integration works end-to-end** — submit a test from the live site and verify it lands in the Google Form response sheet.
+- Swapped all "Schedule a Tour" CTAs (9 total) from `/contact` / `/admissions` to `/tour` / `/v2/tour` / `/v3/tour`.
+- **Parent portal (`/parents`, `/v2/parents`, `/v3/parents`)** — quick-link card grid to ParentSquare (Calendar, Messages, Posts, Photos, Forms, Directory), "This Month's Alerts" data-driven section (admin edits `src/data/monthlyAlerts.ts` monthly), and a 12-Q FAQ accordion (`src/data/parentFAQ.ts`). No auth — links bounce to ParentSquare which handles its own login. School ID 22580 baked in.
+- **Staff portal (`/staff`, `/v2/staff`, `/v3/staff`)** — work-request form themed per variant. 9 categories (Facilities, Supplies, Tech, Montessori Materials, Plants/Pets, Curriculum, HR, Room Booking, Other). Fields: name, email, location (dropdown of all 5 classrooms + office + outdoors), category, priority (Low/Medium/High/Urgent), description, needed-by, photo upload. Netlify Forms → `admin@peartreecs.com`. "Auth coming soon" banner up top.
+- Nav: added Parents and Staff to all 3 variant navs.
+- Six new data modules: `tourInfo`, `parentSquareLinks`, `parentFAQ`, `monthlyAlerts`, `staffRequestCategories`. Two new shared components: `TourForm.astro`, `StaffRequestForm.astro`.
+- All 27 routes verified live (curl 200).
+
+**Open items / pending user input:**
+- Confirm what "Project OS" refers to so we can wire actual staff auth (defaulting to Clerk if no other answer).
+- Confirm real ParentSquare URLs for Messages, Forms, Directory (placeholders currently).
+- Michele/admin to review FAQ content and the monthly-alerts cadence.
+- Smoke-test the tour form against the live Google Form's response sheet.
+
 ### 2026-05-07 (later)
 - Fully built out V2 and V3 — every variant now has its own about, programs, admissions, contact, and support pages styled to that variant's design language. **18 pages total live (V1: 6, V2: 6, V3: 6).**
 - V2 sub-pages: `LayoutB.astro`, neutral/amber editorial palette, full-bleed image heroes, large Playfair serif type, color-blocked pillar cards.
