@@ -7,7 +7,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <!-- Hero: Full-bleed editorial -->
   <section class="relative min-h-screen flex items-center">
     <div class="absolute inset-0">
-      <img src={`${import.meta.env.BASE_URL}/images/hero-students.jpg`} alt="Students at play" class="w-full h-full object-cover" />
+      <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/hero-students.jpg`} alt="Students at play" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
     </div>
     <div class="relative max-w-7xl mx-auto px-6 py-32">
@@ -65,7 +65,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
         </a>
       </div>
       <div class="relative">
-        <img src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Montessori math lesson" class="w-full rounded-2xl" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Montessori math lesson" class="w-full rounded-2xl" />
         <div class="absolute -bottom-6 -left-6 bg-amber-400 text-neutral-900 px-6 py-4 rounded-xl font-bold text-sm">
           Featured in London Review of Education
         </div>
@@ -119,19 +119,19 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <section class="py-4 overflow-hidden">
     <div class="flex gap-4 px-4">
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Art gallery" class="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Art gallery" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Classroom" class="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Classroom" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src={`${import.meta.env.BASE_URL}/images/early-days.jpg`} alt="Field trip" class="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/early-days.jpg`} alt="Field trip" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src={`${import.meta.env.BASE_URL}/images/enrichment-performance.jpg`} alt="Cultural learning" class="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/enrichment-performance.jpg`} alt="Cultural learning" class="w-full h-full object-cover" />
       </div>
       <div class="flex-shrink-0 w-80 h-64 rounded-xl overflow-hidden">
-        <img src={`${import.meta.env.BASE_URL}/images/homepage-3.jpg`} alt="Students collaborating" class="w-full h-full object-cover" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/homepage-3.jpg`} alt="Students collaborating" class="w-full h-full object-cover" />
       </div>
     </div>
   </section>
@@ -140,7 +140,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <section class="max-w-7xl mx-auto px-6 py-24">
     <div class="grid md:grid-cols-2 gap-8">
       <a href={`${import.meta.env.BASE_URL}/programs#preschool`} class="group relative rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Preschool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/classroom-photo.jpg`} alt="Preschool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div class="absolute bottom-0 left-0 p-8">
           <p class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">Ages 2+</p>
@@ -150,7 +150,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
       </a>
 
       <a href={`${import.meta.env.BASE_URL}/programs#elementary`} class="group relative rounded-2xl overflow-hidden aspect-[4/3]">
-        <img src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Elementary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/montessori-classroom.jpg`} alt="Elementary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div class="absolute bottom-0 left-0 p-8">
           <p class="text-amber-400 text-xs font-bold uppercase tracking-widest mb-2">TK &ndash; 5th Grade</p>
@@ -204,7 +204,7 @@ import LayoutB from '../../layouts/LayoutB.astro';
   <!-- CTA -->
   <section class="relative py-32">
     <div class="absolute inset-0">
-      <img src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Community" class="w-full h-full object-cover" />
+      <img loading="lazy" decoding="async" src={`${import.meta.env.BASE_URL}/images/homepage-1.jpg`} alt="Community" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black/70"></div>
     </div>
     <div class="relative max-w-4xl mx-auto px-6 text-center">

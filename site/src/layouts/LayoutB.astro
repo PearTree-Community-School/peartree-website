@@ -29,7 +29,7 @@ const pageTitle = title === 'Home' ? 'Pear Tree Community School' : `${title} | 
   <nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href={`${import.meta.env.BASE_URL}/v2`} class="flex items-center gap-3">
-        <img src={`${import.meta.env.BASE_URL}/images/logo.jpg`} alt="Pear Tree" class="h-10 w-auto" />
+        <img loading="eager" decoding="async" src={`${import.meta.env.BASE_URL}/images/logo.jpg`} alt="Pear Tree" class="h-10 w-auto" />
         <span class="text-lg font-bold tracking-tight" style="font-family: 'Playfair Display', serif;">Pear Tree</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm font-medium text-neutral-600">
