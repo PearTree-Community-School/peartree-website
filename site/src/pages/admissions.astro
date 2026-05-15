@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Admissions" description="Apply to Pear Tree Community School. 80% of families receive financial aid. No family is turned away due to inability to pay.">
+<Layout title="Admissions" description="Apply to Pear Tree Community School. 80% of families receive financial aid.">
 
   <!-- Page Header -->
   <section class="bg-forest-900 text-white">
@@ -21,7 +21,7 @@ import Layout from '../layouts/Layout.astro';
   <section class="bg-pear-50 border-b border-pear-100">
     <div class="section-padding">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="section-heading">No family will be turned away.</h2>
+        <h2 class="section-heading">Financial aid for every family.</h2>
         <p class="text-earth-700 leading-relaxed mb-6">
           80% of Pear Tree families receive financial aid. We offer a sliding scale based on each family's financial situation because we believe access to excellent education is a right, not a privilege.
         </p>
@@ -39,12 +39,6 @@ import Layout from '../layouts/Layout.astro';
                 <path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/>
               </svg>
               <span class="text-earth-700 text-sm">Sliding scale tuition based on ability to pay</span>
-            </div>
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-forest-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/>
-              </svg>
-              <span class="text-earth-700 text-sm">No family has ever been turned away due to inability to pay</span>
             </div>
             <div class="flex items-start gap-3">
               <svg class="w-5 h-5 text-forest-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -119,7 +113,7 @@ import Layout from '../layouts/Layout.astro';
           {[
             { step: '1', title: 'Schedule a Tour', desc: 'Visit our campus, meet our teachers, and see Montessori in action. Tours are the best way to experience what makes Pear Tree different.' },
             { step: '2', title: 'Submit an Application', desc: 'Complete the application form and share your family\'s story with us. We review each application holistically — there are no test scores or academic prerequisites.' },
-            { step: '3', title: 'Financial Aid Conversation', desc: 'We\'ll work with every family to find a tuition level that works. Our commitment to access means we will find a way.' },
+            { step: '3', title: 'Financial Aid Conversation', desc: 'We\'ll have an open conversation about tuition and the financial aid options that apply to your family — need-based aid, sliding scale, BASIC Fund scholarships, and more.' },
             { step: '4', title: 'Welcome to Pear Tree', desc: 'Once accepted, you\'ll join a community of families who are invested in building something different together.' },
           ].map(item => (
             <div class="flex gap-6">

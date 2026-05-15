@@ -50,7 +50,7 @@ export const parentFAQ: FAQ[] = [
   {
     question: 'Who do I talk to about financial aid?',
     answer:
-      '80% of our families receive financial aid and no family is turned away. Reach out to admin@peartreecs.com or call (510) 817-4690 to start a confidential conversation about tuition. Aid is need-based with a sliding scale.',
+      '80% of our families receive financial aid. Reach out to admin@peartreecs.com or call (510) 817-4690 to start a confidential conversation about tuition. Aid is need-based with a sliding scale.',
   },
   {
     question: 'Is there aftercare?',

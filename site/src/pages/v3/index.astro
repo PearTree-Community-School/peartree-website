@@ -17,7 +17,7 @@ import LayoutC from '../../layouts/LayoutC.astro';
             Social justice Montessori education in Oakland
           </h1>
           <p class="text-lg text-slate-500 leading-relaxed mb-8">
-            Preschool through 5th grade. Where 90% of students exceed literacy benchmarks, 80% of families receive financial aid, and no child is turned away.
+            Preschool through 5th grade. Where 90% of students exceed literacy benchmarks, 80% of families receive financial aid, and tuition is need-based.
           </p>
           <div class="flex flex-wrap gap-3">
             <a href={`${import.meta.env.BASE_URL}/v3/tour`} class="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors text-sm">Schedule a Tour</a>
@@ -261,13 +261,13 @@ import LayoutC from '../../layouts/LayoutC.astro';
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p class="text-xs font-semibold uppercase tracking-wider text-emerald-600 mb-3">Financial Aid</p>
-            <h2 class="text-3xl font-bold text-slate-900 mb-4">No family will be turned away</h2>
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Financial aid for every family</h2>
             <p class="text-slate-600 leading-relaxed">
               80% of Pear Tree families receive financial aid. We offer sliding scale tuition because access to excellent education is a right, not a privilege. BASIC Fund scholarships also available.
             </p>
           </div>
           <div class="space-y-3">
-            {['80% of families receive need-based aid', 'Sliding scale based on ability to pay', 'No family ever turned away', 'BASIC Fund scholarships (up to $2,750/yr)'].map(item => (
+            {['80% of families receive need-based aid', 'Sliding scale based on ability to pay', 'Need-based tuition conversations', 'BASIC Fund scholarships (up to $2,750/yr)'].map(item => (
               <div class="flex items-center gap-3 bg-white rounded-lg px-4 py-3 border border-slate-200">
                 <svg class="w-5 h-5 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
                 <span class="text-sm text-slate-700">{item}</span>
