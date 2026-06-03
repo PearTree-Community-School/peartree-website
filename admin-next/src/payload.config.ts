@@ -5,7 +5,13 @@ import { fileURLToPath } from 'node:url';
 import { buildConfig } from 'payload';
 import { Users } from './collections/Users';
 import { AuditLog } from './collections/AuditLog';
+import { Testimonials } from './collections/Testimonials';
+import { ParentFAQ } from './collections/ParentFAQ';
+import { Classrooms } from './collections/Classrooms';
+import { SchoolStats } from './globals/SchoolStats';
+import { MissionStatement } from './globals/MissionStatement';
 import { workosAuthStrategy } from './lib/payload-auth';
+import { seedFromSiteData } from './lib/seed';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -25,7 +31,11 @@ export default buildConfig({
       },
     },
     AuditLog,
+    Testimonials,
+    ParentFAQ,
+    Classrooms,
   ],
+  globals: [SchoolStats, MissionStatement],
   editor: lexicalEditor({}),
   secret: process.env['PAYLOAD_SECRET'] ?? 'unset-secret-do-not-use',
   typescript: {
@@ -37,4 +47,15 @@ export default buildConfig({
     },
   }),
   sharp: undefined,
+  onInit: async (payload) => {
+    if (process.env['ADMIN_NEXT_SKIP_SEED'] === '1') return;
+    try {
+      await seedFromSiteData(payload);
+    } catch (err) {
+      payload.logger.warn(
+        { err: err instanceof Error ? err.message : String(err) },
+        'onInit seed failed (non-fatal)',
+      );
+    }
+  },
 });

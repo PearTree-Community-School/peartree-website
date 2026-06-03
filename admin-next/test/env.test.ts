@@ -10,7 +10,7 @@ describe('env validation', () => {
       process.env = {
         WORKOS_API_KEY: 'sk_live_should_not_be_echoed',
         // Intentionally omit other required fields
-      } as NodeJS.ProcessEnv;
+      } as unknown as NodeJS.ProcessEnv;
       let thrown: unknown;
       try {
         getEnv();
@@ -43,7 +43,7 @@ describe('env validation', () => {
         WORKOS_REDIRECT_URI: 'http://127.0.0.1:3000/auth/callback',
         PUBLIC_SITE_BASE_URL: 'https://example.com',
         ADMIN_BASE_URL: 'http://127.0.0.1:3000',
-      } as NodeJS.ProcessEnv;
+      } as unknown as NodeJS.ProcessEnv;
       const env = getEnv();
       expect(env.WORKOS_API_KEY).toBe('sk_test');
       expect(env.PUBLIC_SITE_BASE_URL).toBe('https://example.com');
@@ -68,7 +68,7 @@ describe('env validation', () => {
         PUBLIC_SITE_BASE_URL: 'https://example.com',
         ADMIN_BASE_URL: 'http://127.0.0.1:3000',
         ADMIN_BOOTSTRAP_EMAILS: ' Admin@PearTree.org , Michele@peartree.org ',
-      } as NodeJS.ProcessEnv;
+      } as unknown as NodeJS.ProcessEnv;
       const env = getEnv();
       expect(env.ADMIN_BOOTSTRAP_EMAILS).toEqual([
         'admin@peartree.org',

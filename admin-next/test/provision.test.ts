@@ -71,7 +71,7 @@ let originalEnv: NodeJS.ProcessEnv;
 
 beforeEach(() => {
   originalEnv = { ...process.env };
-  process.env = { ...baseEnv } as NodeJS.ProcessEnv;
+  process.env = { ...baseEnv } as unknown as NodeJS.ProcessEnv;
   clearEnvCache();
 });
 
