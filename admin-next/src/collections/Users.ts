@@ -1,5 +1,66 @@
-import type { CollectionConfig } from 'payload';
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, CollectionConfig } from 'payload';
 import { roles } from '../lib/policy';
+
+const auditUserChange: CollectionAfterChangeHook = async ({ doc, previousDoc, operation, req }) => {
+  const actorEmail = (req.user as { email?: string } | undefined)?.email ?? null;
+  if (operation === 'create') {
+    await req.payload.create({
+      collection: 'audit-log',
+      data: {
+        action: 'user.invited',
+        actorEmail: actorEmail ?? undefined,
+        targetEmail: doc.email,
+        summary: `Invited ${doc.email} as ${doc.role}.`,
+      },
+      overrideAccess: true,
+    });
+    return doc;
+  }
+  if (operation === 'update' && previousDoc) {
+    const prevRole = (previousDoc as { role?: string }).role;
+    const prevStatus = (previousDoc as { status?: string }).status;
+    if (prevRole && prevRole !== doc.role) {
+      await req.payload.create({
+        collection: 'audit-log',
+        data: {
+          action: 'user.role_changed',
+          actorEmail: actorEmail ?? undefined,
+          targetEmail: doc.email,
+          summary: `Role: ${prevRole} → ${doc.role}.`,
+        },
+        overrideAccess: true,
+      });
+    }
+    if (prevStatus && prevStatus !== doc.status) {
+      await req.payload.create({
+        collection: 'audit-log',
+        data: {
+          action: 'user.status_changed',
+          actorEmail: actorEmail ?? undefined,
+          targetEmail: doc.email,
+          summary: `Status: ${prevStatus} → ${doc.status}.`,
+        },
+        overrideAccess: true,
+      });
+    }
+  }
+  return doc;
+};
+
+const auditUserDelete: CollectionAfterDeleteHook = async ({ doc, req }) => {
+  const actorEmail = (req.user as { email?: string } | undefined)?.email ?? null;
+  await req.payload.create({
+    collection: 'audit-log',
+    data: {
+      action: 'user.deleted',
+      actorEmail: actorEmail ?? undefined,
+      targetEmail: doc.email,
+      summary: `Deleted user ${doc.email}.`,
+    },
+    overrideAccess: true,
+  });
+  return doc;
+};
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -17,6 +78,10 @@ export const Users: CollectionConfig = {
     create: ({ req }) => hasPermission(req.user, 'users:manage'),
     update: ({ req }) => hasPermission(req.user, 'users:manage'),
     delete: ({ req }) => hasPermission(req.user, 'users:manage'),
+  },
+  hooks: {
+    afterChange: [auditUserChange],
+    afterDelete: [auditUserDelete],
   },
   fields: [
     {
