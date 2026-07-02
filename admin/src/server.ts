@@ -187,6 +187,7 @@ export function createAdminApp(dependencies: AdminAppDependencies): Hono<{ Varia
     };
 
   // Public routes
+  app.get('/', (c) => c.redirect('/admin', 302));
   app.get('/health', (c) =>
     c.json({ ok: true, service: 'peartree-admin', publicSite: env.PUBLIC_SITE_BASE_URL }),
   );
