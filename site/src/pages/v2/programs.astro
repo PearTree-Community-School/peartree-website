@@ -59,7 +59,7 @@ const BASE = import.meta.env.BASE_URL;
       <h2 class="text-3xl md:text-4xl font-bold mb-12" style="font-family: 'Playfair Display', serif;">Our classrooms.</h2>
       <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-px bg-neutral-300">
         {classrooms.map(c => (
-          <div class="bg-white p-8">
+          <div class="bg-white p-8" data-cms-item={c.id ? `classrooms:${c.id}` : undefined}>
             <h3 class="text-xl font-bold mb-2" style="font-family: 'Playfair Display', serif;">{c.name}</h3>
             <p class="text-xs uppercase tracking-wider text-amber-600">{c.campus}</p>
             <p class="text-sm text-neutral-600 mt-3">{c.level}</p>

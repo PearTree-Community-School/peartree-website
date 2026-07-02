@@ -15,6 +15,7 @@ const envSchema = z.object({
   ADMIN_DB_PATH: z.string().trim().min(1).default('./data/admin.sqlite'),
   WORKOS_WEBHOOK_SECRET: z.string().trim().min(1).optional(),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
+  ADMIN_DEV_BYPASS_EMAIL: z.string().trim().email().optional(),
 });
 
 export type AdminEnv = {
@@ -29,6 +30,8 @@ export type AdminEnv = {
   readonly ADMIN_DB_PATH: string;
   readonly WORKOS_WEBHOOK_SECRET: string | undefined;
   readonly PORT: number;
+  /** Dev-only: fake a session for this user without WorkOS. Ignored unless ADMIN_BASE_URL is loopback. */
+  readonly ADMIN_DEV_BYPASS_EMAIL?: string;
 };
 
 export type EnvParseResult =
@@ -59,6 +62,9 @@ export function parseAdminEnv(input: NodeJS.ProcessEnv): EnvParseResult {
       ADMIN_DB_PATH: parsed.data.ADMIN_DB_PATH,
       WORKOS_WEBHOOK_SECRET: parsed.data.WORKOS_WEBHOOK_SECRET,
       PORT: parsed.data.PORT,
+      ...(parsed.data.ADMIN_DEV_BYPASS_EMAIL
+        ? { ADMIN_DEV_BYPASS_EMAIL: parsed.data.ADMIN_DEV_BYPASS_EMAIL }
+        : {}),
     };
     return { ok: true, env };
   }

@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { title, description = 'Pear Tree Community School — A social justice Montessori school in Oakland, CA serving preschool through 5th grade.' } = Astro.props;
+const selfHosted = process.env.SITE_SELF_HOSTED === '1';
 ---
 
 <!doctype html>
@@ -60,6 +61,7 @@ const { title, description = 'Pear Tree Community School — A social justice Mo
         "name": "Michele Hamilton"
       }
     })} />
+    {selfHosted && <script src="/overlay.js" defer is:inline></script>}
   </head>
   <body class="flex flex-col min-h-screen">
     <Header />

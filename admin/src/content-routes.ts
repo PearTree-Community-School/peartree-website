@@ -42,6 +42,13 @@ function itemTitle(def: CollectionDef, item: ContentItem): string {
   return title.length > 0 ? truncate(title) : `(item ${item.id})`;
 }
 
+/** Only same-site absolute paths are allowed as post-save return targets. */
+function safeReturnPath(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  if (!value.startsWith('/') || value.startsWith('//') || value.includes('\\')) return null;
+  return value;
+}
+
 function fieldInput(field: FieldDef, value: unknown): string {
   const current = value === undefined || value === null ? '' : String(value);
   const required = field.required ? ' required' : '';
@@ -177,17 +184,20 @@ function renderItemForm(opts: {
   readonly def: CollectionDef;
   readonly item: ContentItem | null;
   readonly flash?: FlashMessage;
+  readonly returnTo?: string;
 }): string {
   const { session, def, item } = opts;
   const isNew = item === null;
   const action = isNew ? `/admin/content/${def.slug}` : `/admin/content/${def.slug}/${item.id}`;
+  const cancelHref = opts.returnTo ?? `/admin/content/${def.slug}`;
   const body = `
-    <p style="margin-top:0;"><a href="/admin/content/${def.slug}" style="color:#6b7280;font-size:0.85rem;text-decoration:none;">← ${escapeHtml(def.label)}</a></p>
+    <p style="margin-top:0;"><a href="${escapeHtml(cancelHref)}" style="color:#6b7280;font-size:0.85rem;text-decoration:none;">← ${opts.returnTo ? 'Back to page' : escapeHtml(def.label)}</a></p>
     <h2 style="margin-top:0.25rem;">${isNew ? `New ${escapeHtml(def.label)} item` : `Edit ${escapeHtml(itemTitle(def, item))}`}</h2>
     <form method="post" action="${action}">
+      ${opts.returnTo ? `<input type="hidden" name="returnTo" value="${escapeHtml(opts.returnTo)}" />` : ''}
       ${renderFields(def, item?.data ?? {})}
       <button type="submit">${isNew ? 'Create' : 'Save changes'}</button>
-      <a href="/admin/content/${def.slug}" class="button secondary" style="text-decoration:none;display:inline-block;background:#f3f4f6;color:#1f2937;border:1px solid #d1d5db;margin-left:0.5rem;">Cancel</a>
+      <a href="${escapeHtml(cancelHref)}" class="button secondary" style="text-decoration:none;display:inline-block;background:#f3f4f6;color:#1f2937;border:1px solid #d1d5db;margin-left:0.5rem;">Cancel</a>
     </form>
   `;
   return renderLayout({
@@ -204,13 +214,16 @@ function renderSingletonPage(opts: {
   readonly def: CollectionDef;
   readonly item: ContentItem | null;
   readonly flash?: FlashMessage;
+  readonly returnTo?: string;
 }): string {
   const { session, def, item } = opts;
   const write = canWrite(session);
   const fields = write
     ? `<form method="post" action="/admin/content/${def.slug}">
+        ${opts.returnTo ? `<input type="hidden" name="returnTo" value="${escapeHtml(opts.returnTo)}" />` : ''}
         ${renderFields(def, item?.data ?? {})}
         <button type="submit">Save</button>
+        ${opts.returnTo ? `<a href="${escapeHtml(opts.returnTo)}" class="button secondary" style="text-decoration:none;display:inline-block;background:#f3f4f6;color:#1f2937;border:1px solid #d1d5db;margin-left:0.5rem;">Back to page</a>` : ''}
       </form>`
     : renderFields(def, item?.data ?? {}).replace(/<(input|textarea|select)/g, '<$1 disabled');
   const body = `
@@ -240,8 +253,12 @@ function redirectWithFlash(
 export function createContentRouter(
   content: ContentRepo,
   audit: AuditRepo,
+  onChanged?: () => void,
 ): Hono<{ Variables: ContentRouteVariables }> {
   const router = new Hono<{ Variables: ContentRouteVariables }>();
+  const changed = (): void => {
+    onChanged?.();
+  };
 
   const auditContent = (
     session: ActiveSession,
@@ -271,7 +288,10 @@ export function createContentRouter(
     c.header('Set-Cookie', flashClearCookie, { append: true });
     if (def.kind === 'singleton') {
       const item = content.getSingleton(def.slug);
-      return c.html(renderSingletonPage({ session, def, item, ...(flash ? { flash } : {}) }));
+      const returnTo = safeReturnPath(c.req.query('return'));
+      return c.html(
+        renderSingletonPage({ session, def, item, ...(flash ? { flash } : {}), ...(returnTo ? { returnTo } : {}) }),
+      );
     }
     const items = content.listAll(def.slug);
     return c.html(renderListPage({ session, def, items, ...(flash ? { flash } : {}) }));
@@ -291,7 +311,9 @@ export function createContentRouter(
     const def = findCollection(c.req.param('slug'));
     if (!def) return c.notFound();
     if (!canWrite(session)) return c.html(renderForbidden(session, 'content:write'), 403);
-    const parsed = parseContentForm(def, await c.req.formData());
+    const form = await c.req.formData();
+    const returnTo = safeReturnPath(form.get('returnTo'));
+    const parsed = parseContentForm(def, form);
     if (!parsed.ok) {
       const back = def.kind === 'singleton' ? `/admin/content/${def.slug}` : `/admin/content/${def.slug}/new`;
       return redirectWithFlash(c, back, { kind: 'error', message: parsed.message });
@@ -299,10 +321,15 @@ export function createContentRouter(
     if (def.kind === 'singleton') {
       content.upsertSingleton(def.slug, parsed.data);
       auditContent(session, 'content.updated', `Updated ${def.label}.`);
-      return redirectWithFlash(c, `/admin/content/${def.slug}`, { kind: 'success', message: `${def.label} saved.` });
+      changed();
+      return redirectWithFlash(c, returnTo ?? `/admin/content/${def.slug}`, {
+        kind: 'success',
+        message: `${def.label} saved.`,
+      });
     }
     const item = content.create(def.slug, parsed.data, canPublish(session));
     auditContent(session, 'content.created', `Created ${def.label} item #${item.id}: ${itemTitle(def, item)}`);
+    changed();
     const note = item.published ? 'Created and published.' : 'Created as draft — an editor must publish it.';
     return redirectWithFlash(c, `/admin/content/${def.slug}`, { kind: 'success', message: note });
   });
@@ -316,8 +343,11 @@ export function createContentRouter(
     const item = content.findById(id);
     if (!item || item.collection !== def.slug) return c.notFound();
     const flash = readFlash(c.req.header('cookie'));
+    const returnTo = safeReturnPath(c.req.query('return'));
     c.header('Set-Cookie', flashClearCookie, { append: true });
-    return c.html(renderItemForm({ session, def, item, ...(flash ? { flash } : {}) }));
+    return c.html(
+      renderItemForm({ session, def, item, ...(flash ? { flash } : {}), ...(returnTo ? { returnTo } : {}) }),
+    );
   });
 
   router.post('/admin/content/:slug/:id', async (c) => {
@@ -328,13 +358,17 @@ export function createContentRouter(
     if (!canWrite(session)) return c.html(renderForbidden(session, 'content:write'), 403);
     const item = content.findById(id);
     if (!item || item.collection !== def.slug) return c.notFound();
-    const parsed = parseContentForm(def, await c.req.formData());
+    const form = await c.req.formData();
+    const returnTo = safeReturnPath(form.get('returnTo'));
+    const parsed = parseContentForm(def, form);
     if (!parsed.ok) {
-      return redirectWithFlash(c, `/admin/content/${def.slug}/${id}`, { kind: 'error', message: parsed.message });
+      const back = `/admin/content/${def.slug}/${id}${returnTo ? `?return=${encodeURIComponent(returnTo)}` : ''}`;
+      return redirectWithFlash(c, back, { kind: 'error', message: parsed.message });
     }
     const updated = content.update(id, parsed.data);
     auditContent(session, 'content.updated', `Updated ${def.label} item #${id}: ${itemTitle(def, updated)}`);
-    return redirectWithFlash(c, `/admin/content/${def.slug}`, { kind: 'success', message: 'Saved.' });
+    changed();
+    return redirectWithFlash(c, returnTo ?? `/admin/content/${def.slug}`, { kind: 'success', message: 'Saved.' });
   });
 
   router.post('/admin/content/:slug/:id/delete', async (c) => {
@@ -347,6 +381,7 @@ export function createContentRouter(
     if (!item || item.collection !== def.slug) return c.notFound();
     content.remove(id);
     auditContent(session, 'content.deleted', `Deleted ${def.label} item #${id}: ${itemTitle(def, item)}`);
+    changed();
     return redirectWithFlash(c, `/admin/content/${def.slug}`, { kind: 'success', message: 'Deleted.' });
   });
 
@@ -361,6 +396,7 @@ export function createContentRouter(
     const form = await c.req.formData();
     const published = String(form.get('published') ?? '') === '1';
     content.setPublished(id, published);
+    changed();
     auditContent(
       session,
       published ? 'content.published' : 'content.unpublished',
@@ -386,6 +422,7 @@ export function createContentRouter(
     const moved = content.move(id, direction);
     if (moved) {
       auditContent(session, 'content.reordered', `Moved ${def.label} item #${id} ${direction}.`);
+      changed();
     }
     return c.redirect(`/admin/content/${def.slug}`, 303);
   });

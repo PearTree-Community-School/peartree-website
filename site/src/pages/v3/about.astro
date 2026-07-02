@@ -26,7 +26,7 @@ const BASE = import.meta.env.BASE_URL;
           <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">By the Numbers</p>
           <div class="space-y-3">
             {statsList.map(s => (
-              <div class="flex justify-between items-baseline">
+              <div class="flex justify-between items-baseline" data-cms-item={s.id ? `stats-list:${s.id}` : undefined}>
                 <span class="text-sm text-slate-600">{s.label}</span>
                 <span class="font-semibold text-slate-900">{s.value}</span>
               </div>
@@ -40,7 +40,7 @@ const BASE = import.meta.env.BASE_URL;
   <!-- Mission -->
   <section class="bg-slate-50">
     <div class="max-w-7xl mx-auto px-6 py-20 md:py-24">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl" data-cms-singleton="mission-statement">
         <p class="text-xs uppercase tracking-wider text-emerald-700 font-medium mb-3">Our Mission</p>
         <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-6">A liberatory education, by design.</h2>
         <p class="text-lg text-slate-700 leading-relaxed mb-4">{fullMission}</p>
@@ -112,7 +112,7 @@ const BASE = import.meta.env.BASE_URL;
         <p class="text-slate-700 leading-relaxed mb-6">
           She founded Pear Tree as both a model school and a vital training site for educational policy development. She established <a href="https://www.seedstorootsoakland.com/" target="_blank" rel="noopener" class="text-emerald-700 font-medium hover:text-emerald-800">Seeds to Roots Oakland</a> to scale the Pear Tree model nationally, and is the author of <em>Raising Black and Brown Children</em>.
         </p>
-        <blockquote class="bg-slate-50 border-l-4 border-emerald-600 rounded-r-lg p-6 mb-6">
+        <blockquote class="bg-slate-50 border-l-4 border-emerald-600 rounded-r-lg p-6 mb-6" data-cms-singleton="mission-statement">
           <p class="text-slate-700 italic leading-relaxed">"{baldwinQuote.quote}"</p>
           <footer class="text-xs text-slate-500 mt-3 not-italic">— {baldwinQuote.source}</footer>
         </blockquote>

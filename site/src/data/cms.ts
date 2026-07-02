@@ -46,8 +46,11 @@ async function fetchJson<T>(path: string): Promise<T | null> {
   }
 }
 
-async function fetchList<T>(slug: string, fallback: readonly T[]): Promise<readonly T[]> {
-  const body = await fetchJson<{ items: T[] }>(`/api/content/${slug}`);
+/** CMS-served items carry their DB id so the edit overlay can deep-link to the right form. */
+export type WithId<T> = T & { id?: number };
+
+async function fetchList<T>(slug: string, fallback: readonly T[]): Promise<readonly WithId<T>[]> {
+  const body = await fetchJson<{ items: WithId<T>[] }>(`/api/content/${slug}`);
   return body && Array.isArray(body.items) && body.items.length > 0 ? body.items : fallback;
 }
 
@@ -56,19 +59,19 @@ async function fetchSingleton<T extends Record<string, unknown>>(slug: string): 
   return body?.data ?? null;
 }
 
-export async function getTestimonials(): Promise<readonly Testimonial[]> {
+export async function getTestimonials(): Promise<readonly WithId<Testimonial>[]> {
   return fetchList<Testimonial>('testimonials', testimonialsFallback);
 }
 
-export async function getParentFAQ(): Promise<readonly FAQ[]> {
+export async function getParentFAQ(): Promise<readonly WithId<FAQ>[]> {
   return fetchList<FAQ>('parent-faq', faqFallback);
 }
 
-export async function getClassrooms(): Promise<readonly Classroom[]> {
+export async function getClassrooms(): Promise<readonly WithId<Classroom>[]> {
   return fetchList<Classroom>('classrooms', classroomsFallback);
 }
 
-export async function getStatsList(): Promise<readonly { label: string; value: string }[]> {
+export async function getStatsList(): Promise<readonly WithId<{ label: string; value: string }>[]> {
   return fetchList<{ label: string; value: string }>('stats-list', statsListFallback);
 }
 

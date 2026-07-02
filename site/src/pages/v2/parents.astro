@@ -78,7 +78,7 @@ const alertTypeStyles: Record<string, string> = {
       <h2 class="text-4xl md:text-5xl font-bold text-center mb-16" style="font-family: 'Playfair Display', serif;">Frequently asked questions.</h2>
       <div class="space-y-px bg-neutral-200">
         {parentFAQ.map(q => (
-          <details class="group bg-white">
+          <details class="group bg-white" data-cms-item={q.id ? `parent-faq:${q.id}` : undefined}>
             <summary class="cursor-pointer list-none p-6 flex items-center justify-between gap-4 hover:bg-neutral-50">
               <h3 class="text-lg font-bold" style="font-family: 'Playfair Display', serif;">{q.question}</h3>
               <span class="text-amber-600 text-2xl group-open:rotate-45 transition-transform">+</span>
