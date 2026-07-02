@@ -3,7 +3,7 @@ import type { AuditRepo, AuditEntry } from './audit.js';
 import { roles, type Role } from './policy.js';
 import type { ActiveSession } from './session.js';
 import type { UsersRepo, UserRecord } from './users.js';
-import { escapeHtml, renderLayout } from './ui.js';
+import { escapeHtml, flashClearCookie, flashSetCookie, readFlash, renderLayout } from './ui.js';
 
 export type UsersRouteVariables = {
   readonly session: ActiveSession;
@@ -110,36 +110,6 @@ export function renderForbidden(session: ActiveSession, permission: string): str
     body,
   });
 }
-
-type FlashCookie = { readonly kind: 'success' | 'error'; readonly message: string };
-
-function readFlash(cookieHeader: string | undefined): FlashCookie | undefined {
-  if (!cookieHeader) return undefined;
-  const match = cookieHeader.match(/(?:^|;\s*)pt_flash=([^;]+)/);
-  if (!match || !match[1]) return undefined;
-  try {
-    const parsed = JSON.parse(decodeURIComponent(match[1])) as unknown;
-    if (
-      parsed &&
-      typeof parsed === 'object' &&
-      'kind' in parsed &&
-      'message' in parsed &&
-      (parsed.kind === 'success' || parsed.kind === 'error') &&
-      typeof parsed.message === 'string'
-    ) {
-      return { kind: parsed.kind, message: parsed.message };
-    }
-  } catch {
-    return undefined;
-  }
-  return undefined;
-}
-
-function flashSetCookie(flash: FlashCookie): string {
-  return `pt_flash=${encodeURIComponent(JSON.stringify(flash))}; Path=/; Max-Age=10; SameSite=Lax`;
-}
-
-const flashClearCookie = 'pt_flash=; Path=/; Max-Age=0; SameSite=Lax';
 
 export function createUsersRouter(users: UsersRepo, audit: AuditRepo): Hono<{ Variables: UsersRouteVariables }> {
   const router = new Hono<{ Variables: UsersRouteVariables }>();

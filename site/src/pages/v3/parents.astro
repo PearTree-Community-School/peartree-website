@@ -1,7 +1,8 @@
 ---
 import LayoutC from '../../layouts/LayoutC.astro';
 import { parentSquareLinks } from '../../data/parentSquareLinks';
-import { parentFAQ } from '../../data/parentFAQ';
+import { getParentFAQ } from '../../data/cms';
+const parentFAQ = await getParentFAQ();
 import { alerts, currentMonth } from '../../data/monthlyAlerts';
 import { phone, phoneTel, email } from '../../data/campusInfo';
 

@@ -22,12 +22,8 @@ export async function GET(req: NextRequest) {
       clientId: env.WORKOS_CLIENT_ID,
       session: { sealSession: true, cookiePassword: env.WORKOS_COOKIE_PASSWORD },
     });
-  } catch (err) {
-    console.error('[auth/callback] authenticateWithCode failed:', err);
-    return new NextResponse(
-      `Authentication failed: ${err instanceof Error ? err.message : String(err)}`,
-      { status: 401 },
-    );
+  } catch {
+    return new NextResponse('Authentication failed', { status: 401 });
   }
   const payload = await getPayload({ config });
   await provisionFromCallback(payload, {

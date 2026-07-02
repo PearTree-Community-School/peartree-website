@@ -21,10 +21,6 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    // CollectionCards (the default dashboard widget) isn't registered in our
-    // hand-maintained importMap, so its lookup fails and the dashboard renders
-    // blank. An empty widgets list bypasses CollectionCards entirely.
-    dashboard: { widgets: [], defaultLayout: [] },
   },
   collections: [
     {

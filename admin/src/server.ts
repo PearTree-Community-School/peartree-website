@@ -12,7 +12,9 @@ import {
   type ActiveSession,
   type SessionUser,
 } from './session.js';
-import type { UsersRepo } from './users.js';
+import { openDatabase, type UsersRepo } from './users.js';
+import { createContentRepo, type ContentRepo } from './content.js';
+import { createContentApi, createContentRouter } from './content-routes.js';
 import { escapeHtml, renderLayout } from './ui.js';
 import { createUsersRouter, renderForbidden } from './users-routes.js';
 import { recordWorkOSEvent, type WorkOSEvent, type WorkOSWebhookVerifier } from './workos-webhooks.js';
@@ -51,6 +53,8 @@ export type AdminAppDependencies = {
   readonly env: AdminEnv;
   readonly users: UsersRepo;
   readonly audit: AuditRepo;
+  /** Defaults to an empty in-memory repo (handy for tests). */
+  readonly content?: ContentRepo;
   readonly workos?: WorkOSAdminClient;
 };
 
@@ -122,8 +126,11 @@ function renderDashboard(session: ActiveSession): string {
   const displayName = fullName.length > 0 ? fullName : session.user.email;
   const body = `
     <h2 style="margin-top:0">Welcome, ${escapeHtml(displayName)}</h2>
-    <p style="color:#6b7280;">You're signed in. Content editing and audit log screens land in future slices.</p>
-    <p><a href="/admin/users" class="button" style="text-decoration:none;display:inline-block;">Manage users →</a></p>
+    <p style="color:#6b7280;">You're signed in. Edit site content, manage users, or review the audit log.</p>
+    <p>
+      <a href="/admin/content" class="button" style="text-decoration:none;display:inline-block;">Edit content →</a>
+      <a href="/admin/users" class="button" style="text-decoration:none;display:inline-block;margin-left:0.5rem;background:#f3f4f6;color:#1f2937;border:1px solid #d1d5db;">Manage users →</a>
+    </p>
   `;
   return renderLayout({ title: 'Dashboard', currentPath: '/admin', session, body });
 }
@@ -269,6 +276,15 @@ export function createAdminApp(dependencies: AdminAppDependencies): Hono<{ Varia
   app.use('/admin/users/*', requireSession, requirePermission('users:manage'));
   app.use('/admin/audit', requireSession, requirePermission('audit:view'));
   app.route('/', usersRouter);
+
+  const content = dependencies.content ?? createContentRepo(openDatabase(':memory:'));
+  const contentRouter = createContentRouter(content, audit);
+  app.use('/admin/content', requireSession, requirePermission('content:read'));
+  app.use('/admin/content/*', requireSession, requirePermission('content:read'));
+  app.route('/', contentRouter);
+
+  // Public content API (published content only) for the Astro site build.
+  app.route('/', createContentApi(content));
 
   return app;
 }

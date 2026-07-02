@@ -3,7 +3,9 @@ import { mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { createAuditRepo } from './audit.js';
 import { requireAdminEnv } from './config.js';
+import { createContentRepo, seedContent } from './content.js';
 import { createAdminApp } from './server.js';
+import { loadSiteSeedData } from './site-data.js';
 import { createUsersRepo, openDatabase } from './users.js';
 
 const env = requireAdminEnv(process.env);
@@ -13,8 +15,15 @@ mkdirSync(dirname(dbPath), { recursive: true });
 const db = openDatabase(dbPath);
 const users = createUsersRepo(db);
 const audit = createAuditRepo(db);
+const content = createContentRepo(db);
 
-const app = createAdminApp({ env, users, audit });
+const siteDataDir = resolve(process.env['SITE_DATA_DIR'] ?? '../site/src/data');
+const seeded = seedContent(content, loadSiteSeedData(siteDataDir));
+if (seeded > 0) {
+  process.stdout.write(`Seeded ${seeded} content item(s) from ${siteDataDir}\n`);
+}
+
+const app = createAdminApp({ env, users, audit, content });
 
 serve(
   {

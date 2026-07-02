@@ -9,6 +9,12 @@ export type AuditAction =
   | 'session.signed_in'
   | 'session.signed_out'
   | 'session.refused_unprovisioned'
+  | 'content.created'
+  | 'content.updated'
+  | 'content.deleted'
+  | 'content.published'
+  | 'content.unpublished'
+  | 'content.reordered'
   // WorkOS webhook-sourced events. Subtype encoded into the action string.
   | `workos.${string}`;
 

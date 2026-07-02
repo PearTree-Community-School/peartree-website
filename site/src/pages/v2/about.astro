@@ -1,7 +1,8 @@
 ---
 import LayoutB from '../../layouts/LayoutB.astro';
-import { tagline, fullMission, missionContext, baldwinQuote } from '../../data/missionStatement';
-import { statsList } from '../../data/schoolStats';
+import { getMission, getStatsList } from '../../data/cms';
+const { tagline, fullMission, missionContext, baldwinQuote } = await getMission();
+const statsList = await getStatsList();
 import { mirrorPillars, mirrorIntro } from '../../data/mirrorFramework';
 import { philosophyPillars } from '../../data/educationalPhilosophy';
 import { recognitions } from '../../data/recognition';

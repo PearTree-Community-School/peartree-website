@@ -1,6 +1,8 @@
 ---
 import LayoutB from '../../layouts/LayoutB.astro';
-import { classrooms, preschoolCurriculum, elementaryOutcomes } from '../../data/classrooms';
+import { preschoolCurriculum, elementaryOutcomes } from '../../data/classrooms';
+import { getClassrooms } from '../../data/cms';
+const classrooms = await getClassrooms();
 import { preschool, elementary } from '../../data/campusInfo';
 import { summerCamp } from '../../data/summerCamp';
 

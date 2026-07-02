@@ -31,7 +31,20 @@ const baseStyles = `
   th { font-size: 0.75rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
   form.inline { display: inline; }
   form.inline + form.inline { margin-left: 0.25rem; }
-  select, input[type="email"] { padding: 0.4rem 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; }
+  select, input[type="email"], input[type="text"], input[type="number"], textarea { padding: 0.4rem 0.5rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; font-family: inherit; }
+  textarea { width: 100%; min-height: 6rem; resize: vertical; box-sizing: border-box; }
+  input[type="text"], input[type="number"] { width: 100%; box-sizing: border-box; }
+  .field { margin-bottom: 1rem; max-width: 640px; }
+  .field label { display: block; font-size: 0.8rem; color: #374151; font-weight: 600; margin-bottom: 0.3rem; }
+  .field .help { font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; text-decoration: none; color: inherit; display: block; }
+  .card:hover { border-color: #a5b4fc; }
+  .card h3 { margin: 0 0 0.25rem; font-size: 1rem; }
+  .card p { margin: 0 0 0.5rem; color: #6b7280; font-size: 0.85rem; }
+  .card .meta { font-size: 0.75rem; color: #6b7280; }
+  .actions { display: flex; gap: 0.25rem; align-items: center; }
+  .order-btn { background: #f3f4f6; color: #1f2937; border: 1px solid #d1d5db; padding: 0.2rem 0.5rem; }
   .invite { background: #f9fafb; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; gap: 0.5rem; align-items: end; flex-wrap: wrap; }
   .invite label { display: flex; flex-direction: column; font-size: 0.75rem; color: #6b7280; gap: 0.25rem; }
   .flash { padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; }
@@ -40,9 +53,40 @@ const baseStyles = `
 `;
 
 function navItem(href: string, label: string, current: string): string {
-  const cls = current === href ? ' class="active"' : '';
+  const active = current === href || (href !== '/admin' && current.startsWith(`${href}/`));
+  const cls = active ? ' class="active"' : '';
   return `<a href="${href}"${cls}>${label}</a>`;
 }
+
+export type FlashMessage = { readonly kind: 'success' | 'error'; readonly message: string };
+
+export function readFlash(cookieHeader: string | undefined): FlashMessage | undefined {
+  if (!cookieHeader) return undefined;
+  const match = cookieHeader.match(/(?:^|;\s*)pt_flash=([^;]+)/);
+  if (!match || !match[1]) return undefined;
+  try {
+    const parsed = JSON.parse(decodeURIComponent(match[1])) as unknown;
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      'kind' in parsed &&
+      'message' in parsed &&
+      (parsed.kind === 'success' || parsed.kind === 'error') &&
+      typeof parsed.message === 'string'
+    ) {
+      return { kind: parsed.kind, message: parsed.message };
+    }
+  } catch {
+    return undefined;
+  }
+  return undefined;
+}
+
+export function flashSetCookie(flash: FlashMessage): string {
+  return `pt_flash=${encodeURIComponent(JSON.stringify(flash))}; Path=/; Max-Age=10; SameSite=Lax`;
+}
+
+export const flashClearCookie = 'pt_flash=; Path=/; Max-Age=0; SameSite=Lax';
 
 export function renderLayout(opts: {
   readonly title: string;
@@ -66,6 +110,7 @@ export function renderLayout(opts: {
   <h1>PearTree Admin</h1>
   <nav>
     ${navItem('/admin', 'Dashboard', opts.currentPath)}
+    ${navItem('/admin/content', 'Content', opts.currentPath)}
     ${navItem('/admin/users', 'Users', opts.currentPath)}
     ${navItem('/admin/audit', 'Audit log', opts.currentPath)}
   </nav>
