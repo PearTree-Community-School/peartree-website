@@ -3,7 +3,6 @@ import LayoutB from '../../layouts/LayoutB.astro';
 import { annualFundTiers } from '../../data/givingTiers';
 import { monthlyTiers } from '../../data/monthlyGivingTiers';
 
-const BASE = import.meta.env.BASE_URL;
 const tierColors = ['bg-emerald-900', 'bg-orange-600', 'bg-amber-500', 'bg-blue-700', 'bg-rose-700', 'bg-neutral-900'];
 ---
 
@@ -11,7 +10,7 @@ const tierColors = ['bg-emerald-900', 'bg-orange-600', 'bg-amber-500', 'bg-blue-
 
   <!-- Hero -->
   <section class="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
-    <img loading="eager" fetchpriority="high" decoding="async" src={`${BASE}/images/photos/classroom-4.jpg`} alt="Pear Tree classroom" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+    <img loading="eager" fetchpriority="high" decoding="async" src={`/images/photos/classroom-4.jpg`} alt="Pear Tree classroom" class="absolute inset-0 w-full h-full object-cover opacity-50" />
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
     <div class="relative max-w-7xl mx-auto px-6 py-24 text-white">
       <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Support Pear Tree</p>
@@ -119,7 +118,7 @@ const tierColors = ['bg-emerald-900', 'bg-orange-600', 'bg-amber-500', 'bg-blue-
       <h2 class="text-5xl md:text-7xl font-bold mb-6" style="font-family: 'Playfair Display', serif;">5th Annual Walk-a-Thon</h2>
       <p class="text-xl mb-2">April 26, 2026 · Oakland Tech High School Track &amp; Field</p>
       <p class="text-neutral-800 mb-12">Join families, students, and supporters for our biggest community fundraiser of the year.</p>
-      <a href={`${BASE}/v2/contact`} class="inline-block px-10 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors">Get Involved</a>
+      <a href={`/v2/contact`} class="inline-block px-10 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-white hover:text-neutral-900 transition-colors">Get Involved</a>
     </div>
   </section>
 

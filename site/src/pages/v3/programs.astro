@@ -6,7 +6,6 @@ const classrooms = await getClassrooms();
 import { preschool, elementary } from '../../data/campusInfo';
 import { summerCamp } from '../../data/summerCamp';
 
-const BASE = import.meta.env.BASE_URL;
 ---
 
 <LayoutC title="Programs" description="Pear Tree's Montessori programs — Preschool, Elementary, Summer Camp.">
@@ -57,7 +56,7 @@ const BASE = import.meta.env.BASE_URL;
         </div>
         <div class="md:col-span-5">
           <div class="rounded-xl overflow-hidden aspect-[4/3]">
-            <img loading="lazy" decoding="async" src={`${BASE}/images/photos/classroom-2.jpg`} alt="Preschool classroom" class="w-full h-full object-cover" />
+            <img loading="lazy" decoding="async" src={`/images/photos/classroom-2.jpg`} alt="Preschool classroom" class="w-full h-full object-cover" />
           </div>
         </div>
       </div>
@@ -86,7 +85,7 @@ const BASE = import.meta.env.BASE_URL;
       <div class="grid md:grid-cols-12 gap-12 items-start">
         <div class="md:col-span-5 order-2 md:order-1">
           <div class="rounded-xl overflow-hidden aspect-[4/3]">
-            <img loading="lazy" decoding="async" src={`${BASE}/images/photos/classroom-3.jpg`} alt="Elementary classroom" class="w-full h-full object-cover" />
+            <img loading="lazy" decoding="async" src={`/images/photos/classroom-3.jpg`} alt="Elementary classroom" class="w-full h-full object-cover" />
           </div>
         </div>
         <div class="md:col-span-7 order-1 md:order-2">
@@ -142,7 +141,7 @@ const BASE = import.meta.env.BASE_URL;
           ))}
         </dl>
         <p class="text-xs text-slate-500 mt-6">{summerCamp.note}</p>
-        <a href={`${BASE}/v3/contact`} class="mt-6 inline-block px-5 py-2.5 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700">Inquire About Summer Camp</a>
+        <a href={`/v3/contact`} class="mt-6 inline-block px-5 py-2.5 bg-emerald-600 text-white rounded-md text-sm font-medium hover:bg-emerald-700">Inquire About Summer Camp</a>
       </div>
     </div>
   </section>

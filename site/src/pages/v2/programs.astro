@@ -6,14 +6,13 @@ const classrooms = await getClassrooms();
 import { preschool, elementary } from '../../data/campusInfo';
 import { summerCamp } from '../../data/summerCamp';
 
-const BASE = import.meta.env.BASE_URL;
 ---
 
 <LayoutB title="Programs" description="Pear Tree's Montessori programs — Preschool, Elementary, Summer Camp.">
 
   <!-- Hero -->
   <section class="relative min-h-[60vh] flex items-end overflow-hidden bg-neutral-900">
-    <img loading="eager" fetchpriority="high" decoding="async" src={`${BASE}/images/photos/dolphin-classroom-2.jpg`} alt="Pear Tree students" class="absolute inset-0 w-full h-full object-cover opacity-50" />
+    <img loading="eager" fetchpriority="high" decoding="async" src={`/images/photos/dolphin-classroom-2.jpg`} alt="Pear Tree students" class="absolute inset-0 w-full h-full object-cover opacity-50" />
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/60 to-transparent"></div>
     <div class="relative max-w-7xl mx-auto px-6 py-24 text-white">
       <p class="text-xs uppercase tracking-[0.3em] text-amber-400 mb-6">Programs</p>
@@ -26,7 +25,7 @@ const BASE = import.meta.env.BASE_URL;
   <section id="preschool" class="bg-white scroll-mt-20">
     <div class="grid md:grid-cols-2 min-h-[80vh]">
       <div class="relative aspect-[4/3] md:aspect-auto">
-        <img loading="eager" fetchpriority="high" decoding="async" src={`${BASE}/images/photos/classroom-2.jpg`} alt="Preschool classroom" class="absolute inset-0 w-full h-full object-cover" />
+        <img loading="eager" fetchpriority="high" decoding="async" src={`/images/photos/classroom-2.jpg`} alt="Preschool classroom" class="absolute inset-0 w-full h-full object-cover" />
       </div>
       <div class="flex items-center px-8 md:px-16 py-16">
         <div>
@@ -96,7 +95,7 @@ const BASE = import.meta.env.BASE_URL;
         </div>
       </div>
       <div class="relative aspect-[4/3] md:aspect-auto order-1 md:order-2">
-        <img loading="eager" fetchpriority="high" decoding="async" src={`${BASE}/images/photos/classroom-3.jpg`} alt="Elementary classroom" class="absolute inset-0 w-full h-full object-cover" />
+        <img loading="eager" fetchpriority="high" decoding="async" src={`/images/photos/classroom-3.jpg`} alt="Elementary classroom" class="absolute inset-0 w-full h-full object-cover" />
       </div>
     </div>
   </section>
@@ -130,7 +129,7 @@ const BASE = import.meta.env.BASE_URL;
           ))}
         </div>
         <p class="text-xs text-neutral-400 mt-6">{summerCamp.note}</p>
-        <a href={`${BASE}/v2/contact`} class="mt-8 inline-block px-8 py-4 bg-amber-500 text-neutral-900 rounded-full text-sm font-medium hover:bg-white transition-colors">Inquire About Summer Camp</a>
+        <a href={`/v2/contact`} class="mt-8 inline-block px-8 py-4 bg-amber-500 text-neutral-900 rounded-full text-sm font-medium hover:bg-white transition-colors">Inquire About Summer Camp</a>
       </div>
     </div>
   </section>
