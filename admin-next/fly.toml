@@ -1,0 +1,45 @@
+# PearTree admin — Fly.io app config.
+#
+# The SQLite database lives on the volume mounted at /data. Volumes survive
+# deploys and restarts; the container filesystem does not.
+
+app = "peartree-admin"
+primary_region = "sjc"
+
+[build]
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+  # Points Payload at the volume, not the ephemeral container disk.
+  DATABASE_URI = "file:/data/admin.sqlite"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  # Keep one machine warm so form submissions are never dropped on a cold start.
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 40
+    hard_limit = 80
+
+[[http_service.checks]]
+  grace_period = "20s"
+  interval = "30s"
+  method = "GET"
+  timeout = "5s"
+  path = "/health"
+
+[mounts]
+  source = "peartree_data"
+  destination = "/data"
+  # SQLite must not be replicated across machines — one writer only.
+  initial_size = "1gb"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"
