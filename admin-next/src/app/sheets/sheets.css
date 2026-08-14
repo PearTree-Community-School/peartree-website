@@ -1,0 +1,187 @@
+/* PearTree Sheets — a spreadsheet surface for submissions.
+   Light-first, with a dark variant that follows the OS. */
+
+.sheet-root {
+  --bg: #ffffff;
+  --surface: #f7f8f7;
+  --line: #e3e6e3;
+  --line-strong: #cfd4cf;
+  --ink: #16211a;
+  --ink-soft: #5d6b62;
+  --accent: #2f6b46;
+  --accent-soft: #e8f2ec;
+  --danger: #b4322b;
+  --radius: 10px;
+  --row-h: 38px;
+
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.45 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-color-scheme: dark) {
+  .sheet-root {
+    --bg: #12150f;
+    --surface: #191d16;
+    --line: #262b24;
+    --line-strong: #394136;
+    --ink: #e8eae4;
+    --ink-soft: #9aa694;
+    --accent: #7cc79b;
+    --accent-soft: #1d2a22;
+    --danger: #e2726a;
+  }
+}
+
+/* ---- top bar ---- */
+.sheet-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.sheet-tabs { display: flex; gap: 2px; }
+.sheet-tab {
+  padding: 7px 14px; border-radius: 8px; text-decoration: none;
+  color: var(--ink-soft); font-weight: 550; letter-spacing: -0.01em;
+  transition: background 120ms ease, color 120ms ease;
+}
+.sheet-tab:hover { background: var(--bg); color: var(--ink); }
+.sheet-tab.is-active { background: var(--accent-soft); color: var(--accent); }
+
+.sheet-actions { display: flex; align-items: center; gap: 10px; }
+
+.sheet-search { position: relative; display: flex; align-items: center; }
+.sheet-search svg { position: absolute; left: 9px; width: 15px; height: 15px; fill: var(--ink-soft); pointer-events: none; }
+.sheet-search input {
+  width: 230px; padding: 7px 10px 7px 30px;
+  border: 1px solid var(--line-strong); border-radius: 8px;
+  background: var(--bg); color: var(--ink); font: inherit;
+}
+.sheet-search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+
+.sheet-save { font-size: 12.5px; color: var(--ink-soft); min-width: 120px; text-align: right; }
+.sheet-save.is-error { color: var(--danger); }
+.sheet-save.is-saved { color: var(--accent); }
+
+.btn {
+  padding: 7px 13px; border-radius: 8px; border: 1px solid transparent;
+  font: inherit; font-weight: 600; cursor: pointer;
+  transition: filter 120ms ease;
+}
+.btn:hover { filter: brightness(1.06); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-danger { background: transparent; color: var(--danger); border-color: var(--danger); }
+
+/* ---- grid ---- */
+.sheet-scroll { flex: 1; overflow: auto; }
+.sheet-grid { display: grid; min-width: max-content; }
+
+.sheet-head, .sheet-row { display: contents; }
+
+.sheet-th {
+  position: sticky; top: 0; z-index: 2;
+  padding: 0 10px; height: 36px; display: flex; align-items: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-strong);
+  border-right: 1px solid var(--line);
+  font-size: 12px; font-weight: 650; letter-spacing: 0.02em;
+  color: var(--ink-soft); text-transform: uppercase;
+}
+
+.sheet-td {
+  height: var(--row-h);
+  padding: 0 10px;
+  display: flex; align-items: center;
+  border-bottom: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  overflow: hidden;
+  cursor: cell;
+}
+.sheet-row:hover .sheet-td { background: color-mix(in srgb, var(--surface) 60%, transparent); }
+.sheet-row.is-selected .sheet-td { background: var(--accent-soft); }
+
+.sheet-gutter { justify-content: center; cursor: default; padding: 0; }
+.sheet-gutter input { cursor: pointer; accent-color: var(--accent); }
+
+/* The active cell reads as a spreadsheet selection, not a focus ring. */
+.sheet-td.is-active {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 3px;
+  background: var(--bg);
+  z-index: 1;
+}
+
+.cell-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sheet-td.is-long .cell-text { color: var(--ink-soft); }
+
+.cell-input {
+  width: 100%; height: calc(var(--row-h) - 6px);
+  border: none; outline: none; background: transparent;
+  font: inherit; color: var(--ink);
+}
+.cell-textarea {
+  position: absolute; z-index: 5;
+  min-height: 76px; width: 260px; padding: 6px 8px;
+  background: var(--bg); color: var(--ink);
+  border: 2px solid var(--accent); border-radius: 6px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.16);
+  resize: vertical;
+}
+
+.pill {
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.tone-new     { background: #e6effb; color: #1f4e87; }
+.tone-active  { background: #fdf1dc; color: #8a5a12; }
+.tone-waiting { background: #efe9fb; color: #543b93; }
+.tone-done    { background: #e3f3e9; color: #24663f; }
+.tone-dead    { background: #ececec; color: #5c5c5c; }
+
+@media (prefers-color-scheme: dark) {
+  .tone-new     { background: #1a2b40; color: #9cc4f0; }
+  .tone-active  { background: #382c14; color: #e2b268; }
+  .tone-waiting { background: #2b2440; color: #b9a4ea; }
+  .tone-done    { background: #16301f; color: #86d3a3; }
+  .tone-dead    { background: #2a2a2a; color: #a0a0a0; }
+}
+
+.sheet-empty {
+  grid-column: 1 / -1;
+  padding: 56px 20px; text-align: center; color: var(--ink-soft);
+}
+
+/* ---- footer ---- */
+.sheet-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  font-size: 12.5px; color: var(--ink-soft);
+}
+.sheet-hint kbd {
+  padding: 1px 5px; margin: 0 1px;
+  border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px;
+  background: var(--bg); font: inherit; font-size: 11px;
+}
+
+.sheet-toast {
+  position: fixed; left: 50%; bottom: 56px; transform: translateX(-50%);
+  padding: 10px 16px; border-radius: 8px;
+  background: var(--ink); color: var(--bg);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.22);
+  animation: toast-in 160ms ease-out;
+}
+@keyframes toast-in { from { opacity: 0; transform: translate(-50%, 6px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-toast { animation: none; }
+  .btn, .sheet-tab { transition: none; }
+}
