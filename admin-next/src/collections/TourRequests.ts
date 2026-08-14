@@ -19,9 +19,11 @@ export const TourRequests: CollectionConfig = {
     description: 'Tour and enrollment inquiries. Track each family from first contact to enrolled.',
   },
   access: {
-    // Public: the website form POSTs here. Everything else requires a signed-in
-    // staff user — these records hold minors' PII.
-    create: () => true,
+    // Public writes go through /api/submit/tour, which applies origin checks, a
+    // honeypot, and rate limiting before calling create with overrideAccess.
+    // Direct create requires a signed-in staff user — these records hold
+    // minors' PII.
+    create: ({ req }) => hasRole(req.user, ['super_admin', 'admin', 'editor']),
     read: ({ req }) => hasRole(req.user, ['super_admin', 'admin', 'editor', 'viewer']),
     update: ({ req }) => hasRole(req.user, ['super_admin', 'admin', 'editor']),
     delete: ({ req }) => hasRole(req.user, ['super_admin', 'admin']),

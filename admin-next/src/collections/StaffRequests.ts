@@ -17,7 +17,9 @@ export const StaffRequests: CollectionConfig = {
     description: 'Facilities, supplies, tech, and other staff requests.',
   },
   access: {
-    create: () => true, // Staff portal form POSTs here
+    // Public writes go through /api/submit/staff, which applies origin checks,
+    // a honeypot, and rate limiting before calling create with overrideAccess.
+    create: ({ req }) => hasRole(req.user, ['super_admin', 'admin', 'editor']),
     read: ({ req }) => hasRole(req.user, ['super_admin', 'admin', 'editor', 'viewer']),
     update: ({ req }) => hasRole(req.user, ['super_admin', 'admin', 'editor']),
     delete: ({ req }) => hasRole(req.user, ['super_admin', 'admin']),
