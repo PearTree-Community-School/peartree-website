@@ -38,6 +38,17 @@ export async function GET(req: Request) {
   const id = url.searchParams.get('id');
   const payload = await getPayload({ config });
 
+  // stats-list is not a collection — it is an array field on school-stats, so
+  // one marker on the page refers to a single row inside that global.
+  if (collection === 'stats-list' && id) {
+    const g = (await payload.findGlobal({ slug: 'school-stats', overrideAccess: true })) as {
+      statsList?: Array<Record<string, unknown>>;
+    };
+    const row = (g.statsList ?? []).find((r) => String(r['id']) === String(id));
+    if (!row) return NextResponse.json({ error: 'Stat not found' }, { status: 404 });
+    return NextResponse.json({ kind: 'stat', collection, id, fields: toFields(row) });
+  }
+
   if (GLOBALS.has(collection)) {
     const doc = await payload.findGlobal({ slug: collection as 'mission-statement', overrideAccess: true });
     return NextResponse.json({ kind: 'global', collection, fields: toFields(doc as Record<string, unknown>) });
@@ -74,6 +85,22 @@ export async function PATCH(req: Request) {
   }
 
   const payload = await getPayload({ config });
+
+  if (collection === 'stats-list' && body.id !== undefined) {
+    const g = (await payload.findGlobal({ slug: 'school-stats', overrideAccess: true })) as {
+      statsList?: Array<Record<string, unknown>>;
+    };
+    const rows = g.statsList ?? [];
+    const idx = rows.findIndex((r) => String(r['id']) === String(body.id));
+    if (idx === -1) return NextResponse.json({ error: 'Stat not found' }, { status: 404 });
+    rows[idx] = { ...rows[idx], ...changes };
+    await payload.updateGlobal({
+      slug: 'school-stats',
+      data: { statsList: rows } as never,
+      overrideAccess: true,
+    });
+    return NextResponse.json({ ok: true });
+  }
 
   if (GLOBALS.has(collection)) {
     await payload.updateGlobal({

@@ -50,13 +50,15 @@ async function fetchJson<T>(path: string): Promise<T | null> {
 export type WithId<T> = T & { id?: number };
 
 async function fetchList<T>(slug: string, fallback: readonly T[]): Promise<readonly WithId<T>[]> {
-  const body = await fetchJson<{ items: WithId<T>[] }>(`/api/content/${slug}`);
-  return body && Array.isArray(body.items) && body.items.length > 0 ? body.items : fallback;
+  // Payload serves collections at /api/<slug> and wraps them in `docs`. The
+  // default page size is 10, which silently truncated the FAQ; ask for more.
+  const body = await fetchJson<{ docs: WithId<T>[] }>(`/api/${slug}?limit=200&depth=0`);
+  return body && Array.isArray(body.docs) && body.docs.length > 0 ? body.docs : fallback;
 }
 
 async function fetchSingleton<T extends Record<string, unknown>>(slug: string): Promise<T | null> {
-  const body = await fetchJson<{ data: T | null }>(`/api/content/${slug}`);
-  return body?.data ?? null;
+  // Globals live under /api/globals/<slug> and return the object directly.
+  return await fetchJson<T>(`/api/globals/${slug}?depth=0`);
 }
 
 export async function getTestimonials(): Promise<readonly WithId<Testimonial>[]> {
@@ -72,7 +74,11 @@ export async function getClassrooms(): Promise<readonly WithId<Classroom>[]> {
 }
 
 export async function getStatsList(): Promise<readonly WithId<{ label: string; value: string }>[]> {
-  return fetchList<{ label: string; value: string }>('stats-list', statsListFallback);
+  // Not a collection — an array field on the school-stats global.
+  const data = await fetchSingleton<Record<string, unknown>>('school-stats');
+  const list = data?.['statsList'];
+  if (!Array.isArray(list) || list.length === 0) return statsListFallback;
+  return list as readonly WithId<{ label: string; value: string }>[];
 }
 
 export async function getSchoolStats(): Promise<typeof schoolStatsFallback> {
