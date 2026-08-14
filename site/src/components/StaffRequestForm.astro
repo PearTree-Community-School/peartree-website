@@ -1,6 +1,7 @@
 ---
 import { requestCategories, priorityLevels, locations } from '../data/staffRequestCategories';
 import { email } from '../data/campusInfo';
+import { submitEndpoints } from '../data/adminApi';
 
 interface Props {
   variant: 'v1' | 'v2' | 'v3';
@@ -44,6 +45,11 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
 ---
 
 <form id="staff-request-form" class="space-y-4" novalidate>
+  <!-- Honeypot. Hidden from people, filled by bots; discarded server-side. -->
+  <div class="absolute left-[-9999px]" aria-hidden="true">
+    <label for="staff-website">Leave this field empty</label>
+    <input id="staff-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
   <p class={t.section} style={sectionHeadingStyle}>Your info</p>
   <div class="grid sm:grid-cols-2 gap-4">
     <div>
@@ -110,7 +116,7 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
   <pre id="staff-form-preview" class="text-xs mt-4 p-3 bg-white/60 rounded border border-current/20 overflow-auto max-h-64 whitespace-pre-wrap"></pre>
 </div>
 
-<script define:vars={{ adminEmail: email }}>
+<script define:vars={{ adminEmail: email, adminUrl: submitEndpoints.staff }}>
   const form = document.getElementById('staff-request-form');
   const successEl = document.getElementById('staff-form-success');
   const previewEl = document.getElementById('staff-form-preview');
@@ -118,6 +124,27 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     const data = new FormData(form);
+
+    // Record the request in the admin database. The mailto below still opens so
+    // the existing email habit keeps working; this is what makes the request
+    // trackable rather than dependent on someone pressing send.
+    fetch(adminUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        requesterName: data.get('name') || '',
+        requesterEmail: data.get('email') || '',
+        summary: [data.get('priority') || 'Medium', data.get('category') || 'Other', data.get('location') || '']
+          .filter(Boolean).join(' — ').slice(0, 300),
+        description: data.get('description') || '',
+        category: data.get('category') || '',
+        priority: data.get('priority') || 'Medium',
+        location: data.get('location') || '',
+        neededBy: data.get('needed_by') || '',
+        website: data.get('website') || '',
+      }),
+    }).catch((err) => console.error('[staff] admin submission failed:', err));
+
     const name = data.get('name') || '';
     const fromEmail = data.get('email') || '';
     const category = data.get('category') || '';

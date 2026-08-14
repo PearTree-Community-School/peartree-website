@@ -12,6 +12,33 @@ import {
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * The staff portal's category dropdown submits the human-readable label, while
+ * the collection stores the id. Accept either so the form and the schema can
+ * drift independently without dropping submissions.
+ */
+const CATEGORY_BY_LABEL: Readonly<Record<string, string>> = {
+  'facilities & maintenance': 'facilities',
+  'classroom supplies': 'supplies',
+  'technology support': 'tech',
+  'montessori materials': 'montessori',
+  'plants & classroom pets': 'plants-pets',
+  'curriculum & books': 'curriculum',
+  'hr / administrative': 'hr',
+  'room booking': 'room-booking',
+  other: 'other',
+};
+
+const CATEGORY_IDS = new Set(Object.values(CATEGORY_BY_LABEL));
+
+function normalizeCategory(raw: string | undefined): string | undefined {
+  if (!raw) return undefined;
+  const value = raw.trim();
+  if (CATEGORY_IDS.has(value)) return value;
+  // Unknown labels fall through to 'other' rather than failing the submission.
+  return CATEGORY_BY_LABEL[value.toLowerCase()] ?? 'other';
+}
+
 export function OPTIONS(req: Request) {
   return new NextResponse(null, { status: 204, headers: corsHeaders(req.headers.get('origin')) });
 }
@@ -59,7 +86,7 @@ export async function POST(req: Request) {
       requesterEmail: str(body['requesterEmail'], 320),
       summary,
       description: str(body['description'], 5000),
-      category: str(body['category'], 50) as never,
+      category: normalizeCategory(str(body['category'], 80)) as never,
       priority: (str(body['priority'], 20) ?? 'Medium') as never,
       location: str(body['location'], 200),
       neededBy: str(body['neededBy'], 40),

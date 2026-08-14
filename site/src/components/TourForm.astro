@@ -1,5 +1,6 @@
 ---
 import { tourForm } from '../data/tourInfo';
+import { submitEndpoints } from '../data/adminApi';
 
 interface Props {
   variant: 'v1' | 'v2' | 'v3';
@@ -42,6 +43,11 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
 ---
 
 <form id="tour-form" class="space-y-4" novalidate>
+  <!-- Honeypot. Hidden from people, irresistible to bots; any value is discarded server-side. -->
+  <div class="absolute left-[-9999px]" aria-hidden="true">
+    <label for="tour-website">Leave this field empty</label>
+    <input id="tour-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
   <p class={t.section} style={sectionHeadingStyle}>Parent / Guardian</p>
 
   <div class="grid sm:grid-cols-2 gap-4">
@@ -142,7 +148,7 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
   </p>
 </div>
 
-<script define:vars={{ postUrl: tourForm.postUrl, fields: tourForm.fields, viewUrl: tourForm.viewUrl }}>
+<script define:vars={{ postUrl: tourForm.postUrl, fields: tourForm.fields, viewUrl: tourForm.viewUrl, adminUrl: submitEndpoints.tour }}>
   const form = document.getElementById('tour-form');
   const successEl = document.getElementById('tour-form-success');
   const errorEl = document.getElementById('tour-form-error');
@@ -183,14 +189,46 @@ const sectionHeadingStyle = variant === 'v2' ? "font-family: 'Playfair Display',
       }
     }
 
+    // Dual-write during the migration: Google Forms remains the system of
+    // record the admin team already watches, while the new database starts
+    // collecting the same submissions. Once the database has been trusted for
+    // a few weeks, drop the Google post and the fields map above.
+    const joinName = (a, b) => [data.get(a), data.get(b)].filter(Boolean).join(' ').trim();
+    const adminPayload = {
+      parentName: joinName('parentFirstName', 'parentLastName'),
+      parentEmail: data.get('parentEmail') || '',
+      parentPhone: data.get('parentPhone') || '',
+      child1Name: joinName('child1FirstName', 'child1LastName'),
+      child1DOB: data.get('child1DOB') || '',
+      child2Name: joinName('child2FirstName', 'child2LastName'),
+      child2DOB: data.get('child2DOB') || '',
+      gradeApplyingFor: data.get('gradeApplyingFor') || '',
+      desiredStartDate: data.get('desiredStartDate') || '',
+      campusInterest: data.get('campusInterest') || '',
+      website: data.get('website') || '',
+    };
+
     try {
-      await fetch(postUrl, {
+      const googlePost = fetch(postUrl, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
       });
-      // no-cors: response is opaque, can't read status. Assume success.
+      const adminPost = fetch(adminUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(adminPayload),
+      }).then((res) => {
+        // Surfaced in the console rather than to the family: Google still has
+        // the submission, so the request did reach somewhere monitored.
+        if (!res.ok) console.error('[tour] admin submission failed:', res.status);
+        return res;
+      });
+
+      await Promise.allSettled([googlePost, adminPost]);
+      // The Google response is opaque (no-cors), so success here means the
+      // request was dispatched, not that it was accepted.
       form.classList.add('hidden');
       successEl.classList.remove('hidden');
       successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
