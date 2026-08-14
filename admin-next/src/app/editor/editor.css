@@ -1,0 +1,72 @@
+/* Visual site editor — chrome around a same-origin preview of the live site. */
+
+.ed-root {
+  --bg: #0f120e;
+  --bar: #171b15;
+  --line: #272d24;
+  --ink: #e9ece6;
+  --ink-soft: #9aa694;
+  --accent: #7cc79b;
+
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+  background: var(--bg); color: var(--ink);
+  font: 14px/1.45 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ed-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 9px 14px;
+  background: var(--bar);
+  border-bottom: 1px solid var(--line);
+}
+
+.ed-left { display: flex; align-items: center; gap: 12px; }
+.ed-brand { font-weight: 650; letter-spacing: -0.01em; }
+
+.ed-select {
+  padding: 6px 10px; border-radius: 8px;
+  background: var(--bg); color: var(--ink);
+  border: 1px solid var(--line); font: inherit;
+}
+.ed-select:focus { outline: 2px solid var(--accent); }
+
+.ed-widths { display: flex; gap: 2px; background: var(--bg); padding: 3px; border-radius: 9px; }
+.ed-w {
+  padding: 5px 12px; border: none; border-radius: 7px;
+  background: transparent; color: var(--ink-soft);
+  font: inherit; font-weight: 550; cursor: pointer;
+}
+.ed-w:hover { color: var(--ink); }
+.ed-w.is-active { background: var(--bar); color: var(--accent); }
+
+.ed-right { display: flex; align-items: center; gap: 14px; font-size: 13px; }
+.ed-dirty {
+  padding: 4px 10px; border-radius: 999px;
+  background: #3a2f12; color: #e6c168; font-size: 12px; font-weight: 600;
+}
+.ed-link { color: var(--ink-soft); text-decoration: none; }
+.ed-link:hover { color: var(--ink); text-decoration: underline; }
+.ed-who { color: var(--ink-soft); font-size: 12.5px; }
+
+.ed-stage {
+  flex: 1; overflow: auto;
+  display: flex; justify-content: center;
+  padding: 18px;
+  background:
+    repeating-linear-gradient(45deg, #12150f 0 12px, #141810 12px 24px);
+}
+
+.ed-frame {
+  height: 100%;
+  max-width: 100%;
+  border: none; border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 0.45);
+  transition: width 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-frame { transition: none; }
+}
