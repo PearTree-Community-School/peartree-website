@@ -9,3 +9,7 @@ data/
 *.sqlite-shm
 next-env.d.ts
 *.tsbuildinfo
+
+# Never commit credential scratch files
+api.txt
+*.key
