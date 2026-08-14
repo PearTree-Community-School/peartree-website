@@ -26,7 +26,12 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      # Pulls published content from the CMS. src/data/cms.ts falls back to the
+      # static TS modules if this is unset or unreachable, so a build never
+      # fails because the admin is down — it just ships the last-known copy.
       - run: npx astro build
+        env:
+          ADMIN_API_URL: https://peartree-admin.fly.dev
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
