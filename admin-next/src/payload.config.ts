@@ -49,6 +49,16 @@ export default buildConfig({
     client: {
       url: process.env['DATABASE_URI'] ?? 'file:./data/admin.sqlite',
     },
+    // Keeps the local dev schema in step with this config. Note that Payload
+    // ignores `push` in production — it expects migrations there.
+    //
+    // TODO: there are no migrations yet. The deployed schema was bootstrapped by
+    // running dev against a scratch file and uploading it to the Fly volume,
+    // which does not scale to the next schema change. Generating migrations is
+    // blocked on `payload migrate:create` failing to resolve the extensionless
+    // imports in this file under moduleResolution: bundler. Fix before real
+    // submissions land, or schema changes will mean hand-editing production.
+    push: true,
   }),
   sharp: undefined,
   onInit: async (payload) => {

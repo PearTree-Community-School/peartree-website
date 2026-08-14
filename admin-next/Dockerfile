@@ -6,6 +6,9 @@
 
 FROM node:22-slim AS base
 ENV NEXT_TELEMETRY_DISABLED=1
+# node:22-slim bundles npm 10, but package-lock.json is written by npm 11 and
+# npm 10 reads it as out-of-sync. Pin the image's npm to match the lockfile.
+RUN npm install -g npm@11.7.0
 
 # ---- deps: needs a toolchain because better-sqlite3 is a native module ----
 FROM base AS deps
