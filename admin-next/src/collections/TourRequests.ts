@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { notifyTourRequest } from '../lib/submission-emails';
 
 /**
  * Tour requests — the enrollment pipeline.
@@ -92,6 +93,9 @@ export const TourRequests: CollectionConfig = {
       admin: { description: 'Where this came from. Use Phone/Manual for inquiries you add yourself.' },
     },
   ],
+  hooks: {
+    afterChange: [notifyTourRequest],
+  },
   timestamps: true,
 };
 

@@ -14,6 +14,7 @@ import { SchoolStats } from './globals/SchoolStats';
 import { MissionStatement } from './globals/MissionStatement';
 import { workosAuthStrategy } from './lib/payload-auth';
 import { seedFromSiteData } from './lib/seed';
+import { runMigrations } from './lib/migrate';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -62,6 +63,11 @@ export default buildConfig({
   }),
   sharp: undefined,
   onInit: async (payload) => {
+    // Schema first: seeding and every request below assume the tables exist.
+    // Unlike the seed, a failed migration is fatal — running against a schema
+    // we could not bring up to date is worse than refusing to start.
+    runMigrations((m) => payload.logger.info(m));
+
     if (process.env['ADMIN_NEXT_SKIP_SEED'] === '1') return;
     try {
       await seedFromSiteData(payload);

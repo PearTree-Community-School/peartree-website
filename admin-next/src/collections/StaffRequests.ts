@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { notifyStaffRequest } from '../lib/submission-emails';
 
 /**
  * Staff work requests — the maintenance/supplies queue.
@@ -98,6 +99,9 @@ export const StaffRequests: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [notifyStaffRequest],
+  },
   timestamps: true,
 };
 
