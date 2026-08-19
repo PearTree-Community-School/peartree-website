@@ -1,5 +1,5 @@
 ---
-import { externalForms } from '../data/externalForms';
+import { externalForms, staffResources } from '../data/externalForms';
 import Layout from '../layouts/Layout.astro';
 import { requestCategories } from '../data/staffRequestCategories';
 import { phone, phoneTel, email } from '../data/campusInfo';
@@ -59,6 +59,26 @@ import { phone, phoneTel, email } from '../data/campusInfo';
           <p class="text-sm text-earth-500 mb-6">Required fields are marked with *. Photos are great for facilities/maintenance.</p>
           <a href={externalForms.staff} target="_blank" rel="noopener" class="underline font-semibold">Open the staff request form</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-cream border-t border-earth-100">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-heading mb-2">Staff resources</h2>
+      <p class="text-earth-600 mb-8">Handbooks, policies and payroll — the links staff need most.</p>
+      <div class="grid sm:grid-cols-3 gap-5">
+        {staffResources.map((r) => (
+          <a
+            href={r.href}
+            target="_blank"
+            rel="noopener"
+            class="block bg-white rounded-xl p-6 border border-earth-100 hover:border-forest-400 transition-colors"
+          >
+            <p class="font-semibold text-charcoal mb-1">{r.label}</p>
+            <p class="text-sm text-earth-500">{r.desc}</p>
+          </a>
+        ))}
       </div>
     </div>
   </section>

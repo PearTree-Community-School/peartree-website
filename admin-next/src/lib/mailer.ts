@@ -20,6 +20,9 @@ export const NOTIFY_TO = 'cianan.gaitan@peartreecs.com';
 /** Families reply to this, and it reaches Michele and the office. */
 export const REPLY_TO = 'admin@peartreecs.com';
 
+/** General website enquiries go to the office, not one person. */
+export const OFFICE_TO = 'admin@peartreecs.com';
+
 type Mail = {
   to: string;
   subject: string;

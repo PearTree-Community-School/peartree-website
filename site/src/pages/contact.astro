@@ -1,4 +1,5 @@
 ---
+import { submitEndpoints } from '../data/adminApi';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -84,8 +85,8 @@ import Layout from '../layouts/Layout.astro';
           <h2 class="font-serif text-2xl font-bold mb-2">Send Us a Message</h2>
           <p class="text-earth-500 text-sm mb-6">Interested in a tour, enrollment, or volunteering? Let us know.</p>
 
-          <form name="contact" method="POST" data-netlify="true" class="space-y-5">
-            <input type="hidden" name="form-name" value="contact" />
+          <form id="contact-form" novalidate class="space-y-5">
+            <div class="absolute left-[-9999px]" aria-hidden="true"><label for="c-website">Leave empty</label><input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
 
             <div>
               <label for="name" class="block text-sm font-medium text-charcoal mb-1">Name</label>
@@ -151,9 +152,44 @@ import Layout from '../layouts/Layout.astro';
               Send Message
             </button>
           </form>
+          <p id="contact-form-success" class="hidden mt-4 text-sm font-semibold text-forest-700">Thank you — we have your message and will be in touch.</p>
+          <p id="contact-form-error" class="hidden mt-4 text-sm text-red-700"></p>
         </div>
       </div>
     </div>
   </section>
 
 </Layout>
+
+<script define:vars={{ postUrl: submitEndpoints.contact }}>
+  const form = document.getElementById('contact-form');
+  const ok = document.getElementById('contact-form-success');
+  const err = document.getElementById('contact-form-error');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.classList.add('hidden');
+    const data = new FormData(form);
+    const btn = form.querySelector('button[type="submit"], input[type="submit"]');
+    if (btn) { btn.disabled = true; }
+    try {
+      const res = await fetch(postUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name') || '',
+          email: data.get('email') || '',
+          phone: data.get('phone') || '',
+          message: data.get('message') || '',
+          website: data.get('website') || '',
+        }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.classList.add('hidden');
+      ok.classList.remove('hidden');
+    } catch (e2) {
+      err.textContent = 'Sorry — that did not send. Please email admin@peartreecs.com.';
+      err.classList.remove('hidden');
+      if (btn) { btn.disabled = false; }
+    }
+  });
+</script>

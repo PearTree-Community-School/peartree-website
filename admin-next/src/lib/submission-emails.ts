@@ -1,5 +1,5 @@
 import type { CollectionAfterChangeHook } from 'payload';
-import { lines, NOTIFY_TO, sendMail } from './mailer';
+import { lines, NOTIFY_TO, OFFICE_TO, sendMail } from './mailer';
 
 const ADMIN_URL = process.env['ADMIN_BASE_URL'] ?? 'https://admin.peartreecs.com';
 
@@ -109,6 +109,39 @@ export const notifyStaffRequest: CollectionAfterChangeHook = async ({ doc, opera
         d.description && lines('', 'Details:', d.description),
         '',
         `Open it: ${ADMIN_URL}/sheets?sheet=staff-requests`,
+      ),
+    },
+    log,
+  );
+
+  return doc;
+};
+
+/**
+ * Tells the office a website enquiry arrived.
+ *
+ * Goes to admin@peartreecs.com rather than one person — it reaches Michele and
+ * the office, so a general question is not waiting on a single inbox.
+ */
+export const notifyContactRequest: CollectionAfterChangeHook = async ({ doc, operation }) => {
+  if (operation !== 'create') return doc;
+
+  const d = doc as { name?: string; email?: string; phone?: string; message?: string };
+
+  void sendMail(
+    {
+      to: OFFICE_TO,
+      replyTo: d.email,
+      subject: `Website enquiry — ${d.name ?? 'unknown'}`,
+      text: lines(
+        `${d.name ?? 'Someone'} sent a message through the website contact form.`,
+        '',
+        d.email && `Email: ${d.email}`,
+        d.phone && `Phone: ${d.phone}`,
+        '',
+        d.message && lines('Message:', d.message),
+        '',
+        `Open it: ${ADMIN_URL}/sheets?sheet=contact-requests`,
       ),
     },
     log,

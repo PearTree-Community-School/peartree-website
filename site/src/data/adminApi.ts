@@ -8,4 +8,5 @@ export const ADMIN_API_BASE = 'https://peartree-admin.fly.dev';
 export const submitEndpoints = {
   tour: `${ADMIN_API_BASE}/api/submit/tour`,
   staff: `${ADMIN_API_BASE}/api/submit/staff`,
+  contact: `${ADMIN_API_BASE}/api/submit/contact`,
 };

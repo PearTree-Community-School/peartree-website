@@ -54,6 +54,13 @@ const PRIORITY = [
   { value: 'Urgent', label: 'Urgent' },
 ];
 
+const CONTACT_STATUS: SheetColumn['options'] = [
+  { value: 'new', label: 'New', tone: 'new' },
+  { value: 'replied', label: 'Replied', tone: 'active' },
+  { value: 'closed', label: 'Closed', tone: 'done' },
+  { value: 'spam', label: 'Spam', tone: 'dead' },
+];
+
 export const SHEETS: readonly SheetDef[] = [
   {
     slug: 'tour-requests',
@@ -83,6 +90,19 @@ export const SHEETS: readonly SheetDef[] = [
       { key: 'location', label: 'Location', type: 'text', width: '180px' },
       { key: 'neededBy', label: 'Needed by', type: 'date', width: '130px' },
       { key: 'notes', label: 'Notes', type: 'longtext', width: '260px' },
+    ],
+  },
+  {
+    slug: 'contact-requests',
+    label: 'Contact',
+    titleField: 'name',
+    columns: [
+      { key: 'status', label: 'Status', type: 'select', width: '130px', options: CONTACT_STATUS },
+      { key: 'name', label: 'Name', type: 'text', width: '170px' },
+      { key: 'email', label: 'Email', type: 'email', width: '220px' },
+      { key: 'phone', label: 'Phone', type: 'tel', width: '140px' },
+      { key: 'message', label: 'Message', type: 'longtext', width: '300px' },
+      { key: 'notes', label: 'Notes', type: 'longtext', width: '240px' },
     ],
   },
 ];

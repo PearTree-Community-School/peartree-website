@@ -10,6 +10,7 @@ import { ParentFAQ } from './collections/ParentFAQ';
 import { Classrooms } from './collections/Classrooms';
 import { TourRequests } from './collections/TourRequests';
 import { StaffRequests } from './collections/StaffRequests';
+import { ContactRequests } from './collections/ContactRequests';
 import { SchoolStats } from './globals/SchoolStats';
 import { MissionStatement } from './globals/MissionStatement';
 import { workosAuthStrategy } from './lib/payload-auth';
@@ -36,6 +37,7 @@ export default buildConfig({
     AuditLog,
     TourRequests,
     StaffRequests,
+    ContactRequests,
     Testimonials,
     ParentFAQ,
     Classrooms,
