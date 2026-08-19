@@ -1,4 +1,5 @@
 ---
+import { externalForms } from '../../data/externalForms';
 import LayoutC from '../../layouts/LayoutC.astro';
 import { requestCategories } from '../../data/staffRequestCategories';
 import { phone, phoneTel, email } from '../../data/campusInfo';
@@ -18,7 +19,7 @@ import { phone, phoneTel, email } from '../../data/campusInfo';
   <!-- Auth banner -->
   <section class="bg-amber-50 border-b border-amber-200">
     <div class="max-w-7xl mx-auto px-6 py-3">
-      <p class="text-sm text-charcoal max-w-4xl mx-auto"><strong>Staff portal — sign in required.</strong> Work requests are submitted in the staff portal so they can be tracked through to completion.</p>
+      <p class="text-sm text-charcoal max-w-4xl mx-auto"><strong>Staff portal.</strong> Work requests go to the school office through the form below.</p>
     </div>
   </section>
 
@@ -52,7 +53,7 @@ import { phone, phoneTel, email } from '../../data/campusInfo';
         <div class="bg-white rounded-xl p-8 border border-slate-200">
           <h2 class="text-2xl font-bold text-slate-900 mb-2">New request</h2>
           <p class="text-sm text-slate-500 mb-6">Required fields marked with *. Photos help.</p>
-          <a href="https://admin.peartreecs.com/staff-request" class="underline font-semibold">Open the staff portal to submit a request</a>
+          <a href={externalForms.staff} target="_blank" rel="noopener" class="underline font-semibold">Open the staff request form</a>
         </div>
       </div>
     </div>

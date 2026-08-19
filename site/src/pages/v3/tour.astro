@@ -1,6 +1,6 @@
 ---
 import LayoutC from '../../layouts/LayoutC.astro';
-import TourForm from '../../components/TourForm.astro';
+import { externalForms } from '../../data/externalForms';
 import { tourCopy } from '../../data/tourInfo';
 import { phone, phoneTel, email } from '../../data/campusInfo';
 ---
@@ -40,7 +40,11 @@ import { phone, phoneTel, email } from '../../data/campusInfo';
         <div class="bg-white rounded-xl p-8 border border-slate-200">
           <h2 class="text-2xl font-bold text-slate-900 mb-2">Tour registration</h2>
           <p class="text-sm text-slate-500 mb-6">Required fields marked with *.</p>
-          <TourForm variant="v3" />
+          <div class="text-center">
+            <a href={externalForms.tour} target="_blank" rel="noopener"
+              class="inline-block px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-sm font-medium">Request a tour</a>
+            <p class="text-sm text-earth-500 mt-4">Opens our tour request form. We will reach out once the next tour has availability.</p>
+          </div>
         </div>
       </div>
     </div>
