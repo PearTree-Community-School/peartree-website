@@ -152,8 +152,10 @@ import Layout from '../layouts/Layout.astro';
               Send Message
             </button>
           </form>
-          <p id="contact-form-success" class="hidden mt-4 text-sm font-semibold text-forest-700">Thank you — we have your message and will be in touch.</p>
-          <p id="contact-form-error" class="hidden mt-4 text-sm text-red-700"></p>
+          <!-- Left empty on purpose: the text is injected on success so that screen
+               readers announce it as a live change rather than a silent unhide. -->
+          <p id="contact-form-success" role="status" class="hidden mt-4 text-sm font-semibold text-forest-700"></p>
+          <p id="contact-form-error" role="alert" class="hidden mt-4 text-sm text-red-700"></p>
         </div>
       </div>
     </div>
@@ -186,6 +188,7 @@ import Layout from '../layouts/Layout.astro';
       if (!res.ok) throw new Error(String(res.status));
       form.classList.add('hidden');
       ok.classList.remove('hidden');
+      ok.textContent = 'Thank you — we have your message and will be in touch.';
     } catch (e2) {
       err.textContent = 'Sorry — that did not send. Please email admin@peartreecs.com.';
       err.classList.remove('hidden');

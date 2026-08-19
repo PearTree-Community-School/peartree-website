@@ -1,22 +1,29 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.jpg';
+
+// Trailing slashes are deliberate: the build emits directory-style URLs, so a
+// link without one costs every visitor a 301 before the page starts rendering.
 const navLinks = [
-  { href: '/about', label: 'About' },
-  { href: '/programs', label: 'Programs' },
-  { href: '/admissions', label: 'Admissions' },
-  { href: '/parents', label: 'Parents' },
-  { href: '/staff', label: 'Staff' },
-  { href: '/support', label: 'Support' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/about/', label: 'About' },
+  { href: '/programs/', label: 'Programs' },
+  { href: '/admissions/', label: 'Admissions' },
+  { href: '/parents/', label: 'Parents' },
+  { href: '/staff/', label: 'Staff' },
+  { href: '/support/', label: 'Support' },
+  { href: '/contact/', label: 'Contact' },
 ];
 
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="bg-white/95 backdrop-blur-sm border-b border-earth-100 sticky top-0 z-50">
+<header class="bg-white border-b border-earth-100 sticky top-0 z-50">
   <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <!-- Logo / School Name -->
     <a href={`/`} class="flex items-center gap-3 group">
-      <img loading="eager" decoding="async" src={`/images/logo.jpg`} alt="Pear Tree" class="h-10 w-auto" />
+      <!-- alt="" is deliberate: the school name sits next to the mark in this same
+           link, so describing the logo too would read it out twice. -->
+      <Image src={logo} alt="" width={67} densities={[1, 2]} loading="eager" decoding="sync" class="h-10 w-auto" />
       <div>
         <span class="font-serif font-bold text-lg text-charcoal leading-tight block">Pear Tree</span>
         <span class="text-xs text-earth-500 leading-tight block">Community School</span>
@@ -38,7 +45,7 @@ const currentPath = Astro.url.pathname;
           {link.label}
         </a>
       ))}
-      <a href={`/support#give`} class="btn-give text-sm">Give</a>
+      <a href={`/support/#give`} class="btn-give text-sm">Give</a>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -46,6 +53,8 @@ const currentPath = Astro.url.pathname;
       id="mobile-menu-btn"
       class="md:hidden p-2 text-earth-600 hover:text-charcoal"
       aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path id="menu-icon" stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -69,7 +78,7 @@ const currentPath = Astro.url.pathname;
           {link.label}
         </a>
       ))}
-      <a href={`/support#give`} class="btn-give text-sm block text-center mt-4">Give</a>
+      <a href={`/support/#give`} class="btn-give text-sm block text-center mt-4">Give</a>
     </div>
   </div>
 </header>
@@ -78,6 +87,8 @@ const currentPath = Astro.url.pathname;
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
+    const open = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   });
 </script>

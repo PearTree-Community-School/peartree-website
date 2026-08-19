@@ -1,3 +1,48 @@
+### 2026-08-18
+- **Fixed `www.peartreecs.com`** — it had been throwing a full-page browser certificate warning. Root cause was *not* DNS, which is where it looks like it should be: the www CNAME was correct the whole time and plain HTTP already redirected fine. The actual fault was that GitHub's TLS certificate covered only the apex (`https_certificate.domains: ["peartreecs.com"]`), so HTTPS requests to www fell back to GitHub's `*.github.io` wildcard and failed hostname matching.
+- Why it happened: the apex had **1 of the 4 required A records** (only `185.199.108.153`). GitHub auto-requests a cert covering apex + www, but only if DNS validates for both at request time. The domain was set 13 Aug 21:40 UTC and the cert minted 21:52 UTC — www didn't validate inside that window, so GitHub issued apex-only and marked it `approved`, which it never retries.
+- Fix: added the three missing A records (`.109`, `.110`, `.111`) at GoDaddy. That alone was sufficient — opening the Pages settings triggered GitHub's DNS re-check, which passed, and GitHub reissued the certificate covering both hostnames automatically. **No downtime.** The remove/re-add of the custom domain that the docs suggest turned out to be unnecessary.
+- Verified: cert SAN is now `DNS:peartreecs.com, DNS:www.peartreecs.com`; www returns 301 → apex with a valid cert; HTTPS enforcement still on.
+- Ruled out along the way: CAA (apex has none; www's CAA resolves through the CNAME to github.io, which permits Let's Encrypt).
+- **Images moved onto Astro's build pipeline** — the 9 images used by v1 moved from `public/` to `src/assets/` and now render through `<Image>`. Everything had been raw `<img>` in `public/`, which bypassed the optimizer entirely. Now WebP, responsive `srcset`, and intrinsic `width`/`height` on every image. **Homepage image payload: 2,332 KB → 401 KB on mobile (-83%), 528 KB on desktop (-77%).**
+- Hero was the worst offender: `loading="lazy"` on the LCP element (now `eager` + `fetchpriority="high"`), and the photo was rendered at `opacity-30` under an 80–90% gradient — about 4% visible, which is why the hero read as a flat green block. Scrim is now weighted left so the headline keeps contrast and the photograph shows on the right.
+- **SEO**: added `@astrojs/sitemap` (scoped to the 9 real pages, excludes v2/v3), `robots.txt`, canonical tags, `og:image`/`og:url`/`og:site_name` and Twitter card meta. Fixed the schema.org `url`, which pointed at `https://www.peartreecs.com` — i.e. crawlers were being sent to the broken hostname.
+- **Accessibility**: skip-to-content link, `aria-expanded`/`aria-controls` + label toggle on the mobile menu, `role="status"`/`role="alert"` on contact form outcomes (success text is now injected rather than unhidden, so screen readers actually announce it).
+- **Custom 404 page** (`custom_404` was false, so 404s hit GitHub's unbranded page with no way back).
+- **Internal links now carry trailing slashes** — the build emits directory URLs, so every nav click was paying a 301. All 216 internal links verified to resolve with no redirect and no broken targets.
+- Four-pillar cards unified onto the brand palette (the orange and blue were Tailwind defaults used nowhere else); sticky header `bg-white/95` → solid, which was letting content ghost through the top edge.
+
+**Open items:**
+- **Giving is still a `mailto:`.** The gold "Give" CTA, "Start Monthly Giving" and every tier all route to `admin@peartreecs.com`. No online donation path exists. Blocked on the school providing a processor — worth prioritising given `funding-strategy.md` makes fundraising the central problem.
+- **Domain not verified** — `protected_domain_state` is `null` and there's no `_github-pages-challenge-*` TXT record. Leaves subdomain-takeover exposure open.
+- **IPv6 missing** — the four AAAA records (`2606:50c0:800{0,1,2,3}::153`) were never added. Optional; nothing depends on them. Batch with the domain-verification TXT to save a GoDaddy 2FA round.
+- **Preschool campus ZIP is blank** in `campusInfo.ts` and the footer. Not invented — needs confirming with the school.
+- `/v2/` and `/v3/` remain live and indexable by explicit decision. The sitemap excludes them and v1 now has canonicals, but Google can still index all three.
+
+### 2026-07-02
+- **Pivoted to a self-contained app** (per Leon): one Node process serves the public site at `/`, the admin at `/admin`, and the API — ready to drop on any host once the school grants hosting access. Commit `e1f58e0`.
+- **Click-to-edit**: signed-in editors browsing the site see dashed outlines + Edit buttons on every editable region (testimonials, FAQ, classrooms, stats, mission — 11 regions across all three variants). Clicking opens the exact admin form; saving returns to the page with the change already live.
+- **Auto-rebuild**: content saves trigger a coalesced Astro rebuild (~1s); dashboard has a manual "Rebuild site" button + build status.
+- **Local WorkOS bypass**: `ADMIN_DEV_BYPASS_EMAIL=<email> npm run dev` fakes that user's session for local testing — hard-guarded to loopback so it can't work on a real host.
+- Verified end-to-end in Chrome: edit → save → back on page with change published.
+- GitHub Pages build mode untouched (verified; only inert data attributes added). 92 tests passing (15 new).
+
+**Deploy checklist for when hosting access arrives:** Node 20+ host with persistent disk → `npm ci` in site/ + admin/ → run admin with production `.env` (real domain in ADMIN_BASE_URL/WORKOS_REDIRECT_URI, no bypass var) → add redirect URI in WorkOS dashboard → point DNS.
+
+### 2026-07-01
+- **Content editing shipped in the Hono admin (`admin/`)** — the admin panel can now edit public-site content, completing the users + audit + content trio. Commit `c7fb183`.
+- Six editable collections: Testimonials, Parent FAQ, Classrooms, Stats list (ordered lists) + School stats, Mission statement (singletons). Declarative schema (`content-schema.ts`) with Zod validation drives both forms and API.
+- RBAC on content: viewers read, authors create drafts, editors/admins publish. Every create/update/delete/publish/reorder lands in the audit log.
+- Idempotent seed from `site/src/data/*.ts` on server start — never overwrites admin edits (seeded 28 items into the live DB).
+- Public JSON API `GET /api/content/:slug` (published content only, no auth) for the Astro build.
+- Site wired to CMS: new `site/src/data/cms.ts` helpers with static fallback; 9 pages across v1/v2/v3 (parents, about, programs, admissions) now pull from the CMS when `ADMIN_API_URL` is set. **Verified: fallback build and CMS-backed build are byte-identical**, and a DB edit → rebuild round-trip showed the change on the page.
+- Tests: 77 passing (29 new).
+
+**Open items:**
+- Port 3000 (the WorkOS redirect URI) was occupied by an unrelated TaxApp dev server during this session — admin verified on port 3010 instead. To sign in via WorkOS, free port 3000 and run `npm run dev` in `admin/`.
+- `admin-next/` (Payload experiment) still has uncommitted leftovers; decide whether to delete the directory.
+- CI/deploy hook: rebuild + publish the site when content changes (currently manual `ADMIN_API_URL=... npm run build`).
+
 ### 2026-05-14
 - Shipped three new feature areas across all three variants — **27 total live pages now (was 18)**.
 - **Tour scheduling (`/tour`, `/v2/tour`, `/v3/tour`)** — native, on-brand form that POSTs to the school's existing Google Form (`formResponse` endpoint) so admin's monitoring workflow stays the same. All 13 field entry IDs extracted from the live form. Date fields split into `_year/_month/_day` for Google Form compatibility. Client-side `fetch` with `mode: 'no-cors'`. Fallback link to the Google Form for users with JS disabled. **Needs a real test submission to confirm the integration works end-to-end** — submit a test from the live site and verify it lands in the Google Form response sheet.
