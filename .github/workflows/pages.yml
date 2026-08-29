@@ -26,12 +26,16 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      # Pulls published content from the CMS. src/data/cms.ts falls back to the
-      # static TS modules if this is unset or unreachable, so a build never
-      # fails because the admin is down — it just ships the last-known copy.
+      # Content comes from the static modules in src/data/, so the repo is the
+      # source of truth and what is in git is what ships.
+      #
+      # ADMIN_API_URL used to point at the Fly admin, which meant the CMS
+      # database silently won over the repo at build time — edits committed here
+      # never reached the live site, and the two drifted without any error. To
+      # put the admin back in charge, restore the env var here; just be aware
+      # that doing so makes the database authoritative again for testimonials,
+      # parent FAQ, classrooms, school stats and the mission statement.
       - run: npx astro build
-        env:
-          ADMIN_API_URL: https://peartree-admin.fly.dev
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
