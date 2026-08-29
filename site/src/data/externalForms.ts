@@ -18,7 +18,7 @@ export const staffResources = [
   },
   {
     label: 'Code of Professional Conduct',
-    href: 'https://drive.google.com/drive/home?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto',
+    href: 'https://drive.google.com/file/d/1aYNn6T2l7rB27ZXz_9rXwNDnghM1RGiR/view?usp=sharing',
     desc: 'Professional standards for all staff.',
   },
   {

@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import { parentSquareLinks } from '../data/parentSquareLinks';
 import { getParentFAQ } from '../data/cms';
 const parentFAQ = await getParentFAQ();
-import { alerts, currentMonth } from '../data/monthlyAlerts';
 import { phone, phoneTel, email } from '../data/campusInfo';
 
 
@@ -16,13 +15,6 @@ const iconPaths: Record<string, string> = {
   directory: 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z',
 };
 
-const alertTypeStyles: Record<string, string> = {
-  closure: 'border-l-4 border-red-500 bg-red-50',
-  'half-day': 'border-l-4 border-amber-500 bg-amber-50',
-  event: 'border-l-4 border-forest-500 bg-forest-50',
-  deadline: 'border-l-4 border-pear-500 bg-pear-50',
-  info: 'border-l-4 border-earth-400 bg-earth-50',
-};
 ---
 
 <Layout title="Parent Portal" description="Pear Tree Community School parent portal — calendar, messages, photos, FAQ, and quick links to ParentSquare.">
@@ -33,7 +25,7 @@ const alertTypeStyles: Record<string, string> = {
       <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Parent Portal</p>
       <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight">Welcome back.</h1>
       <p class="text-forest-200 text-lg mt-4 max-w-2xl">
-        Quick links to your ParentSquare account, this month's alerts, and answers to common questions.
+        Quick links to your ParentSquare account and answers to common questions.
       </p>
     </div>
   </section>
@@ -59,29 +51,6 @@ const alertTypeStyles: Record<string, string> = {
           </div>
         </a>
       ))}
-    </div>
-  </section>
-
-  <!-- Monthly Alerts -->
-  <section class="bg-pear-50 border-y border-pear-100">
-    <div class="section-padding">
-      <div class="flex items-baseline justify-between flex-wrap gap-2 mb-8">
-        <h2 class="section-heading">This Month's Alerts</h2>
-        <p class="text-earth-600 text-sm">{currentMonth}</p>
-      </div>
-      {alerts.length === 0 ? (
-        <p class="text-earth-500 italic">No alerts this month. Enjoy a quiet calendar.</p>
-      ) : (
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-          {alerts.map(a => (
-            <div class={`${alertTypeStyles[a.type || 'info']} rounded-r-xl p-5`}>
-              <p class="text-xs uppercase tracking-wider text-earth-500 font-semibold mb-2">{a.date}</p>
-              <h3 class="font-serif font-bold mb-2">{a.title}</h3>
-              <p class="text-sm text-earth-700 leading-relaxed">{a.description}</p>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   </section>
 

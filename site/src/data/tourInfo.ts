@@ -31,7 +31,7 @@ export const tourForm = {
   },
 
   // Dropdown options — must match Google Form exactly.
-  gradeOptions: ['Preschool', 'TK', 'Kindergarten', '1st', '2nd', '3rd', '4th', '5th'],
+  gradeOptions: ['Preschool', 'Kindergarten', '1st', '2nd', '3rd', '4th', '5th'],
   startDateOptions: ['Immediate', 'January 2026', 'September 2026'],
   campusOptions: ['Winthrope (Preschool)', 'Chabot (Preschool and Elementary)'],
 };

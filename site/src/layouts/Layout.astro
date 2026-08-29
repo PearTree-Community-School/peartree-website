@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { campuses } from '../data/campusInfo';
 import '../styles/global.css';
 
 interface Props {
@@ -55,21 +56,13 @@ const socialImage = new URL('/images/homepage-1.jpg', Astro.site ?? 'https://pea
       "@type": "School",
       "name": "Pear Tree Community School",
       "description": "A social justice-informed Montessori school serving preschool through 5th grade in Oakland, CA.",
-      "address": [
-        {
-          "@type": "PostalAddress",
-          "streetAddress": "6925 Chabot Road",
-          "addressLocality": "Oakland",
-          "addressRegion": "CA",
-          "postalCode": "94618"
-        },
-        {
-          "@type": "PostalAddress",
-          "streetAddress": "8100 Winthrope Street",
-          "addressLocality": "Oakland",
-          "addressRegion": "CA"
-        }
-      ],
+      "address": campuses.map(campus => ({
+        "@type": "PostalAddress",
+        "streetAddress": campus.address,
+        "addressLocality": "Oakland",
+        "addressRegion": "CA",
+        "postalCode": campus.zip,
+      })),
       "telephone": "(510) 817-4690",
       "email": "admin@peartreecs.com",
       "url": "https://peartreecs.com",

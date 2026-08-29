@@ -1,7 +1,6 @@
 ---
-import { submitEndpoints } from '../../data/adminApi';
 import LayoutB from '../../layouts/LayoutB.astro';
-import { preschool, elementary, phone, phoneTel, email, facebook } from '../../data/campusInfo';
+import { campuses, phone, phoneTel, email, facebook } from '../../data/campusInfo';
 ---
 
 <LayoutB title="Contact" description="Contact Pear Tree Community School in Oakland, CA.">
@@ -39,101 +38,21 @@ import { preschool, elementary, phone, phoneTel, email, facebook } from '../../d
         <hr class="border-neutral-200 my-12" />
 
         <div class="space-y-10">
-          <div>
-            <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Preschool Campus</h3>
-            <address class="not-italic text-neutral-600 leading-relaxed">
-              {preschool.address}<br />
-              {preschool.city}
-            </address>
-            <p class="text-sm text-neutral-500 mt-1">{preschool.days}, {preschool.hours}</p>
-            <a href={preschool.mapsUrl} target="_blank" rel="noopener" class="text-sm text-amber-600 hover:text-amber-700 inline-block mt-2">View on Google Maps →</a>
-          </div>
-          <div>
-            <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Elementary Campus</h3>
-            <address class="not-italic text-neutral-600 leading-relaxed">
-              {elementary.address}<br />
-              {elementary.city} {elementary.zip}
-            </address>
-            <p class="text-sm text-neutral-500 mt-1">{elementary.days}, {elementary.hours}</p>
-            <a href={elementary.mapsUrl} target="_blank" rel="noopener" class="text-sm text-amber-600 hover:text-amber-700 inline-block mt-2">View on Google Maps →</a>
-          </div>
+          {campuses.map(campus => (
+            <div>
+              <h3 class="text-2xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">{campus.name}</h3>
+              <address class="not-italic text-neutral-600 leading-relaxed">
+                {campus.address}<br />
+                {campus.city} {campus.zip}
+              </address>
+              <p class="text-sm text-neutral-500 mt-1">{campus.programs}</p>
+              <a href={campus.mapsUrl} target="_blank" rel="noopener" class="text-sm text-amber-600 hover:text-amber-700 inline-block mt-2">View on Google Maps →</a>
+            </div>
+          ))}
         </div>
       </div>
 
-      <!-- Contact Form -->
-      <div class="bg-neutral-100 rounded-2xl p-10 md:p-12 self-start">
-        <h2 class="text-3xl font-bold mb-3" style="font-family: 'Playfair Display', serif;">Send us a message</h2>
-        <p class="text-neutral-600 text-sm mb-8">Interested in a tour, enrollment, or volunteering? Let us know.</p>
-        <form id="contact-form" novalidate class="space-y-5">
-          <div class="absolute left-[-9999px]" aria-hidden="true"><label for="c-website">Leave empty</label><input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
-          <div>
-            <label for="name" class="block text-xs uppercase tracking-wider text-neutral-700 mb-2">Name</label>
-            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500" />
-          </div>
-          <div>
-            <label for="email" class="block text-xs uppercase tracking-wider text-neutral-700 mb-2">Email</label>
-            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500" />
-          </div>
-          <div>
-            <label for="phone" class="block text-xs uppercase tracking-wider text-neutral-700 mb-2">Phone <span class="text-neutral-400 normal-case">(optional)</span></label>
-            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500" />
-          </div>
-          <div>
-            <label for="interest" class="block text-xs uppercase tracking-wider text-neutral-700 mb-2">I'm interested in</label>
-            <select id="interest" name="interest" class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500">
-              <option value="">Select one...</option>
-              <option value="tour">Scheduling a tour</option>
-              <option value="preschool">Preschool enrollment</option>
-              <option value="elementary">Elementary enrollment</option>
-              <option value="summer-camp">Summer camp</option>
-              <option value="volunteer">Volunteering</option>
-              <option value="donate">Making a donation</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <div>
-            <label for="message" class="block text-xs uppercase tracking-wider text-neutral-700 mb-2">Message</label>
-            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:border-amber-500 resize-y"></textarea>
-          </div>
-          <button type="submit" class="w-full px-8 py-4 bg-neutral-900 text-white rounded-full text-sm font-medium hover:bg-amber-500 hover:text-neutral-900 transition-colors">Send Message</button>
-        </form>
-          <p id="contact-form-success" class="hidden mt-4 text-sm font-semibold text-forest-700">Thank you — we have your message and will be in touch.</p>
-          <p id="contact-form-error" class="hidden mt-4 text-sm text-red-700"></p>
-      </div>
     </div>
   </section>
 
 </LayoutB>
-
-<script define:vars={{ postUrl: submitEndpoints.contact }}>
-  const form = document.getElementById('contact-form');
-  const ok = document.getElementById('contact-form-success');
-  const err = document.getElementById('contact-form-error');
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    err.classList.add('hidden');
-    const data = new FormData(form);
-    const btn = form.querySelector('button[type="submit"], input[type="submit"]');
-    if (btn) { btn.disabled = true; }
-    try {
-      const res = await fetch(postUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.get('name') || '',
-          email: data.get('email') || '',
-          phone: data.get('phone') || '',
-          message: data.get('message') || '',
-          website: data.get('website') || '',
-        }),
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      form.classList.add('hidden');
-      ok.classList.remove('hidden');
-    } catch (e2) {
-      err.textContent = 'Sorry — that did not send. Please email admin@peartreecs.com.';
-      err.classList.remove('hidden');
-      if (btn) { btn.disabled = false; }
-    }
-  });
-</script>

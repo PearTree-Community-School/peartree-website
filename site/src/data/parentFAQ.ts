@@ -35,7 +35,7 @@ export const parentFAQ: FAQ[] = [
   {
     question: 'What\'s the school calendar — when are half days and holidays?',
     answer:
-      'The full calendar lives in ParentSquare. We mark half days, no-school days, parent-teacher conferences, and field trips there. Major upcoming dates also appear in the "This Month\'s Alerts" section above.',
+      'The full calendar lives in ParentSquare. We mark half days, no-school days, parent-teacher conferences, and field trips there.',
   },
   {
     question: 'How do parent-teacher conferences work?',
@@ -45,7 +45,7 @@ export const parentFAQ: FAQ[] = [
   {
     question: 'Are parents expected to volunteer?',
     answer:
-      'Yes — every Pear Tree family contributes volunteer hours each year. Examples: chaperone field trips, help at events, share a skill or cultural celebration, contribute to the Walk-a-Thon. Sign-up sheets appear on ParentSquare throughout the year.',
+      'Yes — every Pear Tree family contributes volunteer hours each year. Examples: chaperone field trips, help at events, share a skill or cultural celebration. Sign-up sheets appear on ParentSquare throughout the year.',
   },
   {
     question: 'Who do I talk to about financial aid?',

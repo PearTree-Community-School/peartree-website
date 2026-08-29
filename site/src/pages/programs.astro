@@ -5,7 +5,7 @@ import classroomPhoto from '../assets/images/classroom-photo.jpg';
 import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
 ---
 
-<Layout title="Programs" description="Explore Pear Tree's Montessori programs — Preschool (ages 2+), Elementary (TK-5), and Summer Camp — with social justice, nature, and play-based learning.">
+<Layout title="Programs" description="Explore Pear Tree's Montessori programs — Preschool (ages 2+), and Elementary (K-5) — with social justice, nature, and play-based learning.">
 
   <!-- Page Header -->
   <section class="bg-forest-900 text-white">
@@ -27,7 +27,8 @@ import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
         <div class="inline-block bg-pear-100 text-pear-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">Ages 2+</div>
         <h2 class="section-heading">Preschool</h2>
         <p class="text-earth-600 mb-2">Monday &ndash; Friday, 8:00 AM &ndash; 5:00 PM</p>
-        <p class="text-earth-600 mb-6">8100 Winthrope Street, Oakland</p>
+        <p class="text-earth-600 mb-1">8100 Winthrope Street, Oakland, CA 94605</p>
+        <p class="text-earth-600 mb-6">6925 Chabot Road, Oakland, CA 94618</p>
 
         <p class="text-earth-700 leading-relaxed mb-4">
           Our preschool program immerses young learners in the Montessori method, building independence, curiosity, and a love of learning from the earliest years.
@@ -48,6 +49,10 @@ import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
       </div>
 
       <div class="space-y-4">
+        <div class="bg-pear-50 rounded-2xl p-6 border border-pear-100">
+          <h4 class="font-serif font-bold mb-2">Caterpillar Classroom</h4>
+          <p class="text-sm text-earth-600">Preschool / Transitional Kindergarten</p>
+        </div>
         <div class="bg-pear-50 rounded-2xl p-6 border border-pear-100">
           <h4 class="font-serif font-bold mb-2">Dragonfly Classroom</h4>
           <p class="text-sm text-earth-600">Preschool / Transitional Kindergarten</p>
@@ -104,7 +109,7 @@ import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
       </div>
 
       <div class="order-1 md:order-2">
-        <div class="inline-block bg-forest-100 text-forest-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">TK &ndash; 5th Grade</div>
+        <div class="inline-block bg-forest-100 text-forest-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">K &ndash; 5th Grade</div>
         <h2 class="section-heading">Elementary</h2>
         <p class="text-earth-600 mb-2">Monday &ndash; Friday, 8:30 AM &ndash; 3:30 PM</p>
         <p class="text-earth-600 mb-6">6925 Chabot Road, Oakland, CA 94618</p>
@@ -134,54 +139,6 @@ import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
             </li>
           ))}
         </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Summer Camp -->
-  <section id="summer-camp" class="bg-pear-50">
-    <div class="section-padding">
-      <div class="max-w-3xl mx-auto">
-        <div class="inline-block bg-pear-200 text-pear-800 text-sm font-semibold px-3 py-1 rounded-full mb-4">Summer 2026</div>
-        <h2 class="section-heading">Summer Camp</h2>
-        <p class="text-earth-600 mb-2">Ages 5&ndash;9 &middot; June 15 &ndash; August 7, 2026</p>
-        <p class="text-earth-600 mb-2">Monday &ndash; Friday, 8:30 AM &ndash; 3:00 PM (aftercare available until 5 PM)</p>
-        <p class="text-earth-600 mb-6">6925 Chabot Road, Oakland</p>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          {['Space Adventures', 'Jungle Safari', 'Comic-Con', 'Around the World', 'Prehistoric Adventures', 'Mini Olympics', 'Magical Kingdom', 'Under the Big Top'].map(theme => (
-            <div class="bg-white rounded-lg p-3 text-center border border-pear-200">
-              <span class="text-sm font-medium text-charcoal">{theme}</span>
-            </div>
-          ))}
-        </div>
-
-        <div class="bg-white rounded-xl p-6 border border-pear-200">
-          <h3 class="font-serif font-bold text-lg mb-4">Pricing</h3>
-          <div class="space-y-2 text-sm">
-            <div class="flex justify-between">
-              <span class="text-earth-600">Per week</span>
-              <span class="font-semibold">$475</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-earth-600">Aftercare add-on</span>
-              <span class="font-semibold">+$100/week</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-earth-600">Multi-week discount (3+ weeks)</span>
-              <span class="font-semibold text-forest-600">5% off</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-earth-600">Sibling discount</span>
-              <span class="font-semibold text-forest-600">5% off</span>
-            </div>
-          </div>
-          <p class="text-xs text-earth-500 mt-4">Includes 1.5 hours of morning mathematics daily to prevent summer learning loss.</p>
-        </div>
-
-        <div class="mt-8 text-center">
-          <a href={`/contact/`} class="btn-primary">Inquire About Summer Camp</a>
-        </div>
       </div>
     </div>
   </section>

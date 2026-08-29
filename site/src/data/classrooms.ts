@@ -5,6 +5,7 @@ export interface Classroom {
 }
 
 export const classrooms: Classroom[] = [
+  { name: 'Caterpillar', level: 'Preschool / Transitional Kindergarten', campus: 'preschool' },
   { name: 'Dragonfly', level: 'Preschool / Transitional Kindergarten', campus: 'preschool' },
   { name: 'Butterfly', level: 'Preschool / Transitional Kindergarten', campus: 'preschool' },
   { name: 'Hummingbird', level: 'Kindergarten / 1st Grade', campus: 'elementary' },

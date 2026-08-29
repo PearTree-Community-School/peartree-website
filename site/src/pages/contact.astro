@@ -1,6 +1,6 @@
 ---
-import { submitEndpoints } from '../data/adminApi';
 import Layout from '../layouts/Layout.astro';
+import { campuses, preschool, elementary } from '../data/campusInfo';
 ---
 
 <Layout title="Contact" description="Contact Pear Tree Community School in Oakland, CA. Schedule a tour, ask about admissions, or connect with our community.">
@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section class="section-padding">
-    <div class="grid md:grid-cols-2 gap-12">
+    <div class="max-w-2xl">
 
       <!-- Contact Info -->
       <div>
@@ -41,158 +41,36 @@ import Layout from '../layouts/Layout.astro';
 
         <hr class="my-8 border-earth-200" />
 
-        <!-- Campuses -->
+        <!-- Campuses, listed by location: Chabot runs both programs, so a
+             program-first list would print its address twice. -->
         <div class="space-y-6">
-          <div>
-            <h3 class="font-serif font-bold text-lg mb-2">Preschool Campus</h3>
-            <address class="not-italic text-earth-600 leading-relaxed">
-              8100 Winthrope Street<br />
-              Oakland, CA
-            </address>
-            <p class="text-sm text-earth-500 mt-1">Mon&ndash;Fri, 8:00 AM &ndash; 5:00 PM</p>
-            <a
-              href="https://maps.google.com/?q=8100+Winthrope+Street+Oakland+CA"
-              target="_blank"
-              rel="noopener"
-              class="text-sm text-forest-600 hover:text-forest-800 transition-colors mt-1 inline-block"
-            >
-              View on Google Maps &rarr;
-            </a>
-          </div>
-
-          <div>
-            <h3 class="font-serif font-bold text-lg mb-2">Elementary Campus</h3>
-            <address class="not-italic text-earth-600 leading-relaxed">
-              6925 Chabot Road<br />
-              Oakland, CA 94618
-            </address>
-            <p class="text-sm text-earth-500 mt-1">Mon&ndash;Fri, 8:30 AM &ndash; 3:30 PM</p>
-            <a
-              href="https://maps.google.com/?q=6925+Chabot+Road+Oakland+CA+94618"
-              target="_blank"
-              rel="noopener"
-              class="text-sm text-forest-600 hover:text-forest-800 transition-colors mt-1 inline-block"
-            >
-              View on Google Maps &rarr;
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Contact Form -->
-      <div>
-        <div class="bg-white rounded-2xl p-8 border border-earth-100">
-          <h2 class="font-serif text-2xl font-bold mb-2">Send Us a Message</h2>
-          <p class="text-earth-500 text-sm mb-6">Interested in a tour, enrollment, or volunteering? Let us know.</p>
-
-          <form id="contact-form" novalidate class="space-y-5">
-            <div class="absolute left-[-9999px]" aria-hidden="true"><label for="c-website">Leave empty</label><input id="c-website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
-
+          {campuses.map(campus => (
             <div>
-              <label for="name" class="block text-sm font-medium text-charcoal mb-1">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                class="w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream"
-              />
-            </div>
-
-            <div>
-              <label for="email" class="block text-sm font-medium text-charcoal mb-1">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                class="w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream"
-              />
-            </div>
-
-            <div>
-              <label for="phone" class="block text-sm font-medium text-charcoal mb-1">Phone <span class="text-earth-400">(optional)</span></label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                class="w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream"
-              />
-            </div>
-
-            <div>
-              <label for="interest" class="block text-sm font-medium text-charcoal mb-1">I'm interested in</label>
-              <select
-                id="interest"
-                name="interest"
-                class="w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream"
+              <h3 class="font-serif font-bold text-lg mb-2">{campus.name}</h3>
+              <address class="not-italic text-earth-600 leading-relaxed">
+                {campus.address}<br />
+                {campus.city} {campus.zip}
+              </address>
+              <p class="text-sm text-earth-500 mt-1">{campus.programs}</p>
+              <p class="text-sm text-earth-500">
+                {campus.programs.includes('Elementary')
+                  ? `Preschool ${preschool.hours} · Elementary ${elementary.hours}`
+                  : `Mon–Fri, ${preschool.hours}`}
+              </p>
+              <a
+                href={campus.mapsUrl}
+                target="_blank"
+                rel="noopener"
+                class="text-sm text-forest-600 hover:text-forest-800 transition-colors mt-1 inline-block"
               >
-                <option value="">Select one...</option>
-                <option value="tour">Scheduling a tour</option>
-                <option value="preschool">Preschool enrollment</option>
-                <option value="elementary">Elementary enrollment</option>
-                <option value="summer-camp">Summer camp</option>
-                <option value="volunteer">Volunteering</option>
-                <option value="donate">Making a donation</option>
-                <option value="other">Other</option>
-              </select>
+                View on Google Maps &rarr;
+              </a>
             </div>
-
-            <div>
-              <label for="message" class="block text-sm font-medium text-charcoal mb-1">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                class="w-full px-4 py-3 border border-earth-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-transparent bg-cream resize-y"
-              ></textarea>
-            </div>
-
-            <button type="submit" class="btn-primary w-full text-center">
-              Send Message
-            </button>
-          </form>
-          <!-- Left empty on purpose: the text is injected on success so that screen
-               readers announce it as a live change rather than a silent unhide. -->
-          <p id="contact-form-success" role="status" class="hidden mt-4 text-sm font-semibold text-forest-700"></p>
-          <p id="contact-form-error" role="alert" class="hidden mt-4 text-sm text-red-700"></p>
+          ))}
         </div>
       </div>
+
     </div>
   </section>
 
 </Layout>
-
-<script define:vars={{ postUrl: submitEndpoints.contact }}>
-  const form = document.getElementById('contact-form');
-  const ok = document.getElementById('contact-form-success');
-  const err = document.getElementById('contact-form-error');
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    err.classList.add('hidden');
-    const data = new FormData(form);
-    const btn = form.querySelector('button[type="submit"], input[type="submit"]');
-    if (btn) { btn.disabled = true; }
-    try {
-      const res = await fetch(postUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.get('name') || '',
-          email: data.get('email') || '',
-          phone: data.get('phone') || '',
-          message: data.get('message') || '',
-          website: data.get('website') || '',
-        }),
-      });
-      if (!res.ok) throw new Error(String(res.status));
-      form.classList.add('hidden');
-      ok.classList.remove('hidden');
-      ok.textContent = 'Thank you — we have your message and will be in touch.';
-    } catch (e2) {
-      err.textContent = 'Sorry — that did not send. Please email admin@peartreecs.com.';
-      err.classList.remove('hidden');
-      if (btn) { btn.disabled = false; }
-    }
-  });
-</script>

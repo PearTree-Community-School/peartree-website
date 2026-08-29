@@ -1,4 +1,6 @@
 ---
+import { campuses } from '../data/campusInfo';
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -9,27 +11,22 @@ const currentYear = new Date().getFullYear();
       <div class="md:col-span-1">
         <span class="font-serif font-bold text-xl text-white block mb-3">Pear Tree</span>
         <p class="text-sm text-forest-300 leading-relaxed italic">
-          "Financial aid available for every family."
+          "A new world requires a new way of learning."
         </p>
       </div>
 
-      <!-- Preschool Campus -->
-      <div>
-        <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Preschool Campus</h4>
-        <address class="text-sm not-italic leading-relaxed text-forest-300">
-          8100 Winthrope Street<br />
-          Oakland, CA
-        </address>
-      </div>
-
-      <!-- Elementary Campus -->
-      <div>
-        <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Elementary Campus</h4>
-        <address class="text-sm not-italic leading-relaxed text-forest-300">
-          6925 Chabot Road<br />
-          Oakland, CA 94618
-        </address>
-      </div>
+      <!-- Campuses, listed by location: Chabot hosts both programs, so listing
+           by program would print its address twice under two headings. -->
+      {campuses.map(campus => (
+        <div>
+          <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">{campus.name}</h4>
+          <address class="text-sm not-italic leading-relaxed text-forest-300">
+            {campus.address}<br />
+            {campus.city} {campus.zip}
+          </address>
+          <p class="text-xs text-forest-400 mt-2">{campus.programs}</p>
+        </div>
+      ))}
 
       <!-- Contact -->
       <div>
@@ -48,7 +45,7 @@ const currentYear = new Date().getFullYear();
         &copy; {currentYear} Pear Tree Community Schools. All rights reserved.
       </p>
       <p class="text-xs text-forest-400">
-        Preschool & Elementary &middot; Rockridge, Oakland, CA
+        Preschool & Elementary &middot; Oakland, CA
       </p>
     </div>
   </div>

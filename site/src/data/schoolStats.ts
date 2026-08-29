@@ -5,7 +5,7 @@ export const schoolStats = {
   exceedLiteracyBenchmarks: 90,
   staffCount: 20,
   preschoolMinAge: 2,
-  elementaryGrades: 'TK–5',
+  elementaryGrades: 'K–5',
 };
 
 export const statsList = [

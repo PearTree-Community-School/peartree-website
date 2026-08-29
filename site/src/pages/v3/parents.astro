@@ -3,16 +3,8 @@ import LayoutC from '../../layouts/LayoutC.astro';
 import { parentSquareLinks } from '../../data/parentSquareLinks';
 import { getParentFAQ } from '../../data/cms';
 const parentFAQ = await getParentFAQ();
-import { alerts, currentMonth } from '../../data/monthlyAlerts';
 import { phone, phoneTel, email } from '../../data/campusInfo';
 
-const alertTypeStyles: Record<string, string> = {
-  closure: 'bg-red-50 border-red-200 text-red-900',
-  'half-day': 'bg-amber-50 border-amber-200 text-amber-900',
-  event: 'bg-emerald-50 border-emerald-200 text-emerald-900',
-  deadline: 'bg-orange-50 border-orange-200 text-orange-900',
-  info: 'bg-slate-50 border-slate-200 text-slate-900',
-};
 
 const iconPaths: Record<string, string> = {
   calendar: 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5',
@@ -31,7 +23,7 @@ const iconPaths: Record<string, string> = {
     <div class="max-w-7xl mx-auto px-6 py-16">
       <span class="inline-block bg-emerald-50 text-emerald-700 text-xs font-medium px-3 py-1 rounded-full uppercase tracking-wide mb-4">Parent Portal</span>
       <h1 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">Welcome back.</h1>
-      <p class="text-lg text-slate-600 mt-6 max-w-2xl">Quick links to your ParentSquare account, this month's alerts, and answers to common questions.</p>
+      <p class="text-lg text-slate-600 mt-6 max-w-2xl">Quick links to your ParentSquare account and answers to common questions.</p>
     </div>
   </section>
 
@@ -54,29 +46,6 @@ const iconPaths: Record<string, string> = {
           </a>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- Monthly Alerts -->
-  <section class="bg-white border-y border-slate-200">
-    <div class="max-w-7xl mx-auto px-6 py-16">
-      <div class="flex items-baseline justify-between flex-wrap gap-2 mb-10">
-        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">This Month's Alerts</h2>
-        <span class="text-xs uppercase tracking-wider text-slate-500 font-medium">{currentMonth}</span>
-      </div>
-      {alerts.length === 0 ? (
-        <p class="text-slate-500 italic">No alerts this month.</p>
-      ) : (
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {alerts.map(a => (
-            <div class={`${alertTypeStyles[a.type || 'info']} border rounded-xl p-5`}>
-              <p class="text-xs uppercase tracking-wider font-semibold mb-2 opacity-70">{a.date}</p>
-              <h3 class="font-semibold mb-2">{a.title}</h3>
-              <p class="text-sm leading-relaxed">{a.description}</p>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   </section>
 

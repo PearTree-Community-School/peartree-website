@@ -53,7 +53,7 @@ import { preschool, elementary, phone, phoneTel } from '../../data/campusInfo';
           <dl class="space-y-4">
             <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Hours</dt><dd class="font-medium">{preschool.hours}</dd></div>
             <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Days</dt><dd class="font-medium">{preschool.days}</dd></div>
-            <div class="flex justify-between"><dt class="text-neutral-500">Campus</dt><dd class="font-medium">{preschool.address}</dd></div>
+            <div class="flex justify-between"><dt class="text-neutral-500">Campus</dt><dd class="font-medium">{preschool.campuses.map(c => <span class="block">{c.address}</span>)}</dd></div>
           </dl>
         </div>
         <div class="bg-white p-10 md:p-16">
@@ -62,7 +62,7 @@ import { preschool, elementary, phone, phoneTel } from '../../data/campusInfo';
           <dl class="space-y-4">
             <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Hours</dt><dd class="font-medium">{elementary.hours}</dd></div>
             <div class="flex justify-between border-b border-neutral-100 pb-3"><dt class="text-neutral-500">Days</dt><dd class="font-medium">{elementary.days}</dd></div>
-            <div class="flex justify-between"><dt class="text-neutral-500">Campus</dt><dd class="font-medium">{elementary.address}</dd></div>
+            <div class="flex justify-between"><dt class="text-neutral-500">Campus</dt><dd class="font-medium">{elementary.campuses.map(c => <span class="block">{c.address}</span>)}</dd></div>
           </dl>
         </div>
       </div>
