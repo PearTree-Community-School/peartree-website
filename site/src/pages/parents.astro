@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import hero from '../assets/images/heroes/parents.jpg';
 import { parentSquareLinks } from '../data/parentSquareLinks';
 import { getParentFAQ } from '../data/cms';
 const parentFAQ = await getParentFAQ();
@@ -19,16 +21,14 @@ const iconPaths: Record<string, string> = {
 
 <Layout title="Parent Portal" description="Pear Tree Community School parent portal — calendar, messages, photos, FAQ, and quick links to ParentSquare.">
 
-  <!-- Hero -->
-  <section class="bg-forest-900 text-white">
-    <div class="section-padding py-16 md:py-20">
-      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Parent Portal</p>
-      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight">Welcome back.</h1>
-      <p class="text-forest-200 text-lg mt-4 max-w-2xl">
-        Quick links to your ParentSquare account and answers to common questions.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Parent Portal"
+    title="Welcome back."
+    subtitle="Quick links to your ParentSquare account and answers to common questions."
+    image={hero}
+    alt="A student singing at the Latino Heritage showcase"
+    position="top"
+  />
 
   <!-- Quick Links to ParentSquare -->
   <section class="section-padding">
@@ -55,7 +55,7 @@ const iconPaths: Record<string, string> = {
   </section>
 
   <!-- FAQ -->
-  <section class="section-padding">
+  <section id="faq" class="scroll-mt-20 section-padding">
     <h2 class="section-heading text-center mb-12">Frequently Asked Questions</h2>
     <div class="max-w-3xl mx-auto space-y-3">
       {parentFAQ.map(q => (

@@ -19,7 +19,7 @@ const currentYear = new Date().getFullYear();
            by program would print its address twice under two headings. -->
       {campuses.map(campus => (
         <div>
-          <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">{campus.name}</h4>
+          <h3 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">{campus.name}</h3>
           <address class="text-sm not-italic leading-relaxed text-forest-300">
             {campus.address}<br />
             {campus.city} {campus.zip}
@@ -30,7 +30,7 @@ const currentYear = new Date().getFullYear();
 
       <!-- Contact -->
       <div>
-        <h4 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Connect</h4>
+        <h3 class="font-semibold text-white text-sm uppercase tracking-wider mb-3">Connect</h3>
         <div class="space-y-2 text-sm text-forest-300">
           <a href="tel:+15108174690" class="block hover:text-white transition-colors">(510) 817-4690</a>
           <a href="mailto:admin@peartreecs.com" class="block hover:text-white transition-colors">admin@peartreecs.com</a>
@@ -42,7 +42,7 @@ const currentYear = new Date().getFullYear();
     <!-- Bottom bar -->
     <div class="mt-12 pt-8 border-t border-forest-800 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="text-xs text-forest-400">
-        &copy; {currentYear} Pear Tree Community Schools. All rights reserved.
+        &copy; {currentYear} Pear Tree Community School. All rights reserved.
       </p>
       <p class="text-xs text-forest-400">
         Preschool & Elementary &middot; Oakland, CA

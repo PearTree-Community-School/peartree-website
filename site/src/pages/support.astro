@@ -1,18 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import hero from '../assets/images/heroes/support.jpg';
+import { giveLink, onlineGivingEnabled, oneTimeTiers, quickAmounts, monthlyTiers, FISCAL_SPONSOR } from '../data/donation';
 ---
 
 <Layout title="Support" description="Give to Pear Tree Community School. Your gift bridges the gap between what families can pay and what it costs to provide a liberatory education.">
 
-  <!-- Page Header -->
-  <section class="bg-forest-900 text-white">
-    <div class="section-padding py-16 md:py-24">
-      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Support Pear Tree</p>
-      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-        Invest in education that transforms.
-      </h1>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Support Pear Tree"
+    title="Invest in education that transforms."
+    image={hero}
+    alt="Pear Tree students singing on stage at a school performance"
+  />
 
   <!-- Tuition Gap Message -->
   <section class="bg-pear-50 border-b border-pear-100">
@@ -36,39 +36,49 @@ import Layout from '../layouts/Layout.astro';
         Every gift, at any level, sustains the education our students depend on.
       </p>
 
-      <!-- Giving Tiers -->
+      <!-- Giving tiers. Each one is a real link: the amount is carried through
+           to the donation form, or into the email subject until one exists. -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-        {[
-          { name: 'Seeds', amount: 'Up to $99', impact: 'Provides art supplies for a classroom for one month' },
-          { name: 'Roots', amount: '$100 – $499', impact: 'Funds a field trip for an entire class' },
-          { name: 'Branches', amount: '$500 – $999', impact: 'Equips a classroom with new Montessori materials' },
-          { name: 'Canopy', amount: '$1,000 – $2,499', impact: 'Provides professional development for a teacher' },
-          { name: 'Orchard', amount: '$2,500 – $4,999', impact: 'Funds a semester of aftercare scholarships' },
-          { name: 'Founders\' Circle', amount: '$5,000+', impact: 'Provides a full-year scholarship for one student' },
-        ].map(tier => (
-          <div class="bg-white rounded-xl p-6 border border-earth-100 hover:border-forest-300 transition-colors">
-            <h3 class="font-serif font-bold text-lg text-forest-700">{tier.name}</h3>
-            <p class="text-pear-600 font-semibold text-sm mt-1">{tier.amount}</p>
-            <p class="text-earth-600 text-sm mt-3 leading-relaxed">{tier.impact}</p>
-          </div>
+        {oneTimeTiers.map(tier => (
+          <a href={giveLink(tier.amount)} class="group block bg-white rounded-xl p-6 border border-earth-100 hover:border-forest-400 hover:shadow-md transition-all">
+            <h3 class="font-serif font-bold text-lg text-forest-700 group-hover:text-forest-900">{tier.name}</h3>
+            <p class="text-pear-800 font-semibold text-sm mt-1">{tier.range}</p>
+            <p class="text-earth-700 text-sm mt-3 leading-relaxed">{tier.impact}</p>
+            <span class="inline-block mt-4 text-sm font-semibold text-forest-700 group-hover:underline">Give at this level &rarr;</span>
+          </a>
         ))}
       </div>
 
-      <!-- Donation Form Placeholder -->
-      <div id="donate" class="bg-forest-50 rounded-2xl p-8 md:p-12 border border-forest-100 text-center">
-        <h3 class="font-serif text-2xl font-bold mb-4">Make Your Gift</h3>
-        <p class="text-earth-600 mb-6">Choose a one-time or monthly contribution at any amount.</p>
-        <div class="bg-white rounded-xl p-8 border border-earth-200 text-center">
-          <p class="text-earth-600 mb-5">
-            To make a gift, email us and we will send you everything you need.
-          </p>
-          <a href="mailto:admin@peartreecs.com?subject=I%20would%20like%20to%20make%20a%20gift"
-            class="btn-primary inline-block bg-pear-500 hover:bg-pear-600 text-charcoal font-bold">Email us to give</a>
-          <p class="text-sm text-earth-500 mt-4">admin@peartreecs.com</p>
+      <!-- Make your gift -->
+      <div id="donate" class="bg-forest-50 rounded-2xl p-8 md:p-12 border border-forest-100 text-center scroll-mt-20">
+        <h3 class="font-serif text-2xl font-bold mb-2">Make Your Gift</h3>
+        <p class="text-earth-700 mb-8">Pick an amount, or give whatever feels right.</p>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-6">
+          {quickAmounts.map(amount => (
+            <a href={giveLink(amount)} class="min-w-[5.5rem] px-5 py-3 rounded-lg bg-white border-2 border-forest-200 text-forest-800 font-bold hover:border-pear-500 hover:bg-pear-50 transition-colors">
+              ${amount.toLocaleString('en-US')}
+            </a>
+          ))}
+          <a href={giveLink()} class="min-w-[5.5rem] px-5 py-3 rounded-lg bg-white border-2 border-forest-200 text-forest-800 font-bold hover:border-pear-500 hover:bg-pear-50 transition-colors">
+            Other
+          </a>
         </div>
 
-        <p class="text-xs text-earth-400 mt-6">
-          Your gift may be tax-deductible. Contact us for details about our fiscal sponsorship arrangement.
+        <a href={giveLink()} class="btn-primary inline-block bg-pear-500 hover:bg-pear-400 text-charcoal font-bold px-8 py-4 text-base">
+          {onlineGivingEnabled ? 'Give now' : 'Give by email'}
+        </a>
+
+        {!onlineGivingEnabled && (
+          <p class="text-sm text-earth-700 mt-4 max-w-md mx-auto">
+            Each button opens a pre-filled email to <a href="mailto:admin@peartreecs.com" class="underline">admin@peartreecs.com</a> and we will send you everything you need. Online giving is coming soon.
+          </p>
+        )}
+
+        <p class="text-xs text-earth-700 mt-6">
+          {FISCAL_SPONSOR
+            ? `Gifts are tax-deductible through our fiscal sponsor, ${FISCAL_SPONSOR}.`
+            : 'Your gift may be tax-deductible. Contact us for details about our fiscal sponsorship arrangement.'}
         </p>
       </div>
     </div>
@@ -80,28 +90,25 @@ import Layout from '../layouts/Layout.astro';
       <div class="max-w-3xl mx-auto">
         <div class="bg-forest-50 rounded-2xl p-8 md:p-12 border border-forest-100">
           <h2 class="section-heading">Join The Orchard</h2>
-          <p class="text-earth-600 text-sm mb-2">Our monthly giving community</p>
+          <p class="text-earth-700 text-sm mb-2">Our monthly giving community</p>
           <p class="text-earth-700 leading-relaxed mb-6">
             Monthly donors are the roots that sustain Pear Tree year-round. By joining The Orchard, you provide predictable, sustained support that allows us to plan ahead and serve more families.
           </p>
 
           <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
-            {[
-              { amount: '$10/mo', label: 'Art supplies' },
-              { amount: '$25/mo', label: 'Student materials' },
-              { amount: '$50/mo', label: 'Program support' },
-              { amount: '$100/mo', label: 'Scholarship fund' },
-              { amount: '$250/mo', label: 'Faculty development' },
-              { amount: 'Custom', label: 'Any amount helps' },
-            ].map(tier => (
-              <div class="bg-white rounded-lg p-4 text-center border border-forest-100">
-                <p class="font-semibold text-forest-700">{tier.amount}</p>
-                <p class="text-xs text-earth-500 mt-1">{tier.label}</p>
-              </div>
+            {monthlyTiers.map(tier => (
+              <a href={giveLink(tier.amount, 'monthly')} class="block bg-white rounded-lg p-4 text-center border-2 border-forest-100 hover:border-pear-500 hover:bg-pear-50 transition-colors">
+                <p class="font-semibold text-forest-700">${tier.amount}/mo</p>
+                <p class="text-xs text-earth-700 mt-1">{tier.label}</p>
+              </a>
             ))}
+            <a href={giveLink(undefined, 'monthly')} class="block bg-white rounded-lg p-4 text-center border-2 border-forest-100 hover:border-pear-500 hover:bg-pear-50 transition-colors">
+              <p class="font-semibold text-forest-700">Custom</p>
+              <p class="text-xs text-earth-700 mt-1">Any amount helps</p>
+            </a>
           </div>
 
-          <a href="#donate" class="btn-primary block text-center">Start Monthly Giving</a>
+          <a href={giveLink(undefined, 'monthly')} class="btn-primary block text-center">Start Monthly Giving</a>
         </div>
       </div>
     </div>

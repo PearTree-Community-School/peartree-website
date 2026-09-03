@@ -1,7 +1,18 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { campuses } from '../data/campusInfo';
+import { campuses, phone, email } from '../data/campusInfo';
+import { analytics, social } from '../data/site';
+import logo from '../assets/images/logo.jpg';
+// Self-hosted fonts: no third-party request, no render-blocking stylesheet from
+// another origin, and font-display: swap out of the box. Weights match what the
+// design actually uses (see tailwind.config.mjs fontFamily).
+import '@fontsource/lora/500.css';
+import '@fontsource/lora/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
 import '../styles/global.css';
 
 interface Props {
@@ -14,7 +25,7 @@ const selfHosted = process.env.SITE_SELF_HOSTED === '1';
 
 // Absolute URLs — Open Graph and canonical tags are both ignored when relative.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://peartreecs.com');
-const socialImage = new URL('/images/homepage-1.jpg', Astro.site ?? 'https://peartreecs.com');
+const socialImage = new URL('/og-image.jpg', Astro.site ?? 'https://peartreecs.com');
 ---
 
 <!doctype html>
@@ -22,12 +33,10 @@ const socialImage = new URL('/images/homepage-1.jpg', Astro.site ?? 'https://pea
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#1a3d24" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href={`/favicon.svg`} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" />
     <title>{title} | Pear Tree Community School</title>
 
     <link rel="canonical" href={canonicalURL} />
@@ -40,8 +49,8 @@ const socialImage = new URL('/images/homepage-1.jpg', Astro.site ?? 'https://pea
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="Pear Tree Community School" />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:width" content="1920" />
-    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Pear Tree students showcasing their artwork" />
 
     <!-- Twitter -->
@@ -63,9 +72,12 @@ const socialImage = new URL('/images/homepage-1.jpg', Astro.site ?? 'https://pea
         "addressRegion": "CA",
         "postalCode": campus.zip,
       })),
-      "telephone": "(510) 817-4690",
-      "email": "admin@peartreecs.com",
+      "telephone": phone,
+      "email": email,
       "url": "https://peartreecs.com",
+      "logo": new URL(logo.src, Astro.site ?? 'https://peartreecs.com').toString(),
+      "image": socialImage.toString(),
+      "sameAs": [social.facebook],
       "foundingDate": "2012",
       "founder": {
         "@type": "Person",
@@ -73,6 +85,7 @@ const socialImage = new URL('/images/homepage-1.jpg', Astro.site ?? 'https://pea
       }
     })} />
     {selfHosted && <script src="/overlay.js" defer is:inline></script>}
+    {analytics.domain && <script defer data-domain={analytics.domain} src={analytics.scriptSrc} is:inline></script>}
   </head>
   <body class="flex flex-col min-h-screen">
     <a

@@ -1,21 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import hero from '../assets/images/heroes/admissions.jpg';
 ---
 
 <Layout title="Admissions" description="Apply to Pear Tree Community School. 80% of families receive financial aid.">
 
-  <!-- Page Header -->
-  <section class="bg-forest-900 text-white">
-    <div class="section-padding py-16 md:py-24">
-      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Admissions</p>
-      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-        Every child belongs here.
-      </h1>
-      <p class="text-forest-200 text-lg mt-4 max-w-2xl">
-        We believe that a liberatory education should be available to every family, not just those who can afford it.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Admissions"
+    title="Every child belongs here."
+    subtitle="We believe that a liberatory education should be available to every family, not just those who can afford it."
+    image={hero}
+    alt="Children working on a floor mat in a Montessori classroom"
+  />
 
   <!-- Financial Aid -->
   <section class="bg-pear-50 border-b border-pear-100">
@@ -138,7 +135,7 @@ import Layout from '../layouts/Layout.astro';
         ].map(item => (
           <blockquote class="bg-white rounded-xl p-6 border border-forest-100">
             <p class="text-earth-700 italic leading-relaxed text-sm">"{item.quote}"</p>
-            <footer class="mt-3 text-xs text-earth-500">&mdash; {item.source}, via Berkeley Parents Network</footer>
+            <footer class="mt-3 text-xs text-earth-700">&mdash; {item.source}, via Berkeley Parents Network</footer>
           </blockquote>
         ))}
       </div>

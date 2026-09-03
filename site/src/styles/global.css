@@ -1,4 +1,4 @@
-/* Fonts loaded via <link> in Layout.astro head (preconnect + preload for faster paint). */
+/* Fonts are self-hosted via @fontsource and imported in Layout.astro. */
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +9,12 @@
     scroll-behavior: smooth;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply font-sans text-charcoal bg-cream antialiased;
     text-rendering: optimizeSpeed;
@@ -16,6 +22,17 @@
 
   h1, h2, h3, h4 {
     @apply font-serif;
+  }
+
+  /* One visible focus style everywhere, for keyboard users. Mouse clicks
+     don't trigger :focus-visible, so buttons don't get a ring on click. */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-pear-500 ring-offset-2 ring-offset-cream rounded-sm;
   }
 
   /* Reserve space for lazy images so they don't shift content when they load. */
@@ -35,9 +52,10 @@
            hover:bg-forest-50 transition-colors duration-200;
   }
 
+  /* Dark text on the gold: white on pear-500 is 2.2:1, charcoal is 6.4:1. */
   .btn-give {
-    @apply inline-block px-5 py-2.5 bg-pear-500 text-white font-semibold rounded-lg
-           hover:bg-pear-600 transition-colors duration-200;
+    @apply inline-block px-5 py-2.5 bg-pear-500 text-charcoal font-bold rounded-lg
+           hover:bg-pear-400 transition-colors duration-200;
   }
 
   .section-padding {
@@ -49,6 +67,11 @@
   }
 
   .section-subheading {
-    @apply text-lg text-earth-600 max-w-2xl;
+    @apply text-lg text-earth-700 max-w-2xl;
+  }
+
+  /* Inline links inside paragraphs need to be comfortably tappable on phones. */
+  .tap-link {
+    @apply inline-block py-2 -my-2 min-h-[44px] leading-[28px];
   }
 }

@@ -1,22 +1,21 @@
 ---
 import { externalForms, staffResources } from '../data/externalForms';
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import hero from '../assets/images/heroes/staff.jpg';
 import { requestCategories } from '../data/staffRequestCategories';
 import { phone, phoneTel, email } from '../data/campusInfo';
 ---
 
 <Layout title="Staff Portal" description="Pear Tree Community School staff portal — submit work requests for facilities, supplies, tech, Montessori materials, and more.">
 
-  <!-- Hero -->
-  <section class="bg-forest-900 text-white">
-    <div class="section-padding py-16 md:py-20">
-      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Staff Portal</p>
-      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight">Submit a work request.</h1>
-      <p class="text-forest-200 text-lg mt-4 max-w-2xl">
-        For facilities, supplies, tech, Montessori materials, or anything else you need to do your job well.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Staff Portal"
+    title="Submit a work request."
+    subtitle="For facilities, supplies, tech, Montessori materials, or anything else you need to do your job well."
+    image={hero}
+    alt="Students performing under papel picado at a school showcase"
+  />
 
   <!-- Auth-coming-soon banner -->
   <section class="bg-pear-100 border-b border-pear-200">
@@ -56,7 +55,7 @@ import { phone, phoneTel, email } from '../data/campusInfo';
       <div class="md:col-span-2">
         <div class="bg-white rounded-2xl p-8 border border-earth-100">
           <h2 class="font-serif text-2xl font-bold mb-2">New request</h2>
-          <p class="text-sm text-earth-500 mb-6">Required fields are marked with *. Photos are great for facilities/maintenance.</p>
+          <p class="text-sm text-earth-700 mb-6">Required fields are marked with *. Photos are great for facilities/maintenance.</p>
           <a href={externalForms.staff} target="_blank" rel="noopener" class="underline font-semibold">Open the staff request form</a>
         </div>
       </div>
@@ -76,7 +75,7 @@ import { phone, phoneTel, email } from '../data/campusInfo';
             class="block bg-white rounded-xl p-6 border border-earth-100 hover:border-forest-400 transition-colors"
           >
             <p class="font-semibold text-charcoal mb-1">{r.label}</p>
-            <p class="text-sm text-earth-500">{r.desc}</p>
+            <p class="text-sm text-earth-700">{r.desc}</p>
           </a>
         ))}
       </div>

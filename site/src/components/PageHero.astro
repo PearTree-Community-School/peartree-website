@@ -1,0 +1,48 @@
+---
+// Interior page header. Every non-home page shares this so the photography and
+// scrim treatment from the homepage carries through the whole site instead of
+// dropping to a flat colour block after the first click.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+  image?: ImageMetadata;
+  /** Describes the photo for screen readers. Leave empty for purely decorative images. */
+  alt?: string;
+  /** Where the photo should anchor when cropped. */
+  position?: 'center' | 'top' | 'bottom';
+}
+
+const { eyebrow, title, subtitle, image, alt = '', position = 'center' } = Astro.props;
+const positionClass = { center: 'object-center', top: 'object-top', bottom: 'object-bottom' }[position];
+---
+
+<section class="relative bg-forest-900 text-white overflow-hidden">
+  {image && (
+    <div class="absolute inset-0">
+      <Image
+        src={image}
+        alt={alt}
+        widths={[960, 1440, 1920]}
+        sizes="100vw"
+        quality={60}
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+        class={`w-full h-full object-cover ${positionClass}`}
+      />
+      <!-- Scrim is weighted to the left so the headline keeps its contrast while
+           the photograph stays visible on the right, where the copy does not reach. -->
+      <div class="absolute inset-0 bg-gradient-to-r from-forest-950/95 via-forest-950/85 to-forest-900/45"></div>
+    </div>
+  )}
+  <div class="relative section-padding py-16 md:py-24">
+    <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">{eyebrow}</p>
+    <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">{title}</h1>
+    {subtitle && <p class="text-forest-100 text-lg mt-4 max-w-2xl leading-relaxed">{subtitle}</p>}
+    <slot />
+  </div>
+</section>

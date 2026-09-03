@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import hero from '../assets/images/heroes/programs.jpg';
 import { Image } from 'astro:assets';
 import classroomPhoto from '../assets/images/classroom-photo.jpg';
 import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
@@ -7,18 +9,13 @@ import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
 
 <Layout title="Programs" description="Explore Pear Tree's Montessori programs — Preschool (ages 2+), and Elementary (K-5) — with social justice, nature, and play-based learning.">
 
-  <!-- Page Header -->
-  <section class="bg-forest-900 text-white">
-    <div class="section-padding py-16 md:py-24">
-      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">Programs</p>
-      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-        Learning that grows with your child.
-      </h1>
-      <p class="text-forest-200 text-lg mt-4 max-w-2xl">
-        From preschool through 5th grade, our mixed-age Montessori classrooms develop the whole child — academically, socially, emotionally, and civically.
-      </p>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="Programs"
+    title="Learning that grows with your child."
+    subtitle="From preschool through 5th grade, our mixed-age Montessori classrooms develop the whole child — academically, socially, emotionally, and civically."
+    image={hero}
+    alt="A teacher and a preschooler pouring liquid into a beaker together"
+  />
 
   <!-- Preschool -->
   <section id="preschool" class="section-padding scroll-mt-20">
@@ -67,7 +64,7 @@ import montessoriClassroom from '../assets/images/montessori-classroom.jpg';
             alt="Preschool and elementary classroom circle time"
             widths={[600, 900, 1200]}
             sizes="(min-width: 768px) 50vw, 100vw"
-            loading="lazy"
+            loading="eager"
             decoding="async"
             class="w-full h-full object-cover"
           />

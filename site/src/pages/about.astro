@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import hero from '../assets/images/heroes/about.jpg';
 import { articles, MICHELE_MEDIUM_PROFILE } from '../data/medium-articles';
 import { Image } from 'astro:assets';
 import micheleHamilton from '../assets/images/photos/michele-hamilton.jpg';
@@ -8,15 +10,12 @@ import mirrorFramework from '../assets/images/photos/mirror-framework.jpg';
 
 <Layout title="About" description="Learn about Pear Tree Community School's mission, founder Michele Hamilton, the MIRROR framework, and our social justice Montessori approach.">
 
-  <!-- Page Header -->
-  <section class="bg-forest-900 text-white">
-    <div class="section-padding py-16 md:py-24">
-      <p class="text-pear-400 font-semibold text-sm uppercase tracking-widest mb-4">About Us</p>
-      <h1 class="font-serif text-4xl md:text-5xl font-bold leading-tight max-w-3xl">
-        Rooted in Oakland. Growing for liberation.
-      </h1>
-    </div>
-  </section>
+  <PageHero
+    eyebrow="About Us"
+    title="Rooted in Oakland. Growing for liberation."
+    image={hero}
+    alt="A Pear Tree student examining a science experiment up close"
+  />
 
   <!-- Mission -->
   <section class="section-padding">
@@ -62,7 +61,7 @@ import mirrorFramework from '../assets/images/photos/mirror-framework.jpg';
   <section class="bg-white">
     <div class="section-padding">
       <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="rounded-2xl overflow-hidden aspect-square order-2 md:order-1">
+        <div class="rounded-2xl overflow-hidden aspect-[4/5] order-2 md:order-1">
           <Image
             src={micheleHamilton}
             alt="Michele Hamilton, Founder & Head of School"
@@ -70,12 +69,12 @@ import mirrorFramework from '../assets/images/photos/mirror-framework.jpg';
             sizes="(min-width: 768px) 50vw, 100vw"
             loading="lazy"
             decoding="async"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover object-top"
           />
         </div>
         <div class="order-1 md:order-2">
           <h2 class="section-heading">Michele Hamilton, Founder</h2>
-          <p class="text-earth-500 text-sm uppercase tracking-wide mb-4">
+          <p class="text-earth-700 text-sm uppercase tracking-wide mb-4">
             Founder &amp; Head of School · Educational Researcher · Parenting &amp; Racial Literacy Specialist
           </p>
           <p class="text-earth-700 leading-relaxed mb-4">
@@ -89,7 +88,7 @@ import mirrorFramework from '../assets/images/photos/mirror-framework.jpg';
           </p>
           <blockquote class="border-l-4 border-pear-500 pl-4 italic text-earth-600">
             "The children are always ours, every single one of them, all over the globe; and I am beginning to suspect that whoever is incapable of recognizing this may be incapable of morality."
-            <footer class="text-xs not-italic text-earth-500 mt-2">— James Baldwin</footer>
+            <footer class="text-xs not-italic text-earth-700 mt-2">— James Baldwin</footer>
           </blockquote>
         </div>
       </div>
@@ -169,7 +168,7 @@ import mirrorFramework from '../assets/images/photos/mirror-framework.jpg';
       <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
         {articles.slice(0, 6).map(a => (
           <a href={a.url} target="_blank" rel="noopener" class="block bg-cream rounded-xl p-6 border border-earth-100 hover:border-pear-400 transition">
-            <p class="text-xs text-earth-500 uppercase tracking-wide mb-2">{new Date(a.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}{a.publication ? ` · ${a.publication}` : ''}</p>
+            <p class="text-xs text-earth-700 uppercase tracking-wide mb-2">{new Date(a.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}{a.publication ? ` · ${a.publication}` : ''}</p>
             <h3 class="font-serif text-lg font-bold mb-2 leading-snug">{a.title}</h3>
             <p class="text-earth-600 text-sm leading-relaxed">{a.summary}</p>
           </a>

@@ -11,11 +11,7 @@ const selfHosted = process.env.SITE_SELF_HOSTED === '1';
 export default defineConfig({
   integrations: [
     tailwind(),
-    // The /v2/ and /v3/ design prototypes stay reachable, but they are left out
-    // of the sitemap so search engines are pointed at the real site only.
-    sitemap({
-      filter: (page) => !page.includes('/v2/') && !page.includes('/v3/'),
-    }),
+    sitemap(),
   ],
   site: selfHosted
     ? (process.env.SITE_URL ?? 'http://127.0.0.1:3000')

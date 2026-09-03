@@ -26,7 +26,7 @@ const currentPath = Astro.url.pathname;
       <Image src={logo} alt="" width={67} densities={[1, 2]} loading="eager" decoding="sync" class="h-10 w-auto" />
       <div>
         <span class="font-serif font-bold text-lg text-charcoal leading-tight block">Pear Tree</span>
-        <span class="text-xs text-earth-500 leading-tight block">Community School</span>
+        <span class="text-xs text-earth-700 leading-tight block">Community School</span>
       </div>
     </a>
 
@@ -86,9 +86,29 @@ const currentPath = Astro.url.pathname;
 <script>
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false;
+  const header = btn?.closest('header');
+
+  function setOpen(open: boolean) {
+    if (!btn || !menu) return;
+    menu.classList.toggle('hidden', !open);
     btn.setAttribute('aria-expanded', String(open));
     btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  btn?.addEventListener('click', () => setOpen(menu?.classList.contains('hidden') === true));
+
+  // Escape closes the menu and puts focus back on the button that opened it.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && btn?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      btn.focus();
+    }
+  });
+
+  // A tap anywhere outside the header closes it too.
+  document.addEventListener('click', (e) => {
+    if (btn?.getAttribute('aria-expanded') === 'true' && header && !header.contains(e.target as Node)) {
+      setOpen(false);
+    }
   });
 </script>
